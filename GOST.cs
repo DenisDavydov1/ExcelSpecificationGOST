@@ -28,11 +28,13 @@ namespace RevToGOSTv0
 		//public List<IXLWorksheet> Worksheets;
 		public string WorksheetName { get; set; }
 		public IXLWorksheet Worksheet { get; set; }
+		protected List<int[]> RowsSize;
+		protected List<int[]> ColumnsSize;
 
-	/*
-	**	Member fields
-	*/
-	
+		/*
+		**	Member fields
+		*/
+
 		protected List< List<string> > Lines;
 
 	/*
@@ -57,6 +59,46 @@ namespace RevToGOSTv0
 		public abstract void FillLines(List<Element> elements);
 		public abstract void FillTable();
 
+		//public void SetSizes()
+		//{
+		//	this.ColumnsSize = new List<int[]>() {
+		//		new int[] { 0 },
+		//		new int[] { 2, 1, 3 },
+		//		new int[] { 1, 1, 1, 3 },
+		//		new int[] { 0 }
+		//	};
+		//	this.RowsSize = new List<int[]>() {
+		//		new int[] { 0 },
+		//		new int[] { 2, 2 },
+		//		new int[] { 1, 3 },
+		//		new int[] { 1, 3 },
+		//		new int[] { 0 }
+		//	};
+		//}
+
+		//public void ReshapeTable()
+		//{
+		//	//HashSet<int> columns = new HashSet<int>();
+
+		//	//for (int i = 0; i < this.ColumnsSize.Count; i++)
+		//	//{
+		//	//	for (int j = 0; j < this.ColumnsSize[i].Length; j++)
+		//	//	{
+		//	//		columns.Add(this.ColumnsSize[i].Take(j).Sum());
+		//	//	}
+		//	//}
+		//	Log.Write("123 {0} ", 456);
+		//	Log.WriteLine("789 {0}", 10);
+		//	//foreach (int[] arr in this.ColumnsSize)
+		//	//{
+		//	//	foreach (int val in arr)
+		//	//	{
+		//	//		if (val == 0)
+		//	//			break;
+
+		//	//	}
+		//	//}
+		//}
 
 	} // class GOST
 } // namespace RevToGOSTv0

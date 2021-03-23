@@ -25,16 +25,16 @@ namespace RevToGOSTv0
 			File.WriteAllText(Constants.LogPath, string.Empty);
 		}
 
-		public static void Write(string text = "")
+		public static void Write(string format, params object[] objs)
 		{
 			using (StreamWriter sw = File.AppendText(Constants.LogPath))
-				sw.Write(text);
+				sw.Write(format, objs);
 		}
 
-		public static void WriteLine(string text = "")
+		public static void WriteLine(string format, params object[] objs)
 		{
 			using (StreamWriter sw = File.AppendText(Constants.LogPath))
-				sw.WriteLine(text);
+				sw.WriteLine(format, objs);
 		}
 	} // class Log
 
