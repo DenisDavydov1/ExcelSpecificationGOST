@@ -75,18 +75,38 @@ namespace RevToGOSTv0
 		private void SetSizes()
 		{
 			//this.ColumnsSize = new List<int[]>() {
-			//	new int[] { 7 },
-			//	new int[] { 2, 1, 3, 1 },
-			//	new int[] { 1, 1, 1, 3, 1 },
-			//	new int[] { 7 }
+			//	new int[] { 70 },
+			//	new int[] { 20, 10, 30, 10 },
+			//	new int[] { 10, 10, 10, 30, 10 },
+			//	new int[] { 70 }
 			//};
 			//this.RowsSize = new List<int[]>() {
-			//	new int[] { 5 },
-			//	new int[] { 2, 2, 1 },
-			//	new int[] { 1, 3, 1 },
-			//	new int[] { 1, 3, 1 },
-			//	new int[] { 5 }
+			//	new int[] { 50 },
+			//	new int[] { 20, 20, 10 },
+			//	new int[] { 10, 30, 10 },
+			//	new int[] { 10, 30, 10 },
+			//	new int[] { 50 }
 			//};
+
+			this.ColumnsSize = new List<int[]>() {
+				new int[] { 110 },
+				new int[] { 10, 20, 30, 20, 20, 10 },
+				new int[] { 10, 20, 30, 20, 20, 10 },
+				new int[] { 10, 20, 70, 10 },
+				new int[] { 30, 70, 10 },
+				new int[] { 30, 20, 20, 30, 10 },
+				new int[] { 110 }
+			};
+			this.RowsSize = new List<int[]>() {
+				new int[] { 80 },
+				new int[] { 10, 30, 40 },
+				new int[] { 10, 10, 10, 40, 10 },
+				new int[] { 10, 10, 10, 20, 20, 10 },
+				new int[] { 10, 10, 10, 20, 20, 10 },
+				new int[] { 10, 10, 10, 20, 20, 10 },
+				new int[] { 10, 10, 10, 20, 20, 10 },
+				new int[] { 80 }
+			};
 
 			// 8 x 25
 			// 137
@@ -165,69 +185,105 @@ namespace RevToGOSTv0
 			//	new int[] { 297 }
 			//};
 
-			this.ColumnsSize = new List<int[]>() {
-				new int[] { 420 },
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // header
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 1
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 2
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 3
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 4
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 5
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 6
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 7
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 8
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 9
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 10
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 11
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 12
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 13
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 14
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 15
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 16
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 17
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 18
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 19
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 20
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 21
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 22
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 23
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 24
-				new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 25
-				new int[] { 20, 395, 5 },
-				new int[] { 420 }
-			};
-			this.RowsSize = new List<int[]>() {
-				new int[] { 297 },
-				new int[] { 5, 32, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 55, 5 },
-				new int[] { 5, 32, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 55, 5 },
-				new int[] { 5, 32, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 55, 5 },
-				new int[] { 5, 32, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 55, 5 },
-				new int[] { 5, 32, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 55, 5 },
-				new int[] { 5, 32, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 55, 5 },
-				new int[] { 5, 32, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 55, 5 },
-				new int[] { 5, 32, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 55, 5 },
-				new int[] { 5, 32, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 55, 5 },
-				new int[] { 297 }
-			};
-
-			//this.ColumnsSize = new List<int[]>() {
-			//	new int[] { 150 },
-			//	new int[] { 20, 13, 50, 35, 10, 17, 5 }, // header
-			//	new int[] { 20, 13, 50, 35, 10, 17, 5 }, // header
-			//	new int[] { 20, 13, 50, 35, 10, 17, 5 }, // header
-			//	new int[] { 20, 13, 50, 35, 10, 17, 5 }, // header
-			//	new int[] { 20, 125, 5 },
-			//	new int[] { 150 }
+			//List<int[]> page_col = new List<int[]>() {
+			//	new int[] { 420 },
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // header
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 1
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 2
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 3
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 4
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 5
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 6
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 7
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 8
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 9
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 10
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 11
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 12
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 13
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 14
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 15
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 16
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 17
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 18
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 19
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 20
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 21
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 22
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 23
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 24
+			//	new int[] { 20, 20, 130, 60, 35, 45, 20, 20, 25, 40, 5 }, // line 25
+			//	new int[] { 20, 395, 5 },
+			//	new int[] { 420 }
 			//};
-			//this.RowsSize = new List<int[]>() {
-			//	new int[] { 100 },
-			//	new int[] { 5, 10, 5, 5, 5, 65, 5 },
-			//	new int[] { 5, 10, 5, 5, 5, 65, 5 },
-			//	new int[] { 5, 10, 5, 5, 5, 65, 5 },
-			//	new int[] { 5, 10, 5, 5, 5, 65, 5 },
-			//	new int[] { 100 }
+			//List<int[]> page_row = new List<int[]>() {
+			//	new int[] { 297 },
+			//	new int[] { 5, 32, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 55, 5 },
+			//	new int[] { 5, 32, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 55, 5 },
+			//	new int[] { 5, 32, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 55, 5 },
+			//	new int[] { 5, 32, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 55, 5 },
+			//	new int[] { 5, 32, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 55, 5 },
+			//	new int[] { 5, 32, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 55, 5 },
+			//	new int[] { 5, 32, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 55, 5 },
+			//	new int[] { 5, 32, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 55, 5 },
+			//	new int[] { 5, 32, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 55, 5 },
+			//	new int[] { 297 }
 			//};
 
+			//List<int[]> stamp_col = new List<int[]>() {
+			//	new int[] { 420 },
+			//	new int[] { 230, 10, 10, 10, 10, 15, 10, 120, 5 },
+			//	new int[] { 230, 10, 10, 10, 10, 15, 10, 120, 5 },
+			//	new int[] { 230, 10, 10, 10, 10, 15, 10, 120, 5 },
+			//	new int[] { 230, 10, 10, 10, 10, 15, 10, 120, 5 },
+			//	new int[] { 230, 10, 10, 10, 10, 15, 10, 120, 5 },
+			//	new int[] { 230, 20, 20, 15, 10, 70, 15, 15, 20, 5 },
+			//	new int[] { 230, 20, 20, 15, 10, 70, 15, 15, 20, 5 },
+			//	new int[] { 230, 20, 20, 15, 10, 70, 15, 15, 20, 5 },
+			//	new int[] { 230, 20, 20, 15, 10, 70, 50, 5 },
+			//	new int[] { 230, 20, 20, 15, 10, 70, 50, 5 },
+			//	new int[] { 230, 20, 20, 15, 10, 70, 50, 5 },
+			//	new int[] { 420 }
+			//};
+			//List<int[]> stamp_row = new List<int[]>() {
+			//	new int[] { 297 },
+			//	new int[] { 237, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 },
+			//	new int[] { 237, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 },
+			//	new int[] { 237, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 },
+			//	new int[] { 237, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 },
+			//	new int[] { 237, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 },
+			//	new int[] { 237, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 },
+			//	new int[] { 237, 10, 15, 15, 15, 5 },
+			//	new int[] { 237, 10, 15, 5, 10, 15, 5 },
+			//	new int[] { 237, 10, 15, 5, 10, 15, 5 },
+			//	new int[] { 237, 10, 15, 5, 10, 15, 5 },
+			//	new int[] { 297 }
+			//};
+
+			//(this.ColumnsSize, this.RowsSize) = XMLTools.MergeTables(page_col, page_row, stamp_col, stamp_row);
+
+			//List<int[]> dop_col = new List<int[]>() {
+			//	new int[] { 420 },
+			//	new int[] { 5, 5, 5, 5, 400 },
+			//	new int[] { 5, 5, 5, 5, 400 },
+			//	new int[] { 5, 5, 5, 5, 400 },
+			//	new int[] { 5, 5, 5, 5, 400 },
+			//	new int[] { 8, 5, 7, 400 },
+			//	new int[] { 8, 5, 7, 400 },
+			//	new int[] { 8, 5, 7, 400 },
+			//	new int[] { 420 }
+			//};
+			//List<int[]> dop_row = new List<int[]>() {
+			//	new int[] { 297 },
+			//	new int[] { 142, 10, 15, 20, 20, 90 },
+			//	new int[] { 142, 10, 15, 20, 20, 25, 35, 25, 5 },
+			//	new int[] { 142, 10, 15, 20, 20, 25, 35, 25, 5 },
+			//	new int[] { 142, 10, 15, 20, 20, 25, 35, 25, 5 },
+			//	new int[] { 142, 10, 15, 20, 20, 25, 35, 25, 5 },
+			//	new int[] { 297 }
+			//};
+
+			//(this.ColumnsSize, this.RowsSize) = XMLTools.MergeTables(this.ColumnsSize, this.RowsSize, dop_col, dop_row);
 
 
 		}
@@ -259,7 +315,7 @@ namespace RevToGOSTv0
 			{
 				if (i > 0)
 					size = rows.ElementAt(i) - rows.ElementAt(i - 1);
-				this.Worksheet.Row(i + 1).Height = XMLTools.mmToHeight(size);
+				this.Worksheet.Row(i + 1).Height = XMLTools.mmToHeight(size); // size * Constants.mm_h;
 			}
 
 			Array columns_arr = columns.ToArray();
@@ -286,6 +342,141 @@ namespace RevToGOSTv0
 					this.Worksheet.Cell(j_real, i + 1).Style.Border.BottomBorder = XLBorderStyleValues.Thin;
 				}
 			}
+
+			//Log.WriteLine("{0} {1} {2}", this.Worksheet.Cell(1, 3).Style.Border.BottomBorder, this.Worksheet.Cell(2, 3).Style.Border.LeftBorder, this.Worksheet.Cell(3, 3).Style.Border.BottomBorder);
+
+			// Merge cells
+
+			int[,] col_matrix = new int[rows.Count, columns.Count];
+			for (int i = 0; i < this.ColumnsSize.Count; i++)
+			{
+				SortedSet<int> set = XMLTools.GetSet(this.ColumnsSize[i]);
+				for (int j = 0; j < columns.Count; j++)
+				{
+					for (int k = 0; k < set.Count; k++)
+					{
+						if (set.ElementAt(k) == columns.ElementAt(j))
+						{
+							col_matrix[i, j] = 1; //set.ElementAt(k);
+							break;
+						}
+					}
+				}
+			}
+
+			for (int i = 0; i < rows.Count; ++i)
+			{
+				for (int j = 0; j < columns.Count; ++j)
+					Log.Write("{0}, ", col_matrix[i, j]);
+				Log.WriteLine("");
+			}
+
+			int[,] row_matrix = new int[rows.Count, columns.Count];
+			for (int i = 0; i < this.RowsSize.Count; i++)
+			{
+				SortedSet<int> set = XMLTools.GetSet(this.RowsSize[i]);
+				for (int j = 0; j < rows.Count; j++)
+				{
+					for (int k = 0; k < set.Count; k++)
+					{
+						if (set.ElementAt(k) == rows.ElementAt(j))
+						{
+							row_matrix[j, i] = 1; //set.ElementAt(k);
+							break;
+						}
+					}
+				}
+			}
+
+			for (int i = 0; i < rows.Count; ++i)
+			{
+				for (int j = 0; j < columns.Count; ++j)
+					Log.Write("{0}, ", row_matrix[i, j]);
+				Log.WriteLine("");
+			}
+
+			List<int[]> merge_list = new List<int[]>();
+
+			for (int i = 0; i < rows.Count; ++i)
+			{
+				for (int j = 1; j < columns.Count; ++j)
+				{
+					if (col_matrix[i, j] == 1 && col_matrix[i, j - 1] == 0)
+					{
+						int jj = j - 1;
+						while (col_matrix[i, jj] != 1 && jj > 0)
+							jj--;
+						if (col_matrix[i, jj] == 1)
+						{
+							merge_list.Add(new int[] { i, jj + 1, i, j });
+						}
+					}
+				}
+			}
+
+			for (int i = 1; i < rows.Count; ++i)
+			{
+				for (int j = 0; j < columns.Count; ++j)
+				{
+					if (row_matrix[i, j] == 1 && row_matrix[i - 1, j] == 0)
+					{
+						int ii = i - 1;
+						while (row_matrix[ii, j] != 1 && ii > 0)
+							ii--;
+						if (row_matrix[ii, j] == 1)
+						{
+							merge_list.Add(new int[] { ii + 1, j, i, j });
+						}
+					}
+				}
+			}
+
+			foreach (var elem in merge_list)
+				Log.Write(String.Join(",", elem) + "\n");
+
+
+
+			//for (int i = 0; i < this.RowsSize.Count; ++i)
+			//{
+			//	SortedSet<int> set = XMLTools.GetSet(this.RowsSize[i]);
+			//	for (int j = 0; j < set.Count - 1; ++j)
+			//	{
+			//		int row_merge_begin = set.ElementAt(j);
+			//		int row_merge_end = set.ElementAt(j + 1);
+			//		if (row_merge_end - row_merge_begin > 1)
+			//		{
+			//			Log.WriteLine("Hmmm: {0} {1}", row_merge_begin, row_merge_end);
+			//			int start = Array.IndexOf(rows_arr, row_merge_begin);
+			//			int end = Array.IndexOf(rows_arr, row_merge_end) + 1;
+			//			Log.WriteLine("Length: {0}", rows.Take(end).Skip(start).Count());
+			//			if (rows.Take(end).Skip(start).Count() > 2)
+			//			{
+			//				Log.WriteLine("Merging: {0} {1} - {2} {3}", start + 1, i + 1, end + 1, i + 1);
+			//				this.Worksheet.Range(start + 2, i + 1, end, i + 1).Merge();
+			//			}
+			//		}
+			//	}
+			//}
+
+			//for (int i = 1; i < this.ColumnsSize.Count; ++i)
+			//{
+			//	SortedSet<int> set = XMLTools.GetSet(this.ColumnsSize[i - 1]);
+			//	for (int j = 0; j < set.Count - 1; ++j)
+			//	{
+			//		Log.WriteLine("Range: {0} {1} - {2} {3}", rows.ElementAt(i - 1), set.ElementAt(j), rows.ElementAt(i), set.ElementAt(j + 1));
+			//		this.Worksheet.Range(rows.ElementAt(i - 1), set.ElementAt(j), rows.ElementAt(i), set.ElementAt(j + 1)).Merge();
+			//	}
+			//}
+
+			//for (int i = 1; i < this.RowsSize.Count; ++i)
+			//{
+			//	SortedSet<int> set = XMLTools.GetSet(this.RowsSize[i - 1]);
+			//	for (int j = 0; j < set.Count - 1; ++j)
+			//	{
+			//		Log.WriteLine("Range: {0} {1} - {2} {3}", columns.ElementAt(i - 1), set.ElementAt(j), columns.ElementAt(i), set.ElementAt(j + 1));
+			//		this.Worksheet.Range(columns.ElementAt(i - 1), set.ElementAt(j), columns.ElementAt(i), set.ElementAt(j + 1)).Merge();
+			//	}
+			//}
 		}
 	}
 }

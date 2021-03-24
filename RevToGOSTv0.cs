@@ -112,7 +112,7 @@ namespace RevToGOSTv0
 	static class Constants
 	{
 		public const string LogPath = "F:\\CS_CODE\\REVIT\\PROJECTS\\tmp";
-		public const string DefaultFilePath = "F:\\CS_CODE\\REVIT\\PROJECTS\\ClosedXMLTests\\output\\wb.xlsx";
+		public const string DefaultFilePath = "F:\\CS_CODE\\REVIT\\PROJECTS\\output.xlsx";
 		public const double inch = 2.54;
 		public const double mm_w = 0.483;
 		public const double mm_h = 2.9;

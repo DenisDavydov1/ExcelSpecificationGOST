@@ -88,11 +88,18 @@ namespace RevToGOSTv0
 		{
 			if (mm <= 0.1)
 				return 0.0;
-			else if (mm <= 14.0)
-			// y = -0,0003x3 + 0,0069x2 + 2,797x - 0,0619
-				return -0.0003 * Math.Pow(mm, 3) + 0.0069 * Math.Pow(mm, 2) + 2.797 * mm - 0.0619;
-			// y = -2E-06x3 + 0,0004x2 + 2,8122x + 0,2867
-			return -2e-06 * Math.Pow(mm, 3) + 0.0004 * Math.Pow(mm, 2) + 2.8122 * mm + 0.2867;
+			else if (mm <= 5.0)
+				// y = 0,0891x4 - 1,0159x3 + 3,8964x2 - 3,0026x + 3,121
+				return 0.0891 * Math.Pow(mm, 4) - 1.0159 * Math.Pow(mm, 3) + 3.8964 * Math.Pow(mm, 2) - 3.0026 * mm + 3.121;
+			else if (mm <= 10.0)
+				// y = 0,0907x4 - 2,8895x3 + 34,152x2 - 174,73x + 343,47
+				return 0.0907 * Math.Pow(mm, 4) - 2.8895 * Math.Pow(mm, 3) + 34.152 * Math.Pow(mm, 2) - 174.73 * mm + 343.47;
+			//else if (mm <= 15.0)
+			//	// y = 0,02x4 - 1,23x3 + 27,675x2 - 268,47x + 980,99
+			//	return 0.02 * Math.Pow(mm, 4) - 1.23 * Math.Pow(mm, 3) + 27.675 * Math.Pow(mm, 2) - 268.47 * mm + 980.99;
+			//// y = 7E-07x4 - 0,0002x3 + 0,0128x2 + 2,4019x + 5,0928
+			//return 7e-07 * Math.Pow(mm, 4) - 0.0002 * Math.Pow(mm, 3) + 0.0128 * Math.Pow(mm, 2) + 2.4019 * mm + 5.0928;
+			return mm * Constants.mm_h;
 		}
 
 		public static double mmToWidth(double mm)
@@ -111,16 +118,99 @@ namespace RevToGOSTv0
 			return -3e-08 * Math.Pow(mm, 3) + 2e-05 * Math.Pow(mm, 2) + 0.5 * mm - 0.6581;
 		}
 
-		//public static double mmToSize(double mm)
-		//{
-		//	if (mm <= 0.1)
-		//		return 0.0;
-		//	else if (mm <= 3)
-		//		return mm * (-0.0276 * Math.Pow(mm, 2) + 0.166 * mm + 0.1557);
-		//	else if (3.0 < mm && mm < 100.0)
-		//		return mm * (-6e-12 * Math.Pow(mm, 6) + 2e-09 * Math.Pow(mm, 5) -3e-07 * Math.Pow(mm, 4) + 2e-05 * Math.Pow(mm, 3) - -0.0007 * Math.Pow(mm, 2) + 0.0125 * mm + 0.3935); //  - 6E-12x6 + 2E-09x5 - 3E-07x4 + 2E-05x3 - 0, 0007x2 + 0, 0125x + 0, 3935
-		//	return mm * 0.5;
-		//}
+		private static (SortedSet<int>, SortedSet<int>) ExtractSizes(List<int[]> col, List<int[]> row)
+		{
+			SortedSet<int> col_extr = new SortedSet<int>();
+			SortedSet<int> rows_extr = new SortedSet<int>();
+
+			for (int i = 0; i < col.Count; i++)
+				for (int j = 0; j < col[i].Length; j++)
+					col_extr.Add(col[i].Take(j + 1).Sum());
+			col_extr.Remove(0);
+
+			for (int i = 0; i < row.Count; i++)
+				for (int j = 0; j < row[i].Length; j++)
+					rows_extr.Add(row[i].Take(j + 1).Sum());
+			rows_extr.Remove(0);
+
+			return (col_extr, rows_extr);
+		}
+
+		public static SortedSet<int> GetSet(int[] arr)
+		{
+			SortedSet<int> output = new SortedSet<int>();
+			output.Add(arr.Take(1).Sum());
+			for (int i = 1; i < arr.Length; ++i)
+				output.Add(arr.Take(i + 1).Sum());
+			return output;
+		}
+
+		private static int GetNearest(ICollection<int> set, int num)
+		{
+			foreach (int item in set)
+				if (item >= num)
+					return item;
+			return num;
+		}
+
+		public static (List<int[]>, List<int[]>) MergeTables(
+			List<int[]> col1, List<int[]> row1, List<int[]> col2, List<int[]> row2)
+		{
+			List<int[]> col = new List<int[]>();
+			List<int[]> row = new List<int[]>();
+
+			(SortedSet<int> ecol1, SortedSet<int> erow1) = ExtractSizes(col1, row1);
+			(SortedSet<int> ecol2, SortedSet<int> erow2) = ExtractSizes(col2, row2);
+			(SortedSet<int> ecol, SortedSet<int> erow) = (new SortedSet<int>(ecol1), new SortedSet<int>(erow1));
+			ecol.UnionWith(ecol2);
+			erow.UnionWith(erow2);
+			//Console.WriteLine("ecol1: " + String.Join(", ", ecol1));
+			//Console.WriteLine("erow1: " + String.Join(", ", erow1));
+			//Console.WriteLine("ecol2: " + String.Join(", ", ecol2));
+			//Console.WriteLine("erow2: " + String.Join(", ", erow2));
+			//Console.WriteLine("ecol: " + String.Join(", ", ecol));
+			//Console.WriteLine("erow: " + String.Join(", ", erow));
+
+			for (int i = 0; i < erow.Count; ++i)
+			{
+				int[] c1 = col1[Array.IndexOf(erow1.ToArray(), GetNearest(erow1, erow.ElementAt(i)))];
+				int[] c2 = col2[Array.IndexOf(erow2.ToArray(), GetNearest(erow2, erow.ElementAt(i)))];
+				(SortedSet<int> l1, SortedSet<int> l2) = (GetSet(c1), GetSet(c2));
+				l1.UnionWith(l2);
+				col.Add(new int[l1.Count]);
+				for (int j = 0; j < l1.Count; ++j)
+				{
+					if (j == 0)
+						col.Last()[j] = l1.ElementAt(j);
+					else
+						col.Last()[j] = l1.ElementAt(j) - l1.ElementAt(j - 1);
+				}
+			}
+
+			for (int i = 0; i < ecol.Count; ++i)
+			{
+				int ind1 = Array.IndexOf(ecol1.ToArray(), GetNearest(ecol1, ecol.ElementAt(i)));
+				int ind2 = Array.IndexOf(ecol2.ToArray(), GetNearest(ecol2, ecol.ElementAt(i)));
+				int[] r1 = row1[ind1];
+				int[] r2 = row2[ind2];
+				(SortedSet<int> l1, SortedSet<int> l2) = (GetSet(r1), GetSet(r2));
+				l1.UnionWith(l2);
+				row.Add(new int[l1.Count]);
+				for (int j = 0; j < l1.Count; ++j)
+				{
+					if (j == 0)
+						row.Last()[j] = l1.ElementAt(j);
+					else
+						row.Last()[j] = l1.ElementAt(j) - l1.ElementAt(j - 1);
+				}
+			}
+			//foreach (var i in col)
+			//	Console.WriteLine(String.Join(",", i));
+			//Console.WriteLine();
+			//foreach (var i in row)
+			//	Console.WriteLine(String.Join(",", i));
+			return (col, row);
+		}
 
 	} // class XMLTools
 } // namespace RevToGOSTv0
