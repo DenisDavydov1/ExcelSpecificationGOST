@@ -30,7 +30,7 @@ namespace RevToGOSTv0
 			this.CreateWorkBook();
 		}
 
-		public void CreateWorkBook()
+		private void CreateWorkBook()
 		{
 			this.Workbook = new XLWorkbook();
 		}

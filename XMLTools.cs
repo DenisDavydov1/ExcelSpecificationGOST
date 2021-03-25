@@ -205,7 +205,7 @@ namespace RevToGOSTv0
 		//		2 - field1 contains field2
 		//		3 - field2 contains field1
 		//		4 - fields are equal
-		static int CompFieldsContains(int[] field1, int[] field2)
+		private static int CompFieldsContains(int[] field1, int[] field2)
 		{
 			int i1 = field1[0], j1 = field1[1], i2 = field1[2], j2 = field1[3];
 			int y1 = field2[0], x1 = field2[1], y2 = field2[2], x2 = field2[3];
