@@ -17,9 +17,9 @@ namespace RevToGOSTv0
 	abstract class GOST
 	{
 
-	/*
-	**	Member properties
-	*/
+		/*
+		**	Member properties
+		*/
 
 		public WorkBook Workbook { get; set; }
 		public int Format { get; set; }

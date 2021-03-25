@@ -38,3 +38,5 @@ F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\Debug\RevToGOSTv0.csproj.CoreCompileIn
 F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\Debug\RevToGOSTv0.csproj.CopyComplete
 F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\Debug\RevToGOSTv0.dll
 F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\Debug\RevToGOSTv0.pdb
+F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\bin\Debug\Newtonsoft.Json.dll
+F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\bin\Debug\Newtonsoft.Json.xml

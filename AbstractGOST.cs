@@ -350,7 +350,7 @@ namespace RevToGOSTv0
 			int[,] col_matrix = new int[rows.Count, columns.Count];
 			for (int i = 0; i < this.ColumnsSize.Count; i++)
 			{
-				SortedSet<int> set = XMLTools.GetSet(this.ColumnsSize[i]);
+				SortedSet<int> set = XMLTools.GetSortedSet(this.ColumnsSize[i]);
 				for (int j = 0; j < columns.Count; j++)
 				{
 					for (int k = 0; k < set.Count; k++)
@@ -374,7 +374,7 @@ namespace RevToGOSTv0
 			int[,] row_matrix = new int[rows.Count, columns.Count];
 			for (int i = 0; i < this.RowsSize.Count; i++)
 			{
-				SortedSet<int> set = XMLTools.GetSet(this.RowsSize[i]);
+				SortedSet<int> set = XMLTools.GetSortedSet(this.RowsSize[i]);
 				for (int j = 0; j < rows.Count; j++)
 				{
 					for (int k = 0; k < set.Count; k++)

@@ -31,7 +31,8 @@ namespace RevToGOSTv0
 
 			//CreateFileTest(doc);
 			//CreateLogTest(doc);
-			TableShapeTest(doc);
+			//TableShapeTest(doc);
+			NewTest();
 
 			//List<string> list_s = new List<string>();
 			//var enumvar = Enum.GetValues(typeof(BuiltInCategory));
@@ -53,6 +54,25 @@ namespace RevToGOSTv0
 			//uiWin.Show();
 
 			return Result.Succeeded;
+		}
+
+		internal void NewTest()
+		{
+			//GST page = GST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\Abstract.json");
+			//GST stamp = GST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\AbstractStamp.json");
+			//Log.WriteLine("Name: {0}\nFormat: {1}\nOrientation: {2}", g.Name, g.Format, g.Orientation);
+			//foreach (var item in g.Columns)
+			//	Log.Write(String.Join(",", item) + "\n");
+			GST page = GST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\GOST_21_110_2013_Page.json");
+			GST stamp = GST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\GOST_21_101_2020_Stamp_3.json");
+			GST dop = GST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\GOST_21_101_2020_Dop_3.json");
+			WorkBook wb = new WorkBook();
+			WorkSheet ws = new WorkSheet(wb);
+			ws.AddTable(page);
+			ws.AddTable(stamp);
+			ws.AddTable(dop);
+			ws.BuildWorkSheet();
+			wb.CloseWorkBook();
 		}
 
 		internal void CreateFileTest(Document doc)
@@ -111,8 +131,8 @@ namespace RevToGOSTv0
 
 	static class Constants
 	{
-		public const string LogPath = "F:\\CS_CODE\\REVIT\\PROJECTS\\tmp";
-		public const string DefaultFilePath = "F:\\CS_CODE\\REVIT\\PROJECTS\\output.xlsx";
+		public const string LogPath = @"F:\CS_CODE\REVIT\PROJECTS\tmp";
+		public const string DefaultFilePath = @"F:\CS_CODE\REVIT\PROJECTS\output.xlsx";
 		public const double inch = 2.54;
 		public const double mm_w = 0.483;
 		public const double mm_h = 2.9;
