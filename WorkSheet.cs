@@ -54,8 +54,10 @@ namespace RevToGOSTv0
 			}
 			else
 			{
-				if (Format != table.Format || Orientation != table.Orientation)
-					return;
+				//if (Format != table.Format || Orientation != table.Orientation)
+				//	return;
+				if (table.Position > 1)
+					XMLTools.CreateNormalTable(table, Format, Orientation);
 				Tables.Add(table);
 				if (table.Columns != null && table.Rows != null)
 					(Columns, Rows) = XMLTools.MergeTables(Columns, Rows, table.Columns, table.Rows);
@@ -70,6 +72,7 @@ namespace RevToGOSTv0
 			ReshapeWorkSheet();
 			AlignBorders();
 			MergeCells();
+			ApplyStyles();
 			FillHeader();
 
 			//Log.WriteLine("Indexes: {0} (10, 20)", XMLTools.GetCellIndexesBySize(Rows, Columns, 19, 19));
@@ -173,6 +176,8 @@ namespace RevToGOSTv0
 		{
 			foreach (GST table in Tables)
 			{
+				if (table.Fields == null)
+					continue;
 				foreach (List<int[]> line in table.Fields)
 				{
 					foreach (int[] field in line)
@@ -181,6 +186,8 @@ namespace RevToGOSTv0
 						(int y2, int x2) = XMLTools.GetCellIndexesBySize(Rows, Columns, field[2], field[3]);
 						WS.Range(y1, x1, y2, x2).Merge();
 						WS.Range(y1, x1, y2, x2).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+						//WS.Cell(y1, x1).Style.Alignment.Vertical = (XLAlignmentVerticalValues)table.VerticalAlignment;
+						//WS.Cell(y1, x1).Style.Alignment.Vertical = (XLAlignmentVerticalValues)table.HorizontalAlignment;
 					}
 				}
 			}
@@ -194,11 +201,48 @@ namespace RevToGOSTv0
 			//}
 		}
 
+		private void ApplyStyles()
+		{
+			foreach (GST table in Tables)
+			{
+				if (table.Fields == null)
+					continue;
+				for (int i = 0; i < table.Fields.Count; ++i)
+				{
+					for (int j = 0; j < table.Fields[i].Count; ++j)
+					{
+						// Get cell coordinates
+						(int y, int x) = XMLTools.GetCellIndexesBySize(Rows, Columns, table.Fields[i][j][0], table.Fields[i][j][1]);
+						// Set font
+						if (table.Font != null)
+							WS.Cell(y, x).Style.Font.FontName = table.Font;
+						// Set font size
+						if (table.FontSizes != null && table.FontSizes[i][j] != 0)
+							WS.Cell(y, x).Style.Font.FontSize = table.FontSizes[i][j];
+						else if (table.FontSize != 0)
+							WS.Cell(y, x).Style.Font.FontSize = table.FontSize;
+						// Set vertical alignments
+						if (table.VerticalAlignments != null && 0 <= table.VerticalAlignments[i][j] && table.VerticalAlignments[i][j] <= 4)
+							WS.Cell(y, x).Style.Alignment.Vertical = (XLAlignmentVerticalValues)table.VerticalAlignments[i][j];
+						else
+							WS.Cell(y, x).Style.Alignment.Vertical = (XLAlignmentVerticalValues)table.VerticalAlignment;
+						// Set horizontal alignments
+						if (table.HorizontalAlignments != null && 0 <= table.HorizontalAlignments[i][j] && table.HorizontalAlignments[i][j] <= 7)
+							WS.Cell(y, x).Style.Alignment.Horizontal = (XLAlignmentHorizontalValues)table.HorizontalAlignments[i][j];
+						else
+							WS.Cell(y, x).Style.Alignment.Horizontal = (XLAlignmentHorizontalValues)table.HorizontalAlignment;
+						// Apply word wrap
+						WS.Cell(y, x).Style.Alignment.WrapText = true;
+					}
+				}
+			}
+		}
+
 		private void FillHeader()
 		{
 			foreach (GST table in Tables)
 			{
-				if (table.HeaderList == null)
+				if (table.HeaderList == null || table.Fields == null)
 					continue;
 				for (int i = 0; i < table.HeaderList.Length; ++i)
 				{

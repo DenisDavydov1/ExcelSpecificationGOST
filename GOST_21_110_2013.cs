@@ -114,6 +114,8 @@ namespace RevToGOSTv0
 			this.Worksheet.Row(26).Height = XMLTools.mmToHeight(80); // 80
 			this.Worksheet.Row(27).Height = XMLTools.mmToHeight(90); // 90
 
+			//this.Worksheet.Row(27).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center);
+
 			//this.Worksheet.Row(1).Height = 3.088;
 			//this.Worksheet.Row(2).Height = 6;
 			//this.Worksheet.Row(3).Height = 8.97;

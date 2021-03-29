@@ -272,5 +272,66 @@ namespace RevToGOSTv0
 			return (i + 1, j + 1);
 		}
 
+		public static void CreateNormalTable(GST table, string format, string orientation)
+		{
+			// Set page dimensions
+			int height = 0, width = 0;
+			if (format == "A3" && orientation == "Portrait")
+				(height, width) = (Constants.A3.Height, Constants.A3.Width);
+			else if (format == "A3" && orientation == "Landscape")
+				(height, width) = (Constants.A3.Width, Constants.A3.Height);
+			else if (format == "A4" && orientation == "Portrait")
+				(height, width) = (Constants.A4.Height, Constants.A4.Width);
+			else if (format == "A4" && orientation == "Landscape")
+				(height, width) = (Constants.A4.Width, Constants.A4.Height);
+			else if (format == "A11" && orientation == "Portrait")
+				(height, width) = (Constants.A11.Height, Constants.A11.Width);
+			else if (format == "A11" && orientation == "Landscape")
+				(height, width) = (Constants.A11.Width, Constants.A11.Height);
+
+			// Init new notation arrays
+			(List<int[]> col, List<int[]> row) = (new List<int[]>(), new List<int[]>());
+
+			if (table.Position == 4)
+			{
+				for (int i = 0; i < table.Columns.Count; ++i)
+				{
+					if (table.Columns[i].Length == 1 && table.Columns[i][0] == 0)
+					{
+						col.Add(new int[] { width });
+						continue;
+					}
+					col.Add(new int[table.Columns[i].Length + 1]);
+					col.Last()[0] = width - table.Columns[i].Sum();
+					for (int j = 1; j < col.Last().Length; ++j)
+						col.Last()[j] = table.Columns[i][j - 1];
+				}
+				for (int i = 0; i < table.Rows.Count; ++i)
+				{
+					if (table.Rows[i].Length == 1 && table.Rows[i][0] == 0)
+					{
+						row.Add(new int[] { height });
+						continue;
+					}
+					row.Add(new int[table.Rows[i].Length + 1]);
+					row.Last()[0] = height - table.Rows[i].Sum();
+					for (int j = 1; j < row.Last().Length; ++j)
+						row.Last()[j] = table.Rows[i][j - 1];
+				}
+			}
+			(table.Columns, table.Rows) = (col, row);
+			foreach (var a in col)
+			{
+				Log.Write(String.Join(",", a));
+				Log.WriteLine("");
+			}
+			Log.WriteLine("");
+			foreach (var a in row)
+			{
+				Log.Write(String.Join(",", a));
+				Log.WriteLine("");
+			}
+		}
+
 	} // class XMLTools
 } // namespace RevToGOSTv0

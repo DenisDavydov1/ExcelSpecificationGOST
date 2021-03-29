@@ -6,27 +6,50 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-
-/*
-	"Fields":
-	[
-		[ 20, 20 ], [ 30, 20 ], [ 40, 20 ]
-	]
-*/
 namespace RevToGOSTv0
 {
 	class GST
 	{
+		/*
+		** Member fields:
+		*/
+
 		public string Name { get; set; }
 		public string Type { get; set; }
 		public string Format { get; set; }
 		public string Orientation { get; set; }
-		//public int[][] Columns;
-		//public int[][] Rows;
+
+		// Positions map:
+		//  _____
+		// | 1 2 |
+		// | 3 4 |
+		//  ‾‾‾‾‾
+		public int Position { get; set; }
 		public List<int[]> Columns;
 		public List<int[]> Rows;
 		public List<List<int[]>> Fields;
 		public string[] HeaderList { get; set; }
+		public string Font { get; set; }
+		public int FontSize { get; set; }
+		public List<int[]> FontSizes { get; set; }
+
+		// Vertical alignment:
+		// 4 = Top
+		// 1 = Center
+		// 0 = Bottom
+		public int VerticalAlignment { get; set; }
+		public List<int[]> VerticalAlignments { get; set; }
+
+		// Horizontal alignment:
+		// 6 = Left
+		// 0 = Center
+		// 7 = Right
+		public int HorizontalAlignment { get; set; }
+		public List<int[]> HorizontalAlignments { get; set; }
+
+		/*
+		**	Member methods
+		*/
 
 		public static GST LoadConfFile(string ConfFilePath)
 		{
