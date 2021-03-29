@@ -47,6 +47,8 @@ namespace RevToGOSTv0
 		public int HorizontalAlignment { get; set; }
 		public List<int[]> HorizontalAlignments { get; set; }
 
+		public Dictionary<string, int[]> Map { get; set; }
+
 		/*
 		**	Member methods
 		*/

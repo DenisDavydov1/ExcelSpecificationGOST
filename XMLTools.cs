@@ -272,23 +272,8 @@ namespace RevToGOSTv0
 			return (i + 1, j + 1);
 		}
 
-		public static void CreateNormalTable(GST table, string format, string orientation)
+		public static void CreateNormalTable(GST table, int height, int width)
 		{
-			// Set page dimensions
-			int height = 0, width = 0;
-			if (format == "A3" && orientation == "Portrait")
-				(height, width) = (Constants.A3.Height, Constants.A3.Width);
-			else if (format == "A3" && orientation == "Landscape")
-				(height, width) = (Constants.A3.Width, Constants.A3.Height);
-			else if (format == "A4" && orientation == "Portrait")
-				(height, width) = (Constants.A4.Height, Constants.A4.Width);
-			else if (format == "A4" && orientation == "Landscape")
-				(height, width) = (Constants.A4.Width, Constants.A4.Height);
-			else if (format == "A11" && orientation == "Portrait")
-				(height, width) = (Constants.A11.Height, Constants.A11.Width);
-			else if (format == "A11" && orientation == "Landscape")
-				(height, width) = (Constants.A11.Width, Constants.A11.Height);
-
 			// Init new notation arrays
 			(List<int[]> col, List<int[]> row) = (new List<int[]>(), new List<int[]>());
 
@@ -320,15 +305,45 @@ namespace RevToGOSTv0
 				}
 			}
 			(table.Columns, table.Rows) = (col, row);
-			foreach (var a in col)
+			//foreach (var a in col)
+			//{
+			//	Log.Write(String.Join(",", a));
+			//	Log.WriteLine("");
+			//}
+			//Log.WriteLine("");
+			//foreach (var a in row)
+			//{
+			//	Log.Write(String.Join(",", a));
+			//	Log.WriteLine("");
+			//}
+		}
+
+		public static void CompleteFields(GST table, int height, int width)
+		{
+			int offset_width = width - GetSortedSet(table.Columns).Last();
+			int offset_height = height - GetSortedSet(table.Rows).Last();
+			Log.WriteLine("Height: {0}, Width: {1}, oh: {2}, ow: {3}", height, width, offset_height, offset_width);
+			for (int i = 0; i < table.Fields.Count; ++i)
+				for (int j = 0; j < table.Fields[i].Count; ++j)
+				{
+					table.Fields[i][j][0] += offset_height;
+					table.Fields[i][j][1] += offset_width;
+					table.Fields[i][j][2] += offset_height;
+					table.Fields[i][j][3] += offset_width;
+				}
+
+			//for (int i = 0; i < table.Columns.Count; ++i)
+			//	for (int j = 0; j < table.Columns[i].Length; ++j)
+			//		table.Columns[i][j] += offset_width;
+			//for (int i = 0; i < table.Rows.Count; ++i)
+			//	for (int j = 0; j < table.Rows[i].Length; ++j)
+			//		table.Rows[i][j] += offset_height;
+			foreach (var a in table.Fields)
 			{
-				Log.Write(String.Join(",", a));
-				Log.WriteLine("");
-			}
-			Log.WriteLine("");
-			foreach (var a in row)
-			{
-				Log.Write(String.Join(",", a));
+				foreach (var b in a)
+				{
+					Log.Write(String.Join(",", b));
+				}
 				Log.WriteLine("");
 			}
 		}

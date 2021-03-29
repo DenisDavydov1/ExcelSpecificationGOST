@@ -24,6 +24,8 @@ namespace RevToGOSTv0
 		private IXLWorksheet WS;
 		private string Format;
 		private string Orientation;
+		private int Height;
+		private int Width;
 		private List<GST> Tables;
 		public List<int[]> Columns;
 		public List<int[]> Rows;
@@ -51,19 +53,39 @@ namespace RevToGOSTv0
 				Columns = new List<int[]>(table.Columns);
 				Rows = new List<int[]>(table.Rows);
 				//Fields = new List<List<int[]>>(table.Fields); // XMLTools.CleanFields(table.Fields);
+				SetPageDimensions();
 			}
 			else
 			{
 				//if (Format != table.Format || Orientation != table.Orientation)
 				//	return;
 				if (table.Position > 1)
-					XMLTools.CreateNormalTable(table, Format, Orientation);
+				{
+					XMLTools.CompleteFields(table, Height, Width);
+					XMLTools.CreateNormalTable(table, Height, Width);
+				}
 				Tables.Add(table);
 				if (table.Columns != null && table.Rows != null)
 					(Columns, Rows) = XMLTools.MergeTables(Columns, Rows, table.Columns, table.Rows);
 				//if (table.Fields != null)
 				//	Fields = XMLTools.MergeFields(Fields, table.Fields); // XMLTools.CleanFields(Fields.Concat(table.Fields).ToList());
 			}
+		}
+
+		private void SetPageDimensions()
+		{
+			if (Format == "A3" && Orientation == "Portrait")
+				(Height, Width) = (Constants.A3.Height, Constants.A3.Width);
+			else if (Format == "A3" && Orientation == "Landscape")
+				(Height, Width) = (Constants.A3.Width, Constants.A3.Height);
+			else if (Format == "A4" && Orientation == "Portrait")
+				(Height, Width) = (Constants.A4.Height, Constants.A4.Width);
+			else if (Format == "A4" && Orientation == "Landscape")
+				(Height, Width) = (Constants.A4.Width, Constants.A4.Height);
+			else if (Format == "A11" && Orientation == "Portrait")
+				(Height, Width) = (Constants.A11.Height, Constants.A11.Width);
+			else if (Format == "A11" && Orientation == "Landscape")
+				(Height, Width) = (Constants.A11.Width, Constants.A11.Height);
 		}
 
 		public void BuildWorkSheet()
@@ -242,15 +264,45 @@ namespace RevToGOSTv0
 		{
 			foreach (GST table in Tables)
 			{
-				if (table.HeaderList == null || table.Fields == null)
+				if (table.Map == null || table.Fields == null)
 					continue;
-				for (int i = 0; i < table.HeaderList.Length; ++i)
+				foreach (KeyValuePair<string, int[]> entry in table.Map)
 				{
-					(int y, int x) = XMLTools.GetCellIndexesBySize(Rows, Columns, table.Fields[0][i][0], table.Fields[0][i][1]);
-					WS.Cell(y, x).Value = table.HeaderList[i];
+					if (entry.Key.First() != '_' && entry.Value.Length == 2)
+					{
+						int y = table.Fields[entry.Value[0]][entry.Value[1]][0];
+						int x = table.Fields[entry.Value[0]][entry.Value[1]][1];
+						(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
+						WS.Cell(y, x).Value = entry.Key.Replace("_", string.Empty);
+					}
 				}
+				//if (table.HeaderList == null || table.Fields == null)
+				//	continue;
+				//for (int i = 0; i < table.HeaderList.Length; ++i)
+				//{
+				//	(int y, int x) = XMLTools.GetCellIndexesBySize(Rows, Columns, table.Fields[0][i][0], table.Fields[0][i][1]);
+				//	WS.Cell(y, x).Value = table.HeaderList[i];
+				//}
 			}
 		}
 
 	} // class WorkSheet
 } // namespace RevToGOSTv0
+
+//	"HeaderList":
+//	[
+//		"Инв. № подп.", "Подп. и дата", "Взам. инв. №", "Согласовано"
+//	],
+
+// "HeaderList":
+// [
+// 	"Поз.",
+// 	"Наименование и техническая\r\nхарактеристика",
+// 	"Тип, марка,\r\nобозначение\r\nдокумента,\r\nопросного листа",
+// 	"Код\r\nпродукции",
+// 	"Поставщик",
+// 	"Ед.\r\nизме-\r\nре-\r\nния",
+// 	"Коли-\r\nчест-\r\nво",
+// 	"Масса\r\n1 ед.,\r\nкг",
+// 	"Приме-\r\nчание"
+// ],
