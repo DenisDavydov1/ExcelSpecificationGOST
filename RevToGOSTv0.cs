@@ -29,10 +29,19 @@ namespace RevToGOSTv0
 			UIApplication uiApp = commandData.Application;
 			Document doc = uiApp.ActiveUIDocument.Document;
 
-			//CreateFileTest(doc);
-			//CreateLogTest(doc);
-			//TableShapeTest(doc);
-			NewTest();
+
+			//NewTest();
+
+			ProjectInfo pi = doc.ProjectInformation;
+			Log.WriteLine("Author: " + pi.Author);
+			Log.WriteLine("OrganizationName: " + pi.OrganizationName);
+
+
+
+
+
+
+
 
 			//List<string> list_s = new List<string>();
 			//var enumvar = Enum.GetValues(typeof(BuiltInCategory));

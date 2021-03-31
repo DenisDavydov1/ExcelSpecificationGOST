@@ -235,26 +235,37 @@ namespace RevToGOSTv0
 					{
 						// Get cell coordinates
 						(int y, int x) = XMLTools.GetCellIndexesBySize(Rows, Columns, table.Fields[i][j][0], table.Fields[i][j][1]);
+						
 						// Set font
 						if (table.Font != null)
 							WS.Cell(y, x).Style.Font.FontName = table.Font;
+						
 						// Set font size
 						if (table.FontSizes != null && table.FontSizes[i][j] != 0)
 							WS.Cell(y, x).Style.Font.FontSize = table.FontSizes[i][j];
 						else if (table.FontSize != 0)
 							WS.Cell(y, x).Style.Font.FontSize = table.FontSize;
+						
 						// Set vertical alignments
 						if (table.VerticalAlignments != null && 0 <= table.VerticalAlignments[i][j] && table.VerticalAlignments[i][j] <= 4)
 							WS.Cell(y, x).Style.Alignment.Vertical = (XLAlignmentVerticalValues)table.VerticalAlignments[i][j];
 						else
 							WS.Cell(y, x).Style.Alignment.Vertical = (XLAlignmentVerticalValues)table.VerticalAlignment;
+						
 						// Set horizontal alignments
 						if (table.HorizontalAlignments != null && 0 <= table.HorizontalAlignments[i][j] && table.HorizontalAlignments[i][j] <= 7)
 							WS.Cell(y, x).Style.Alignment.Horizontal = (XLAlignmentHorizontalValues)table.HorizontalAlignments[i][j];
 						else
 							WS.Cell(y, x).Style.Alignment.Horizontal = (XLAlignmentHorizontalValues)table.HorizontalAlignment;
+						
 						// Apply word wrap
 						WS.Cell(y, x).Style.Alignment.WrapText = true;
+
+						// Set vertical text direction
+						if (table.VerticalText == true)
+							WS.Cell(y, x).Style.Alignment.SetTextRotation(90);
+						//WS.Cell(y, x).Style.Alignment.SetTopToBottom();
+
 					}
 				}
 			}

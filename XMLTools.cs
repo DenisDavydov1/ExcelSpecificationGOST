@@ -277,6 +277,7 @@ namespace RevToGOSTv0
 			// Init new notation arrays
 			(List<int[]> col, List<int[]> row) = (new List<int[]>(), new List<int[]>());
 
+			// Update columns
 			if (table.Position == 4)
 			{
 				for (int i = 0; i < table.Columns.Count; ++i)
@@ -291,6 +292,26 @@ namespace RevToGOSTv0
 					for (int j = 1; j < col.Last().Length; ++j)
 						col.Last()[j] = table.Columns[i][j - 1];
 				}
+			}
+			if (table.Position == 3)
+			{
+				for (int i = 0; i < table.Columns.Count; ++i)
+				{
+					if (table.Columns[i].Length == 1 && table.Columns[i][0] == 0)
+					{
+						col.Add(new int[] { width });
+						continue;
+					}
+					col.Add(new int[table.Columns[i].Length + 1]);
+					for (int j = 0; j < col.Last().Length - 1; ++j)
+						col.Last()[j] = table.Columns[i][j];
+					col.Last()[col.Last().Length - 1] = width - table.Columns[i].Sum();
+				}
+			}
+			
+			// Update rows
+			if (table.Position == 3 || table.Position == 4)
+			{
 				for (int i = 0; i < table.Rows.Count; ++i)
 				{
 					if (table.Rows[i].Length == 1 && table.Rows[i][0] == 0)
@@ -304,40 +325,42 @@ namespace RevToGOSTv0
 						row.Last()[j] = table.Rows[i][j - 1];
 				}
 			}
+			
+			// Assign table arrays to new arrays
 			(table.Columns, table.Rows) = (col, row);
-			//foreach (var a in col)
-			//{
-			//	Log.Write(String.Join(",", a));
-			//	Log.WriteLine("");
-			//}
-			//Log.WriteLine("");
-			//foreach (var a in row)
-			//{
-			//	Log.Write(String.Join(",", a));
-			//	Log.WriteLine("");
-			//}
 		}
 
 		public static void CompleteFields(GST table, int height, int width)
 		{
-			int offset_width = width - GetSortedSet(table.Columns).Last();
-			int offset_height = height - GetSortedSet(table.Rows).Last();
-			Log.WriteLine("Height: {0}, Width: {1}, oh: {2}, ow: {3}", height, width, offset_height, offset_width);
-			for (int i = 0; i < table.Fields.Count; ++i)
-				for (int j = 0; j < table.Fields[i].Count; ++j)
-				{
-					table.Fields[i][j][0] += offset_height;
-					table.Fields[i][j][1] += offset_width;
-					table.Fields[i][j][2] += offset_height;
-					table.Fields[i][j][3] += offset_width;
-				}
+			if (table.Position == 4)
+			{
+				int offset_width = width - GetSortedSet(table.Columns).Last();
+				int offset_height = height - GetSortedSet(table.Rows).Last();
+				//Log.WriteLine("Height: {0}, Width: {1}, oh: {2}, ow: {3}", height, width, offset_height, offset_width);
+				for (int i = 0; i < table.Fields.Count; ++i)
+					for (int j = 0; j < table.Fields[i].Count; ++j)
+					{
+						table.Fields[i][j][0] += offset_height;
+						table.Fields[i][j][1] += offset_width;
+						table.Fields[i][j][2] += offset_height;
+						table.Fields[i][j][3] += offset_width;
+					}
+			}
+			else if (table.Position == 3)
+			{
+				//int offset_width = 0; // width - GetSortedSet(table.Columns).Last();
+				int offset_height = height - GetSortedSet(table.Rows).Last();
+				//Log.WriteLine("Height: {0}, Width: {1}, oh: {2}, ow: {3}", height, width, offset_height, offset_width);
+				for (int i = 0; i < table.Fields.Count; ++i)
+					for (int j = 0; j < table.Fields[i].Count; ++j)
+					{
+						table.Fields[i][j][0] += offset_height;
+						//table.Fields[i][j][1] += offset_width;
+						table.Fields[i][j][2] += offset_height;
+						//table.Fields[i][j][3] += offset_width;
+					}
+			}
 
-			//for (int i = 0; i < table.Columns.Count; ++i)
-			//	for (int j = 0; j < table.Columns[i].Length; ++j)
-			//		table.Columns[i][j] += offset_width;
-			//for (int i = 0; i < table.Rows.Count; ++i)
-			//	for (int j = 0; j < table.Rows[i].Length; ++j)
-			//		table.Rows[i][j] += offset_height;
 			foreach (var a in table.Fields)
 			{
 				foreach (var b in a)
