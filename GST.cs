@@ -49,6 +49,9 @@ namespace RevToGOSTv0
 
 		public Dictionary<string, int[]> Map { get; set; }
 		public bool VerticalText { get; set; }
+		public int Line { get; set; }
+		public int LinesCount { get; set; }
+		public List<List<string>> Data { get; set; }
 
 		/*
 		**	Member methods
@@ -60,6 +63,15 @@ namespace RevToGOSTv0
 				throw new Exception();
 			string config = File.ReadAllText(ConfFilePath);
 			return JsonConvert.DeserializeObject<GST>(config);
+		}
+
+		public void AddData(List<List<string>> data)
+		{
+			if (Data == null)
+				Data = new List<List<string>>(data);
+			else
+				foreach (List<string> line in data)
+					Data.Add(new List<string>(line));
 		}
 	}
 }

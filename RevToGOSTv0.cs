@@ -30,11 +30,11 @@ namespace RevToGOSTv0
 			Document doc = uiApp.ActiveUIDocument.Document;
 
 
-			//NewTest();
+			NewTest();
 
-			ProjectInfo pi = doc.ProjectInformation;
-			Log.WriteLine("Author: " + pi.Author);
-			Log.WriteLine("OrganizationName: " + pi.OrganizationName);
+			//ProjectInfo pi = doc.ProjectInformation;
+			//Log.WriteLine("Author: " + pi.Author);
+			//Log.WriteLine("OrganizationName: " + pi.OrganizationName);
 
 
 
@@ -73,8 +73,22 @@ namespace RevToGOSTv0
 			//foreach (var item in g.Columns)
 			//	Log.Write(String.Join(",", item) + "\n");
 			GST page = GST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\GOST_21_110_2013_Page.json");
+			List<List<string>> data = new List<List<string>>()
+			{
+				new List<string>() { "1", "lol", "kik", "kek", "ewrty", "iuytre", "sdfghj", "mnbvc", "sdfsdf" },
+				new List<string>() { "2", "lsdfsol", "kdfik", "kdek", "ety", "ire", "sdfghj", "mnbvc", "sdfsdf" },
+				new List<string>() { "3", "lol", "kik", "kek", "ewrty", "iuytre", "sdfghj", "mnbvc", "sdfsdf" },
+				new List<string>() { "4", "lsdfsol", "kdfik", "kdek", "ety", "ire", "sdfghj", "mnbvc", "sdfsdf" },
+				new List<string>() { "5", "lol", "kik", "kek", "ewrty", "iuytre", "sdfghj", "mnbvc", "sdfsdf" },
+				new List<string>() { "6", "lsdfsol", "kdfik", "kdek", "ety", "ire", "sdfghj", "mnbvc", "sdfsdf" }
+			};
+			page.AddData(data);
+			Log.WriteLine("\n\n{0}\n\n", page.test);
+
+
 			GST stamp = GST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\GOST_21_101_2020_Stamp_3.json");
 			GST dop = GST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\GOST_21_101_2020_Dop_3.json");
+
 			WorkBook wb = new WorkBook();
 			WorkSheet ws = new WorkSheet(wb);
 			ws.AddTable(page);

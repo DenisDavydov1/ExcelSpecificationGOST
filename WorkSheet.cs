@@ -96,6 +96,7 @@ namespace RevToGOSTv0
 			MergeCells();
 			ApplyStyles();
 			FillHeader();
+			FillTable();
 
 			//Log.WriteLine("Indexes: {0} (10, 20)", XMLTools.GetCellIndexesBySize(Rows, Columns, 19, 19));
 			//Log.WriteLine("Indexes: {0} (11, 21)", XMLTools.GetCellIndexesBySize(Rows, Columns, 19, 19));
@@ -297,23 +298,26 @@ namespace RevToGOSTv0
 			}
 		}
 
+		public void FillTable()
+		{
+			foreach (GST table in Tables)
+			{
+				for (int dataLine = 0;
+					table.Line < table.LinesCount && dataLine < table.Data.Count;
+					table.Line++, dataLine++)
+				{
+					for (int field = 0;
+						field < table.Fields[table.Line].Count && field < table.Data[dataLine].Count;
+						field++)
+					{
+						int y = table.Fields[table.Line][field][0];
+						int x = table.Fields[table.Line][field][1];
+						(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
+						WS.Cell(y, x).Value = table.Data[dataLine][field];
+					}
+				}
+			}
+		}
+
 	} // class WorkSheet
 } // namespace RevToGOSTv0
-
-//	"HeaderList":
-//	[
-//		"Инв. № подп.", "Подп. и дата", "Взам. инв. №", "Согласовано"
-//	],
-
-// "HeaderList":
-// [
-// 	"Поз.",
-// 	"Наименование и техническая\r\nхарактеристика",
-// 	"Тип, марка,\r\nобозначение\r\nдокумента,\r\nопросного листа",
-// 	"Код\r\nпродукции",
-// 	"Поставщик",
-// 	"Ед.\r\nизме-\r\nре-\r\nния",
-// 	"Коли-\r\nчест-\r\nво",
-// 	"Масса\r\n1 ед.,\r\nкг",
-// 	"Приме-\r\nчание"
-// ],
