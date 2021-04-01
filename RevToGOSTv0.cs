@@ -26,38 +26,20 @@ namespace RevToGOSTv0
 		{
 			Log.ClearLog();
 
-			UIApplication uiApp = commandData.Application;
-			Document doc = uiApp.ActiveUIDocument.Document;
+			//UIApplication uiApp = commandData.Application;
+			//Document doc = uiApp.ActiveUIDocument.Document;
 
 
+			Rvt.Handler = new RvtHandler(commandData, elements);
 			NewTest();
+			//rvt.LogCategory(BuiltInCategory.OST_Furniture);
+			//rvt.LogAllElements();
+			//rvt.LogCategory(BuiltInCategory.OST_Walls);
+
 
 			//ProjectInfo pi = doc.ProjectInformation;
 			//Log.WriteLine("Author: " + pi.Author);
 			//Log.WriteLine("OrganizationName: " + pi.OrganizationName);
-
-
-
-
-
-
-
-
-			//List<string> list_s = new List<string>();
-			//var enumvar = Enum.GetValues(typeof(BuiltInCategory));
-			//foreach (var name in enumvar)
-			//{
-			//	System.Diagnostics.Debug.WriteLine(name.ToString());
-			//	list_s.Add(name.ToString());
-			//}
-			//List< List<string> > list_s = new List<List<string>>();
-
-			//list_s.Add(GOST1.GetTableLine(elem));
-
-			//foreach (var v in list_s)
-			//Utils.PrintList(Constants.logpath, v);
-
-			//Utils.PrintList(Constants.logpath, list_s);
 
 			//uiWindow uiWin = new uiWindow(list);
 			//uiWin.Show();
@@ -67,72 +49,62 @@ namespace RevToGOSTv0
 
 		internal void NewTest()
 		{
-			//GST page = GST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\Abstract.json");
-			//GST stamp = GST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\AbstractStamp.json");
-			//Log.WriteLine("Name: {0}\nFormat: {1}\nOrientation: {2}", g.Name, g.Format, g.Orientation);
-			//foreach (var item in g.Columns)
-			//	Log.Write(String.Join(",", item) + "\n");
+			GST title = GST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\GOST_21_101_2020_Title_12.json");
 			GST page = GST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\GOST_21_110_2013_Page.json");
-			List<List<string>> data = new List<List<string>>()
-			{
-				new List<string>() { "1", "lol", "kik", "kek", "ewrty", "iuytre", "sdfghj", "mnbvc", "sdfsdf" },
-				new List<string>() { "2", "lsdfsol", "kdfik", "kdek", "ety", "ire", "sdfghj", "mnbvc", "sdfsdf" },
-				new List<string>() { "3", "lol", "kik", "kek", "ewrty", "iuytre", "sdfghj", "mnbvc", "sdfsdf" },
-				new List<string>() { "4", "lsdfsol", "kdfik", "kdek", "ety", "ire", "sdfghj", "mnbvc", "sdfsdf" },
-				new List<string>() { "5", "lol", "kik", "kek", "ewrty", "iuytre", "sdfghj", "mnbvc", "sdfsdf" },
-				new List<string>() { "6", "lsdfsol", "kdfik", "kdek", "ety", "ire", "sdfghj", "mnbvc", "sdfsdf" }
-			};
-			page.AddData(data);
-			Log.WriteLine("\n\n{0}\n\n", page.test);
-
+			FilteredElementCollector collection = new FilteredElementCollector(Rvt.Handler.Doc);
+			ElementSet set = GostTools.ElementConvert(collection.OfCategory(BuiltInCategory.OST_PlumbingFixtures).ToElements());
+			page.AddElement(set);
 
 			GST stamp = GST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\GOST_21_101_2020_Stamp_3.json");
 			GST dop = GST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\GOST_21_101_2020_Dop_3.json");
 
 			WorkBook wb = new WorkBook();
+			WorkSheet wst = new WorkSheet(wb, "Титул");
 			WorkSheet ws = new WorkSheet(wb);
+			wst.AddTable(title);
 			ws.AddTable(page);
 			ws.AddTable(stamp);
 			ws.AddTable(dop);
+			wst.BuildWorkSheet();
 			ws.BuildWorkSheet();
 			wb.CloseWorkBook();
 		}
 
-		internal void CreateFileTest(Document doc)
-		{
-			WorkBook workbook = new WorkBook();
-			GOST_21_110_2013 gost = new GOST_21_110_2013(workbook, "Мебель");
+		//internal void CreateFileTest(Document doc)
+		//{
+		//	WorkBook workbook = new WorkBook();
+		//	GOST_21_110_2013 gost = new GOST_21_110_2013(workbook, "Мебель");
 
-			FilteredElementCollector collection = new FilteredElementCollector(doc);
-			List<Element> list = collection.OfCategory(BuiltInCategory.OST_Furniture).ToElements().Take(8).ToList<Element>();
-			//List<Element> list_e = list.ToList<Element>();
+		//	FilteredElementCollector collection = new FilteredElementCollector(doc);
+		//	List<Element> list = collection.OfCategory(BuiltInCategory.OST_Furniture).ToElements().Take(8).ToList<Element>();
+		//	//List<Element> list_e = list.ToList<Element>();
 
-			//gost.FillLines(list);
-			//gost.FillTable();
+		//	//gost.FillLines(list);
+		//	//gost.FillTable();
 
-			workbook.CloseWorkBook();
-		}
+		//	workbook.CloseWorkBook();
+		//}
 
-		internal void CreateLogTest(Document document)
-		{
-			WorkBook workbook = new WorkBook();
-			ParamsXml prm = new ParamsXml(workbook);
+		//internal void CreateLogTest(Document document)
+		//{
+		//	WorkBook workbook = new WorkBook();
+		//	ParamsXml prm = new ParamsXml(workbook);
 
-			//FilteredElementCollector collection = new FilteredElementCollector(doc);
-			prm.GetElements(document);
+		//	//FilteredElementCollector collection = new FilteredElementCollector(doc);
+		//	prm.GetElements(document);
 
-			workbook.CloseWorkBook();
-		}
+		//	workbook.CloseWorkBook();
+		//}
 
-		internal void TableShapeTest(Document document)
-		{
-			WorkBook workbook = new WorkBook();
-			//ParamsXml prm = new ParamsXml(workbook);
+		//internal void TableShapeTest(Document document)
+		//{
+		//	WorkBook workbook = new WorkBook();
+		//	//ParamsXml prm = new ParamsXml(workbook);
 
-			AbstractGOST a = new AbstractGOST(workbook);
+		//	GostTools a = new AbstractGOST(workbook);
 
-			workbook.CloseWorkBook();
-		}
+		//	workbook.CloseWorkBook();
+		//}
 
 
 		/*

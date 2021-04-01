@@ -236,7 +236,7 @@ namespace RevToGOSTv0
 				for (int i = 0; i < output.Count; ++i)
 				{
 					int res = CompFieldsContains(field, output[i]);
-					Log.WriteLine("Fields: {0} | Output[i]: {1} | res: {2}", String.Join(",", field), String.Join(",", output[i]), res);
+					//Log.WriteLine("Fields: {0} | Output[i]: {1} | res: {2}", String.Join(",", field), String.Join(",", output[i]), res);
 					if (res == 4 || res == 2)
 					{
 						added = true;
@@ -248,8 +248,8 @@ namespace RevToGOSTv0
 				if (added == false)
 					output.Add(field);
 			}
-			foreach (var item in output)
-				Log.Write("Cleaned fields: " + String.Join(",", item) + "\n");
+			//foreach (var item in output)
+			//	Log.Write("Cleaned fields: " + String.Join(",", item) + "\n");
 			return output;
 		}
 
@@ -361,14 +361,14 @@ namespace RevToGOSTv0
 					}
 			}
 
-			foreach (var a in table.Fields)
-			{
-				foreach (var b in a)
-				{
-					Log.Write(String.Join(",", b));
-				}
-				Log.WriteLine("");
-			}
+			//foreach (var a in table.Fields)
+			//{
+			//	foreach (var b in a)
+			//	{
+			//		Log.Write(String.Join(",", b));
+			//	}
+			//	Log.WriteLine("");
+			//}
 		}
 
 	} // class XMLTools

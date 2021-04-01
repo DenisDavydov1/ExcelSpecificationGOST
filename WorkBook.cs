@@ -9,25 +9,21 @@ namespace RevToGOSTv0
 {
 	class WorkBook
 	{
-	/*
-	**	Member fields
-	*/
-
-	/*
-	**	Member properties
-	*/
+		/*
+		**	Member fields
+		*/
 
 		public string FilePath { get; set; }
 		public IXLWorkbook Workbook { get; set; }
 
-	/*
-	**	Member methods
-	*/
+		/*
+		**	Member methods
+		*/
 
 		public WorkBook(string filePath = Constants.DefaultFilePath)
 		{
-			this.FilePath = filePath;
-			this.CreateWorkBook();
+			FilePath = filePath;
+			CreateWorkBook();
 		}
 
 		private void CreateWorkBook()
@@ -49,16 +45,16 @@ namespace RevToGOSTv0
 
 		public void SetWorkbookAuthor()
 		{
-			this.Workbook.Properties.Author = "RevToGOSTv0";
-			this.Workbook.Properties.Title = "Спецификация";
-			this.Workbook.Properties.Subject = "theSubject";
-			this.Workbook.Properties.Category = "theCategory";
-			this.Workbook.Properties.Keywords = "theKeywords";
-			this.Workbook.Properties.Comments = "theComments";
-			this.Workbook.Properties.Status = "theStatus";
-			this.Workbook.Properties.LastModifiedBy = "RevToGOSTv0";
-			this.Workbook.Properties.Company = "Денис Давыдов";
-			this.Workbook.Properties.Manager = "Денис Давыдов";
+			Workbook.Properties.Author = "RevToGOSTv0";
+			Workbook.Properties.Title = "Спецификация";
+			Workbook.Properties.Subject = "theSubject";
+			Workbook.Properties.Category = "theCategory";
+			Workbook.Properties.Keywords = "theKeywords";
+			Workbook.Properties.Comments = "theComments";
+			Workbook.Properties.Status = "theStatus";
+			Workbook.Properties.LastModifiedBy = "RevToGOSTv0";
+			Workbook.Properties.Company = "Денис Давыдов";
+			Workbook.Properties.Manager = "Денис Давыдов";
 		}
 
 	} // class Workbook

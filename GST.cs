@@ -6,6 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
+using Autodesk.Revit.DB;
+using Autodesk.Revit.DB.Architecture;
+using Autodesk.Revit.UI;
+using Autodesk.Revit.UI.Selection;
+using Autodesk.Revit.ApplicationServices;
+using Autodesk.Revit.Attributes;
+
 namespace RevToGOSTv0
 {
 	class GST
@@ -52,6 +59,13 @@ namespace RevToGOSTv0
 		public int Line { get; set; }
 		public int LinesCount { get; set; }
 		public List<List<string>> Data { get; set; }
+		public ElementSet ElemSet { get; set; }
+
+		public IGostData GostData { get; set; }
+
+		public int[] Frame { get; set; }
+		public List<int[]> Borders { get; set; }
+		public int Form { get; set; }
 
 		/*
 		**	Member methods
@@ -72,6 +86,46 @@ namespace RevToGOSTv0
 			else
 				foreach (List<string> line in data)
 					Data.Add(new List<string>(line));
+		}
+
+		public void AddData(List<string> line)
+		{
+			if (Data == null)
+				Data = new List<List<string>>() { new List<string>(line) };
+			else
+				Data.Add(new List<string>(line));
+		}
+
+		public void AddElement(ElementSet elementSet)
+		{
+			if (ElemSet == null)
+				ElemSet = new ElementSet();
+			ElementSetIterator it = elementSet.ForwardIterator();
+			while (it.MoveNext())
+				ElemSet.Insert((Element)it.Current);
+		}
+
+		public void AddElement(Element element)
+		{
+			if (ElemSet == null)
+				ElemSet = new ElementSet();
+			ElemSet.Insert(element);
+		}
+
+		public void ApplyGostData()
+		{
+			if (Name == "ГОСТ 21.110—2013" && Type == "Page")
+			{
+				GostData = new GOST_21_110_2013(ElemSet);
+				GostData.FillLines();
+				Data = GostData.FillList();
+			}
+			if (Name == "ГОСТ 21.101—2020" && Form == 12)
+			{
+				GostData = new GOST_P_21_101_2020_Title_12();
+				GostData.FillLines();
+				Data = GostData.FillList();
+			}
 		}
 	}
 }

@@ -47,6 +47,8 @@ namespace RevToGOSTv0
 		{
 			if (Tables.Count == 0)
 			{
+				//if (table.Type != "Page")
+				//	return; // make exception
 				Tables.Add(table);
 				Format = table.Format;
 				Orientation = table.Orientation;
@@ -92,16 +94,12 @@ namespace RevToGOSTv0
 		{
 			ApplyParameters();
 			ReshapeWorkSheet();
-			AlignBorders();
+			//AlignBorders();
 			MergeCells();
 			ApplyStyles();
+			DrawFrame();
 			FillHeader();
 			FillTable();
-
-			//Log.WriteLine("Indexes: {0} (10, 20)", XMLTools.GetCellIndexesBySize(Rows, Columns, 19, 19));
-			//Log.WriteLine("Indexes: {0} (11, 21)", XMLTools.GetCellIndexesBySize(Rows, Columns, 19, 19));
-			//Log.WriteLine("Indexes: {0} (20, 90)", XMLTools.GetCellIndexesBySize(Rows, Columns, 20, 90));
-			//Log.WriteLine("");
 		}
 
 		private void ApplyParameters()
@@ -166,34 +164,34 @@ namespace RevToGOSTv0
 			}
 		}
 
-		private void AlignBorders()
-		{
-			SortedSet<int> cols = XMLTools.GetSortedSet(Columns);
-			SortedSet<int> rows = XMLTools.GetSortedSet(Rows);
+		//private void AlignBorders()
+		//{
+		//	SortedSet<int> cols = XMLTools.GetSortedSet(Columns);
+		//	SortedSet<int> rows = XMLTools.GetSortedSet(Rows);
 
-			Array cols_arr = cols.ToArray();
-			for (int i = 0; i < Columns.Count; i++)
-			{
-				for (int j = 0; j < Columns[i].Length; j++)
-				{
-					int j_real = Array.IndexOf(cols_arr, Columns[i].Take(j + 1).Sum()) + 1;
-					if (j_real == 0 || Columns[i].Take(j + 1).Sum() >= cols.Max())
-						break;
-					WS.Cell(i + 1, j_real).Style.Border.RightBorder = XLBorderStyleValues.Thin;
-				}
-			}
-			Array rows_arr = rows.ToArray();
-			for (int i = 0; i < Rows.Count; i++)
-			{
-				for (int j = 0; j < Rows[i].Length; j++)
-				{
-					int j_real = Array.IndexOf(rows_arr, Rows[i].Take(j + 1).Sum()) + 1;
-					if (j_real == 0 || Rows[i].Take(j + 1).Sum() >= rows.Max())
-						break;
-					WS.Cell(j_real, i + 1).Style.Border.BottomBorder = XLBorderStyleValues.Thin;
-				}
-			}
-		}
+		//	Array cols_arr = cols.ToArray();
+		//	for (int i = 0; i < Columns.Count; i++)
+		//	{
+		//		for (int j = 0; j < Columns[i].Length; j++)
+		//		{
+		//			int j_real = Array.IndexOf(cols_arr, Columns[i].Take(j + 1).Sum()) + 1;
+		//			if (j_real == 0 || Columns[i].Take(j + 1).Sum() >= cols.Max())
+		//				break;
+		//			WS.Cell(i + 1, j_real).Style.Border.RightBorder = XLBorderStyleValues.Thin;
+		//		}
+		//	}
+		//	Array rows_arr = rows.ToArray();
+		//	for (int i = 0; i < Rows.Count; i++)
+		//	{
+		//		for (int j = 0; j < Rows[i].Length; j++)
+		//		{
+		//			int j_real = Array.IndexOf(rows_arr, Rows[i].Take(j + 1).Sum()) + 1;
+		//			if (j_real == 0 || Rows[i].Take(j + 1).Sum() >= rows.Max())
+		//				break;
+		//			WS.Cell(j_real, i + 1).Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+		//		}
+		//	}
+		//}
 
 		private void MergeCells()
 		{
@@ -208,7 +206,8 @@ namespace RevToGOSTv0
 						(int y1, int x1) = XMLTools.GetCellIndexesBySize(Rows, Columns, field[0], field[1]);
 						(int y2, int x2) = XMLTools.GetCellIndexesBySize(Rows, Columns, field[2], field[3]);
 						WS.Range(y1, x1, y2, x2).Merge();
-						WS.Range(y1, x1, y2, x2).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+						//if (table.Type != "Page")
+						//	WS.Range(y1, x1, y2, x2).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
 						//WS.Cell(y1, x1).Style.Alignment.Vertical = (XLAlignmentVerticalValues)table.VerticalAlignment;
 						//WS.Cell(y1, x1).Style.Alignment.Vertical = (XLAlignmentVerticalValues)table.HorizontalAlignment;
 					}
@@ -235,41 +234,58 @@ namespace RevToGOSTv0
 					for (int j = 0; j < table.Fields[i].Count; ++j)
 					{
 						// Get cell coordinates
-						(int y, int x) = XMLTools.GetCellIndexesBySize(Rows, Columns, table.Fields[i][j][0], table.Fields[i][j][1]);
-						
+						// (int y, int x) = XMLTools.GetCellIndexesBySize(Rows, Columns, table.Fields[i][j][0], table.Fields[i][j][1]);
+						(int y1, int x1) = (table.Fields[i][j][0], table.Fields[i][j][1]);
+						(int y2, int x2) = (table.Fields[i][j][2], table.Fields[i][j][3]);
+						(y1, x1) = XMLTools.GetCellIndexesBySize(Rows, Columns, y1, x1);
+						(y2, x2) = XMLTools.GetCellIndexesBySize(Rows, Columns, y2, x2);
+
 						// Set font
 						if (table.Font != null)
-							WS.Cell(y, x).Style.Font.FontName = table.Font;
+							WS.Cell(y1, x1).Style.Font.FontName = table.Font;
 						
 						// Set font size
 						if (table.FontSizes != null && table.FontSizes[i][j] != 0)
-							WS.Cell(y, x).Style.Font.FontSize = table.FontSizes[i][j];
+							WS.Cell(y1, x1).Style.Font.FontSize = table.FontSizes[i][j];
 						else if (table.FontSize != 0)
-							WS.Cell(y, x).Style.Font.FontSize = table.FontSize;
+							WS.Cell(y1, x1).Style.Font.FontSize = table.FontSize;
 						
 						// Set vertical alignments
 						if (table.VerticalAlignments != null && 0 <= table.VerticalAlignments[i][j] && table.VerticalAlignments[i][j] <= 4)
-							WS.Cell(y, x).Style.Alignment.Vertical = (XLAlignmentVerticalValues)table.VerticalAlignments[i][j];
+							WS.Cell(y1, x1).Style.Alignment.Vertical = (XLAlignmentVerticalValues)table.VerticalAlignments[i][j];
 						else
-							WS.Cell(y, x).Style.Alignment.Vertical = (XLAlignmentVerticalValues)table.VerticalAlignment;
+							WS.Cell(y1, x1).Style.Alignment.Vertical = (XLAlignmentVerticalValues)table.VerticalAlignment;
 						
 						// Set horizontal alignments
 						if (table.HorizontalAlignments != null && 0 <= table.HorizontalAlignments[i][j] && table.HorizontalAlignments[i][j] <= 7)
-							WS.Cell(y, x).Style.Alignment.Horizontal = (XLAlignmentHorizontalValues)table.HorizontalAlignments[i][j];
+							WS.Cell(y1, x1).Style.Alignment.Horizontal = (XLAlignmentHorizontalValues)table.HorizontalAlignments[i][j];
 						else
-							WS.Cell(y, x).Style.Alignment.Horizontal = (XLAlignmentHorizontalValues)table.HorizontalAlignment;
+							WS.Cell(y1, x1).Style.Alignment.Horizontal = (XLAlignmentHorizontalValues)table.HorizontalAlignment;
 						
 						// Apply word wrap
-						WS.Cell(y, x).Style.Alignment.WrapText = true;
+						WS.Cell(y1, x1).Style.Alignment.WrapText = true;
 
 						// Set vertical text direction
 						if (table.VerticalText == true)
-							WS.Cell(y, x).Style.Alignment.SetTextRotation(90);
-						//WS.Cell(y, x).Style.Alignment.SetTopToBottom();
+							WS.Cell(y1, x1).Style.Alignment.SetTextRotation(90);
 
+						// Draw borders
+						if (table.Borders != null)
+							WS.Range(y1, x1, y2, x2).Style.Border.OutsideBorder = (XLBorderStyleValues)table.Borders[i][j];
 					}
 				}
 			}
+		}
+		
+		private void DrawFrame()
+		{
+			if (Tables == null || Tables.First() == null || Tables.First().Frame == null)
+				return;
+			(int y1, int x1) = (Tables.First().Frame[0], Tables.First().Frame[1]);
+			(int y2, int x2) = (Tables.First().Frame[2], Tables.First().Frame[3]);
+			(y1, x1) = XMLTools.GetCellIndexesBySize(Rows, Columns, y1, x1);
+			(y2, x2) = XMLTools.GetCellIndexesBySize(Rows, Columns, y2, x2);
+			WS.Range(y1, x1, y2, x2).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
 		}
 
 		private void FillHeader()
@@ -282,10 +298,16 @@ namespace RevToGOSTv0
 				{
 					if (entry.Key.First() != '_' && entry.Value.Length == 2)
 					{
-						int y = table.Fields[entry.Value[0]][entry.Value[1]][0];
-						int x = table.Fields[entry.Value[0]][entry.Value[1]][1];
-						(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
-						WS.Cell(y, x).Value = entry.Key.Replace("_", string.Empty);
+						(int y1, int x1) = (table.Fields[entry.Value[0]][entry.Value[1]][0], table.Fields[entry.Value[0]][entry.Value[1]][1]);
+						(int y2, int x2) = (table.Fields[entry.Value[0]][entry.Value[1]][2], table.Fields[entry.Value[0]][entry.Value[1]][3]);
+						(y1, x1) = XMLTools.GetCellIndexesBySize(Rows, Columns, y1, x1);
+						(y2, x2) = XMLTools.GetCellIndexesBySize(Rows, Columns, y2, x2);
+						WS.Cell(y1, x1).Value = entry.Key.Replace("_", string.Empty);
+						//WS.Range(y1, x1, y2, x2).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+						//int y = table.Fields[entry.Value[0]][entry.Value[1]][0];
+						//int x = table.Fields[entry.Value[0]][entry.Value[1]][1];
+						//(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
+						//WS.Cell(y, x).Value = entry.Key.Replace("_", string.Empty);
 					}
 				}
 				//if (table.HeaderList == null || table.Fields == null)
@@ -302,18 +324,28 @@ namespace RevToGOSTv0
 		{
 			foreach (GST table in Tables)
 			{
+				table.ApplyGostData();
 				for (int dataLine = 0;
-					table.Line < table.LinesCount && dataLine < table.Data.Count;
+					dataLine < table.LinesCount && dataLine < table.Data.Count;
 					table.Line++, dataLine++)
 				{
 					for (int field = 0;
 						field < table.Fields[table.Line].Count && field < table.Data[dataLine].Count;
 						field++)
 					{
-						int y = table.Fields[table.Line][field][0];
-						int x = table.Fields[table.Line][field][1];
-						(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
-						WS.Cell(y, x).Value = table.Data[dataLine][field];
+						(int y1, int x1) = (table.Fields[table.Line][field][0], table.Fields[table.Line][field][1]);
+						(y1, x1) = XMLTools.GetCellIndexesBySize(Rows, Columns, y1, x1);
+						WS.Cell(y1, x1).Value = table.Data[dataLine][field];
+						if (table.Type == "Page")
+						{
+							(int y2, int x2) = (table.Fields[table.Line][field][2], table.Fields[table.Line][field][3]);
+							(y2, x2) = XMLTools.GetCellIndexesBySize(Rows, Columns, y2, x2);
+							WS.Range(y1, x1, y2, x2).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+						}
+						//int y = table.Fields[table.Line][field][0];
+						//int x = table.Fields[table.Line][field][1];
+						//(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
+						//WS.Cell(y, x).Value = table.Data[dataLine][field];
 					}
 				}
 			}
