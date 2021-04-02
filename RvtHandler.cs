@@ -13,7 +13,7 @@ using Autodesk.Revit.Attributes;
 
 namespace RevToGOSTv0
 {
-	static class Rvt
+	static partial class Rvt
 	{
 		public static RvtHandler Handler;
 	}
@@ -28,9 +28,7 @@ namespace RevToGOSTv0
 		public UIApplication UIApp { get; set; }
 		public Document Doc { get; set; }
 		public ProjectInfo ProjInfo { get; set; }
-		//public List<int>
-
-
+		
 		/*
 		** Member methods
 		*/
@@ -164,5 +162,6 @@ namespace RevToGOSTv0
 			//	}
 			//}
 		}
+
 	} // class RvtHandler
 } // namespace RevToGOSTv0

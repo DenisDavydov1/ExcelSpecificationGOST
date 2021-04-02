@@ -31,7 +31,13 @@ namespace RevToGOSTv0
 
 
 			Rvt.Handler = new RvtHandler(commandData, elements);
-			NewTest();
+			Rvt.Data = new RvtData();
+			//NewTest();
+			HardTest();
+
+			//Category c1 = Category.GetCategory(Rvt.Handler.Doc, BuiltInCategory.OST_PlumbingFixtures);
+			//Log.WriteLine("Id: {0}, BuiltIn: {1}", c1.Id.IntegerValue, (int)BuiltInCategory.OST_PlumbingFixtures);
+
 			//rvt.LogCategory(BuiltInCategory.OST_Furniture);
 			//rvt.LogAllElements();
 			//rvt.LogCategory(BuiltInCategory.OST_Walls);
@@ -68,6 +74,18 @@ namespace RevToGOSTv0
 			wst.BuildWorkSheet();
 			ws.BuildWorkSheet();
 			wb.CloseWorkBook();
+		}
+
+		internal void HardTest()
+		{
+			//WorkBook wb = new WorkBook()
+			Work.Book = new WorkBook();
+			GST page = GST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\GOST_21_110_2013_Page.json");
+			GST stamp = GST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\GOST_21_101_2020_Stamp_3.json");
+			GST dop = GST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\GOST_21_101_2020_Dop_3.json");
+			MainWindow mainWin = new MainWindow();
+			mainWin.Show();
+			//wb.PickedCategories.Add(BuiltInCategory.OST_PlumbingFixtures);
 		}
 
 		//internal void CreateFileTest(Document doc)

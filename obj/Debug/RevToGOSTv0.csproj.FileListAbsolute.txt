@@ -29,10 +29,8 @@ F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\bin\Debug\ClosedXML.xml
 F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\bin\Debug\DocumentFormat.OpenXml.xml
 F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\bin\Debug\ExcelNumberFormat.xml
 F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\Debug\RevToGOSTv0.csprojAssemblyReference.cache
-F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\Debug\uiWindow.g.cs
 F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\Debug\RevToGOSTv0_MarkupCompile.cache
 F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\Debug\RevToGOSTv0_MarkupCompile.lref
-F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\Debug\uiWindow.baml
 F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\Debug\RevToGOSTv0.g.resources
 F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\Debug\RevToGOSTv0.csproj.CoreCompileInputs.cache
 F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\Debug\RevToGOSTv0.csproj.CopyComplete
@@ -40,3 +38,8 @@ F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\Debug\RevToGOSTv0.dll
 F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\Debug\RevToGOSTv0.pdb
 F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\bin\Debug\Newtonsoft.Json.dll
 F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\bin\Debug\Newtonsoft.Json.xml
+F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\Debug\MainWindow.g.cs
+F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\Debug\MainWindow.baml
+F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\bin\Debug\GongSolutions.WPF.DragDrop.dll
+F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\bin\Debug\GongSolutions.WPF.DragDrop.pdb
+F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\bin\Debug\GongSolutions.WPF.DragDrop.xml
