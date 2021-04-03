@@ -7,58 +7,115 @@
 	xmlns:dd="urn:gong-wpf-dragdrop"
 	xmlns:local="clr-namespace:RevToGOSTv0"
 	mc:Ignorable="d" 
-	Title="MainWindow" Height="500" Width="600"
+	Title="MainWindow" Height="500" Width="800"
 	ResizeMode="CanMinimize" 
 	WindowStartupLocation="CenterOwner">
 
 	<Grid>
-		<!--
-		<Grid>
-			<TextBlock Text="Доступные категории" Margin="10,10,244,387"></TextBlock>
-			<ListBox x:Name="AvailableCategories" Margin="10,33,294,145"></ListBox>
-			<TextBlock Text="Выбрано" Margin="250,10,43,387" RenderTransformOrigin="-4.875,0.722"></TextBlock>
-			<ListBox x:Name="PickedCategories" Margin="250,33,43,145"></ListBox>
-			<Button Name="AddCategory" Content="&gt;" HorizontalAlignment="Left" Margin="215,118,0,0" VerticalAlignment="Top" Width="20" Height="30" RenderTransformOrigin="-0.6,0.733"/>
-			<Button Name="RemoveCategory" Content="&lt;" HorizontalAlignment="Left" Margin="215,164,0,0" VerticalAlignment="Top" Width="20" Height="30"/>
-		</Grid>
-		-->
 
 		<TabControl
 			TabStripPlacement="Left">
-
 			<TabItem
-				Header="Выбор категории">
+				Header="2. Выбор категорий" Height="24" VerticalAlignment="Top">
 				<Grid>
-					<TextBlock Text="Доступные категории" Margin="19,20,303,416"></TextBlock>
-					<ListBox
+
+					<TextBlock
+						Text="Доступные категории"
+						VerticalAlignment="Center"
+						Margin="61,14,353,426" Height="25"/>
+					<ListView
 						x:Name="AvailableCategories"
-						Margin="19,49,283,69"
-						ItemsSource="{Binding}">
-						<ListBox.ItemTemplate>
-							<DataTemplate>
-								<TextBlock Text="{Binding Name}"/>
-							</DataTemplate>
-						</ListBox.ItemTemplate>
-					</ListBox>
-					<TextBlock Text="Выбрано" Margin="236,20,86,416" RenderTransformOrigin="-4.875,0.722"></TextBlock>
-					<ListBox x:Name="PickedCategories" Margin="236,49,66,69"></ListBox>
-					<Button Name="AddCategory" Click="AddCategory_Click" Content="&gt;" HorizontalAlignment="Left" Margin="205,150,0,0" VerticalAlignment="Top" Width="20" Height="30" RenderTransformOrigin="-0.6,0.733"/>
-					<Button Name="RemoveCategory" Content="&lt;" HorizontalAlignment="Left" Margin="205,196,0,0" VerticalAlignment="Top" Width="20" Height="30"/>
-					<Button Name="Export1" Click="Export_Click" Content="Export" Margin="333,427,66,17"/>
+						Margin="61,44,353,22"
+						ItemsSource="{Binding}"
+						SelectionMode="Extended"
+						dd:DragDrop.IsDragSource="True"
+						dd:DragDrop.IsDropTarget="True">
+						<ListView.View>
+							<GridView>
+								<GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Категория"/>
+								<GridViewColumn DisplayMemberBinding="{Binding Path=Count}" Header="Элем."/>
+							</GridView>
+						</ListView.View>
+					</ListView>
+
+					<TextBlock
+						Text="Выбранные категории"
+						VerticalAlignment="Center" 
+						Margin="361,14,53,426" Height="25"/>
+					<ListView
+						x:Name="PickedCategories"
+						Margin="361,44,53,22"
+						ItemsSource="{Binding}"
+						SelectionMode="Extended"
+						dd:DragDrop.IsDragSource="True"
+						dd:DragDrop.IsDropTarget="True">
+						<ListView.View>
+							<GridView>
+								<GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Категория"/>
+								<GridViewColumn DisplayMemberBinding="{Binding Count}" Header="Элем."/>
+							</GridView>
+						</ListView.View>
+					</ListView>
+
 				</Grid>
 			</TabItem>
 
-			<TabItem Header="Выбор элементов" >
+			<TabItem Header="3. Выбор элементов" >
 				<Grid>
-					<TextBlock Text="Доступные элементы" Margin="19,20,303,416"></TextBlock>
-					<ListBox x:Name="AvailableElements" Margin="19,49,283,69"></ListBox>
-					<TextBlock Text="Выбрано" Margin="236,20,86,416" RenderTransformOrigin="-4.875,0.722"></TextBlock>
-					<ListBox x:Name="PickedElements" Margin="236,49,66,69"></ListBox>
-					<Button Name="Export2" Click="Export_Click" Content="Export" Margin="333,427,66,17"/>
+
+					<TextBlock
+						Text="Доступные элементы"
+						VerticalAlignment="Center"
+						Margin="61,14,353,426" Height="25"/>
+					<ListView
+						x:Name="AvailableElements"
+						Margin="61,44,353,22"
+						ItemsSource="{Binding}"
+						SelectionMode="Extended"
+						dd:DragDrop.IsDragSource="True"
+						dd:DragDrop.IsDropTarget="True">
+						<ListView.View>
+							<GridView>
+								<GridViewColumn DisplayMemberBinding="{Binding Path=Name }" Header="Категория"/>
+								<GridViewColumn DisplayMemberBinding="{Binding Path=Count}" Header="Элем."/>
+							</GridView>
+						</ListView.View>
+					</ListView>
+
+					<TextBlock
+						Text="Выбрано"
+						VerticalAlignment="Center" 
+						Margin="361,14,53,426" Height="25"/>
+					<ListView
+						x:Name="PickedElements"
+						Margin="361,44,53,22"
+						ItemsSource="{Binding}"
+						SelectionMode="Extended"
+						dd:DragDrop.IsDragSource="True"
+						dd:DragDrop.IsDropTarget="True">
+						<ListView.View>
+							<GridView>
+								<GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Категория"/>
+								<GridViewColumn DisplayMemberBinding="{Binding Count}" Header="Элем."/>
+							</GridView>
+						</ListView.View>
+						<ListView.GroupStyle>
+							<GroupStyle>
+								<GroupStyle.HeaderTemplate>
+									<DataTemplate>
+										<TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
+									</DataTemplate>
+								</GroupStyle.HeaderTemplate>
+							</GroupStyle>
+						</ListView.GroupStyle>
+					</ListView>
+
+					<Button x:Name="btn" Click="btn_Click" Content="Button" Margin="630,287,16,22"/>
+
 				</Grid>
 			</TabItem>
 
-			<TabItem Header="Details" />
+			<TabItem Header="4. Доп. параметры"/>
 		</TabControl>
 
 	</Grid>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,13 @@ namespace RevToGOSTv0
 			foreach (Element elem in list)
 				elemSet.Insert(elem);
 			return elemSet;
+		}
+
+		public static void AddToObservableCollection<T>(ObservableCollection<T> from, ObservableCollection<T> to)
+		{
+			foreach (T item in from)
+				to.Add(item);
+			from.Clear();
 		}
 
 	} // class GostTools
