@@ -29,12 +29,5 @@ namespace RevToGOSTv0
 			return elemSet;
 		}
 
-		public static void AddToObservableCollection<T>(ObservableCollection<T> from, ObservableCollection<T> to)
-		{
-			foreach (T item in from)
-				to.Add(item);
-			from.Clear();
-		}
-
 	} // class GostTools
 } // namespace RevToGOSTv0

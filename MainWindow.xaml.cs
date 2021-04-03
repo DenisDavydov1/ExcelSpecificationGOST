@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using Autodesk.Revit.DB;
+using Microsoft.Win32;
 
 namespace RevToGOSTv0
 {
@@ -24,43 +26,18 @@ namespace RevToGOSTv0
 			InitializeComponent();
 			AvailableCategories.ItemsSource = Rvt.Data.AvailableCategories;
 			PickedCategories.ItemsSource = Rvt.Data.PickedCategories;
-
 			AvailableElements.ItemsSource = Rvt.Data.AvailableElements;
 			PickedElements.ItemsSource = Rvt.Data.PickedElements;
 
-			CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(PickedElements.ItemsSource);
-			PropertyGroupDescription groupDescription = new PropertyGroupDescription("Category.Name");
-			view.GroupDescriptions.Add(groupDescription);
+			// if (checkbox group in categories) then this code:
+			//CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(PickedElements.ItemsSource);
+			//PropertyGroupDescription groupDescription = new PropertyGroupDescription("Category.Name");
+			//view.GroupDescriptions.Add(groupDescription);
 		}
 
-		private void btn_Click(object sender, RoutedEventArgs e)
+		private void Export_Click(object sender, RoutedEventArgs e)
 		{
-			Rvt.Data.AvailableElements.UpdateCollection();
-			Rvt.Data.PickedElements.UpdateCollection();
+			Rvt.Control.ExportButton();
 		}
-
-		//public void UpdateCategoryListBoxes()
-		//{
-		//	//AvailableCategories.ItemsSource = Rvt.Data.GetPrintable(Rvt.Data.AvailableCategories);
-		//	AvailableCategories.ItemsSource = Rvt.Data.AvailableCategories;
-		//	PickedCategories.ItemsSource = Rvt.Data.PickedCategories;
-		//}
-
-		//private void AddCategory_Click(object sender, RoutedEventArgs e)
-		//{
-		//	////Log.WriteLine("Click! Selected item: {0}", (string)AvailableCategories.SelectedItem);
-		//	//Category obj = Rvt.Data.GetCategoryObject(Rvt.Data.AvailableCategories, (string)AvailableCategories.SelectedItem);
-		//	//if (obj == null)
-		//	//	return;
-		//	//////Log.WriteLine("Object: {0}", (string)obj[0]);
-		//	//Rvt.Data.RemoveCategoryFromList(Rvt.Data.AvailableCategories, obj);
-		//	//Rvt.Data.AddCategoryToList(Rvt.Data.PickedCategories, obj);
-		//	//UpdateCategoryListBoxes();
-		//}
-
-		//private void Export_Click(object sender, RoutedEventArgs e)
-		//{
-		//	Rvt.Data.LogPickedElements();
-		//}
 	}
 }

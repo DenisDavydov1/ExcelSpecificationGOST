@@ -15,7 +15,7 @@ using Autodesk.Revit.Attributes;
 
 namespace RevToGOSTv0
 {
-	class GST
+	class GOST
 	{
 		/*
 		** Member fields:
@@ -71,12 +71,12 @@ namespace RevToGOSTv0
 		**	Member methods
 		*/
 
-		public static GST LoadConfFile(string ConfFilePath)
+		public static GOST LoadConfFile(string ConfFilePath)
 		{
 			if (!File.Exists(ConfFilePath))
 				throw new Exception();
 			string config = File.ReadAllText(ConfFilePath);
-			return JsonConvert.DeserializeObject<GST>(config);
+			return JsonConvert.DeserializeObject<GOST>(config);
 		}
 
 		public void AddData(List<List<string>> data)
@@ -110,6 +110,14 @@ namespace RevToGOSTv0
 			if (ElemSet == null)
 				ElemSet = new ElementSet();
 			ElemSet.Insert(element);
+		}
+
+		public void AddElement(ElementCollection elemC)
+		{
+			if (ElemSet == null)
+				ElemSet = new ElementSet();
+			foreach (Element elem in elemC)
+				ElemSet.Insert(elem);
 		}
 
 		public void ApplyGostData()

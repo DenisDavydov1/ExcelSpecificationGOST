@@ -272,7 +272,7 @@ namespace RevToGOSTv0
 			return (i + 1, j + 1);
 		}
 
-		public static void CreateNormalTable(GST table, int height, int width)
+		public static void CreateNormalTable(GOST table, int height, int width)
 		{
 			// Init new notation arrays
 			(List<int[]> col, List<int[]> row) = (new List<int[]>(), new List<int[]>());
@@ -330,7 +330,7 @@ namespace RevToGOSTv0
 			(table.Columns, table.Rows) = (col, row);
 		}
 
-		public static void CompleteFields(GST table, int height, int width)
+		public static void CompleteFields(GOST table, int height, int width)
 		{
 			if (table.Position == 4)
 			{

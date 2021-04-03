@@ -17,44 +17,39 @@ namespace RevToGOSTv0
 	class WorkSheet
 	{
 		/*
-		**	Member properties
+		**	Member fields
 		*/
+
 		public string Name { get; set; }
-		private WorkBook WB;
-		private IXLWorksheet WS;
+		public IXLWorksheet WS { get; set; }
 		private string Format;
 		private string Orientation;
 		private int Height;
 		private int Width;
-		private List<GST> Tables;
+		private List<GOST> Tables;
 		public List<int[]> Columns;
 		public List<int[]> Rows;
-		//public List<List<int[]>> Fields;
 
 		/*
 		**	Member methods
 		*/
 
-		public WorkSheet(WorkBook workbook, string name = Constants.DefaultName)
+		public WorkSheet(IXLWorksheet ixlWorkSheet, string name = Constants.DefaultName)
 		{
 			Name = name;
-			WB = workbook;
-			WS = WB.AddWorkSheet(Name);
-			Tables = new List<GST>();
+			WS = ixlWorkSheet;
+			Tables = new List<GOST>();
 		}
 
-		public void AddTable(GST table)
+		public void AddTable(GOST table)
 		{
 			if (Tables.Count == 0)
 			{
-				//if (table.Type != "Page")
-				//	return; // make exception
 				Tables.Add(table);
 				Format = table.Format;
 				Orientation = table.Orientation;
 				Columns = new List<int[]>(table.Columns);
 				Rows = new List<int[]>(table.Rows);
-				//Fields = new List<List<int[]>>(table.Fields); // XMLTools.CleanFields(table.Fields);
 				SetPageDimensions();
 			}
 			else
@@ -69,8 +64,6 @@ namespace RevToGOSTv0
 				Tables.Add(table);
 				if (table.Columns != null && table.Rows != null)
 					(Columns, Rows) = XMLTools.MergeTables(Columns, Rows, table.Columns, table.Rows);
-				//if (table.Fields != null)
-				//	Fields = XMLTools.MergeFields(Fields, table.Fields); // XMLTools.CleanFields(Fields.Concat(table.Fields).ToList());
 			}
 		}
 
@@ -195,7 +188,7 @@ namespace RevToGOSTv0
 
 		private void MergeCells()
 		{
-			foreach (GST table in Tables)
+			foreach (GOST table in Tables)
 			{
 				if (table.Fields == null)
 					continue;
@@ -225,7 +218,7 @@ namespace RevToGOSTv0
 
 		private void ApplyStyles()
 		{
-			foreach (GST table in Tables)
+			foreach (GOST table in Tables)
 			{
 				if (table.Fields == null)
 					continue;
@@ -290,7 +283,7 @@ namespace RevToGOSTv0
 
 		private void FillHeader()
 		{
-			foreach (GST table in Tables)
+			foreach (GOST table in Tables)
 			{
 				if (table.Map == null || table.Fields == null)
 					continue;
@@ -322,7 +315,7 @@ namespace RevToGOSTv0
 
 		public void FillTable()
 		{
-			foreach (GST table in Tables)
+			foreach (GOST table in Tables)
 			{
 				table.ApplyGostData();
 				for (int dataLine = 0;

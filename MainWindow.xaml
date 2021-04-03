@@ -13,8 +13,19 @@
 
 	<Grid>
 
+		<Button
+			x:Name="Export"
+			Content="Экспорт"
+			HorizontalAlignment="Left"
+			Margin="25,431,0,0"
+			VerticalAlignment="Top"
+			Width="76"
+			Click="Export_Click"
+			Panel.ZIndex="1"/>
+
 		<TabControl
-			TabStripPlacement="Left">
+			TabStripPlacement="Left"
+			Panel.ZIndex="0">
 			<TabItem
 				Header="2. Выбор категорий" Height="24" VerticalAlignment="Top">
 				<Grid>
@@ -110,17 +121,18 @@
 						</ListView.GroupStyle>
 					</ListView>
 
-					<Button x:Name="btn" Click="btn_Click" Content="Button" Margin="630,287,16,22"/>
-
 				</Grid>
 			</TabItem>
 
-			<TabItem Header="4. Доп. параметры"/>
+			<TabItem Header="4. Доп. параметры">
+			</TabItem>
+			
 		</TabControl>
 
 	</Grid>
 
 	<Window.Resources>
 	</Window.Resources>
+	
 
 </Window>

@@ -82,11 +82,12 @@
     <Compile Include="GOST_P_21_101_2020.cs" />
     <Compile Include="IGostData.cs" />
     <Compile Include="GOST_21_110_2013.cs" />
-    <Compile Include="GST.cs" />
+    <Compile Include="GOST.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="ParamsXml.cs" />
     <Compile Include="RevToGOSTv0.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RvtControl.cs" />
     <Compile Include="RvtData.cs" />
     <Compile Include="RvtHandler.cs" />
     <Compile Include="MainWindow.xaml.cs">

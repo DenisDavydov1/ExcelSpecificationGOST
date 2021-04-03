@@ -25,8 +25,8 @@ namespace RevToGOSTv0
 		*/
 
 		public string FilePath { get; set; }
-		public IXLWorkbook WB { get; set; }
-		public List<IXLWorksheet> WSs { get; set; }
+		public XLWorkbook WB { get; set; }
+		public List<WorkSheet> WSs { get; set; }
 
 
 		/*
@@ -36,30 +36,29 @@ namespace RevToGOSTv0
 		public WorkBook(string filePath = Constants.DefaultFilePath)
 		{
 			FilePath = filePath;
-			WB = new XLWorkbook();			
+			WB = new XLWorkbook();
+			WSs = new List<WorkSheet>();
 		}
 				
-		public void CloseWorkBook()
+		public void SaveAs(string filePath = Constants.DefaultFilePath)
 		{
-			SetWorkbookAuthor();
-			WB.SaveAs(FilePath);
+			WB.SaveAs(filePath);
 		}
 
-		public IXLWorksheet AddWorkSheet(string worksheetName, int position = -1)
+		public void AddWorkSheet(string worksheetName, int position = -1)
 		{
-			IXLWorksheet worksheet;
-
 			if (position == -1)
 			{
-				worksheet = WB.Worksheets.Add(worksheetName);
-				WSs.Add(worksheet);
+				IXLWorksheet ixlWorkSheet = WB.Worksheets.Add(worksheetName);
+				WorkSheet newWS = new WorkSheet(ixlWorkSheet, worksheetName);
+				WSs.Add(newWS);
 			}
 			else
 			{
-				worksheet = WB.Worksheets.Add(worksheetName, position);	// mb error in position indexing in workbook and list
-				WSs.Insert(position, worksheet);
+				IXLWorksheet ixlWorkSheet = WB.Worksheets.Add(worksheetName, position);
+				WorkSheet newWS = new WorkSheet(ixlWorkSheet, worksheetName);
+				WSs.Insert(position, newWS);
 			}
-			return worksheet;
 		}
 
 		public void SetWorkbookAuthor()
@@ -74,6 +73,12 @@ namespace RevToGOSTv0
 			WB.Properties.LastModifiedBy = "RevToGOSTv0";
 			WB.Properties.Company = "Денис Давыдов";
 			WB.Properties.Manager = "Денис Давыдов";
+		}
+
+		public void BuildWorkSheets()
+		{
+			foreach (WorkSheet ws in Work.Book.WSs)
+				ws.BuildWorkSheet();
 		}
 
 	} // class Workbook
