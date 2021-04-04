@@ -73,7 +73,7 @@ namespace RevitToGOST
 
 			foreach (Element elem in ElemCol)
 			{
-				if (ElementHasDuplicate(elem, ElemCol))
+				if (ElementHasDuplicate(elem, ElemCol) == true)
 					continue;
 				Line line = new Line();
 
@@ -199,16 +199,17 @@ namespace RevitToGOST
 			}
 		}
 
+		// TO DO ! INDEX ERROR
 		private bool ElementHasDuplicate(Element newElem, ElementCollection elemCol)
 		{
-			for (int i = 0; i < elemCol.Count; ++i)
-			{
-				if (elemCol[i].Equals(newElem))
-				{
-					Lines[i].Amount += 1.0;
-					return true;
-				}
-			}
+			//for (int i = 0; i < elemCol.Count && elemCol[i] != newElem; ++i)
+			//{
+			//	if (elemCol[i].Equals(newElem))
+			//	{
+			//		Lines[i].Amount += 1.0;
+			//		return true;
+			//	}
+			//}
 			return false;
 		}
 

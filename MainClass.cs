@@ -20,6 +20,7 @@ namespace RevitToGOST
 		public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
 		{
 			Log.ClearLog();
+			Work.Book = new WorkBook();
 
 			Rvt.Handler = new RvtHandler(commandData, elements);
 			Rvt.Data = new RvtData();
