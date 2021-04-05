@@ -26,40 +26,49 @@ namespace RevitToGOST
 		**	Member fields
 		*/
 
-		public string FilePath { get; set; }
+		//public string FilePath { get; set; }
 		public XLWorkbook WB { get; set; }
 		public List<WorkSheet> WSs { get; set; }
+		
+		public GOST.Standarts Title { get; set; }
+		public GOST.Standarts Table { get; set; }
+		public GOST.Standarts Stamp { get; set; }
+		public GOST.Standarts Dop { get; set; }
 
 
 		/*
 		**	Member methods
 		*/
 
-		public WorkBook(string filePath = Constants.DefaultFilePath)
+		public WorkBook()
 		{
-			FilePath = filePath;
-			WB = new XLWorkbook();
-			WSs = new List<WorkSheet>();
+			InitWorkBook();
+			Title = GOST.Standarts.None;
+			Table = GOST.Standarts.None;
+			Stamp = GOST.Standarts.None;
+			Dop = GOST.Standarts.None;
 		}
 
-		public void SaveAs(string filePath = Constants.DefaultFilePath)
+		public void SaveAs(string filePath)
 		{
 			WB.SaveAs(filePath);
 		}
 
-		public void AddWorkSheet(string worksheetName, int position = -1)
+		public WorkSheet AddWorkSheet(string worksheetName, int position = -1)
 		{
 			if (position == -1)
 			{
 				IXLWorksheet ixlWorkSheet = WB.Worksheets.Add(worksheetName);
 				WorkSheet newWS = new WorkSheet(ixlWorkSheet, worksheetName);
 				WSs.Add(newWS);
+				return newWS;
 			}
 			else
 			{
 				IXLWorksheet ixlWorkSheet = WB.Worksheets.Add(worksheetName, position);
 				WorkSheet newWS = new WorkSheet(ixlWorkSheet, worksheetName);
 				WSs.Insert(position, newWS);
+				return newWS;
 			}
 		}
 
@@ -80,7 +89,71 @@ namespace RevitToGOST
 		public void BuildWorkSheets()
 		{
 			foreach (WorkSheet ws in Work.Book.WSs)
+			{
 				ws.BuildWorkSheet();
+			}
 		}
+
+		public void InitWorkBook()
+		{
+			WB = new XLWorkbook();
+			WSs = new List<WorkSheet>();
+		}
+
+		private static int GetTablePagesCount(int elems, int lines)
+		{
+			if (elems < 1 || lines < 1)
+				return 1;
+			return elems / lines + (elems % lines == 0 ? 0 : 1);
+		}
+
+		public void LoadConfigs()
+		{
+			// Add title page
+			if (Title != GOST.Standarts.None)
+			{
+				WorkSheet newWS = AddWorkSheet("Титульный лист");
+				newWS.AddTable(GOST.LoadConfFile(ConfFile.Paths[(int)Title]));
+			}
+
+			// Add table page(s)
+			if (Table != GOST.Standarts.None)
+			{
+				for (int i = 0; i < GetTablePagesCount(Rvt.Data.PickedElements.Count, ConfFile.Lines[(int)Table]); ++i)
+				{
+					WorkSheet newWS = AddWorkSheet(String.Format("Лист {0}",  i + 1));
+					newWS.AddTable(GOST.LoadConfFile(ConfFile.Paths[(int)Table]));
+						
+					// Add stamp to page
+					if (Stamp != GOST.Standarts.None)
+					{
+						// TO DO HERE! Проверка, если это второй лист, надо добавить другую основную надпись и доп графу
+						newWS.AddTable(GOST.LoadConfFile(ConfFile.Paths[(int)Stamp]));
+					}
+
+					// Add dop to page
+					if (Dop != GOST.Standarts.None)
+					{
+						// HERE TOO!
+						newWS.AddTable(GOST.LoadConfFile(ConfFile.Paths[(int)Dop]));
+					}
+				}
+			}
+		}
+
+		public void AddElementCollection(ElementCollection elementCollection)
+		{
+			int lines = ConfFile.Lines[(int)Table];
+			int count = elementCollection.Count;
+			int page = Work.Book.Title == GOST.Standarts.None ? 0 : 1;
+			for (int from = 0; from < count; )
+			{
+				int to = count - from > lines ? lines : count;
+				WSs[page++].Tables[0].AddElement(elementCollection, from, to);
+				from += to;
+			}
+		}
+
 	} // class WorkBook
+
 } // namespace RevitToGOST

@@ -8,12 +8,13 @@
 	xmlns:local="clr-namespace:RevitToGOST"
 	xmlns:rvt="clr-namespace:Autodesk.Revit.DB;assembly=RevitAPI"
 	mc:Ignorable="d" 
-	Title="MainWindow" Height="600" Width="800"
+	Title="RevitToGOST"
+	Height="600" Width="800"
 	ResizeMode="CanMinimize" 
 	WindowStartupLocation="CenterOwner">
 
 	<Grid>
-		
+
 		<Button
 			x:Name="Export"
 			Content="Экспорт"
@@ -29,6 +30,66 @@
 					Height="471" Width="794"
 					VerticalAlignment="Top"
 					HorizontalAlignment="Left">
+
+			<!--ВКЛАДКА 1-->
+			<TabItem Header="1. Настройка документа"
+					 Height="24"
+					 VerticalAlignment="Top">
+				<Grid>
+
+					<!--Титульный лист-->
+					<TextBlock Text="Титульный лист"
+							   VerticalAlignment="Center"
+							   Margin="40,21,505,419" Height="25"/>
+					<ComboBox x:Name="TitleComboBox"
+							  Margin="153,21,272,424"
+							  SelectedIndex="0"
+							  SelectionChanged="TitleComboBox_SelectionChanged">
+						<TextBlock>Нет</TextBlock>
+						<TextBlock>ГОСТ Р 21.101-2020 (Форма 12)</TextBlock>
+					</ComboBox>
+
+					<!--Спецификация-->
+					<TextBlock Text="Спецификация"
+							   VerticalAlignment="Center"
+							   Margin="40,51,505,389" Height="25"/>
+					<ComboBox x:Name="TableComboBox"
+							  Margin="153,51,272,394"
+							  SelectedIndex="1"
+							  SelectionChanged="TableComboBox_SelectionChanged">
+						<TextBlock>Нет</TextBlock>
+						<TextBlock>ГОСТ 21.110-2013 (Форма 1)</TextBlock>
+					</ComboBox>
+
+					<!--Основная надпись-->
+					<TextBlock Text="Основная надпись"
+							   VerticalAlignment="Center"
+							   Margin="40,81,494,359" Height="25"/>
+					<ComboBox x:Name="StampComboBox"
+							  Margin="153,81,272,364"
+							  SelectedIndex="1"
+							  SelectionChanged="StampComboBox_SelectionChanged">
+						<TextBlock>Нет</TextBlock>
+						<TextBlock>ГОСТ Р 21.101-2020 (Форма 3)</TextBlock>
+					</ComboBox>
+
+					<!--Дополнительные графы-->
+					<TextBlock Text="Доп. графы"
+							   VerticalAlignment="Center"
+							   Margin="40,111,494,328" Height="26"/>
+					<ComboBox x:Name="DopComboBox"
+							  Margin="153,111,272,334"
+							  SelectedIndex="1"
+							  SelectionChanged="DopComboBox_SelectionChanged">
+						<TextBlock>Нет</TextBlock>
+						<TextBlock>ГОСТ Р 21.101-2020 (Форма 3)</TextBlock>
+					</ComboBox>
+
+				</Grid>
+
+			</TabItem>
+
+			<!--ВКЛАДКА 2-->
 			<TabItem Header="2. Выбор категорий"
 					 Height="24"
 					 VerticalAlignment="Top">
@@ -71,6 +132,7 @@
 				</Grid>
 			</TabItem>
 
+			<!--ВКЛАДКА 3-->
 			<TabItem Header="3. Выбор элементов" >
 				<Grid>
 
@@ -135,11 +197,12 @@
 				</Grid>
 			</TabItem>
 
+			<!--ВКЛАДКА 4-->
 			<TabItem Header="4. Доп. параметры">
 			</TabItem>
 
 		</TabControl>
-		
+
 		<CheckBox x:Name="GroupElemsCheckBox"
 				  Content="Группировать элементы"
 				  IsThreeState="False"
@@ -154,6 +217,6 @@
 
 	<Window.Resources>
 	</Window.Resources>
-	 
+
 
 </Window>

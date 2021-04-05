@@ -26,7 +26,7 @@ namespace RevitToGOST
 		private string Orientation;
 		private int Height;
 		private int Width;
-		private List<GOST> Tables;
+		public List<GOST> Tables { get; set; }
 		public List<int[]> Columns;
 		public List<int[]> Rows;
 
@@ -87,12 +87,12 @@ namespace RevitToGOST
 		{
 			ApplyParameters();
 			ReshapeWorkSheet();
-			//AlignBorders();
 			MergeCells();
 			ApplyStyles();
 			DrawFrame();
 			FillHeader();
 			FillTable();
+			
 		}
 
 		private void ApplyParameters()
@@ -156,35 +156,6 @@ namespace RevitToGOST
 				WS.Row(i + 1).Height = XMLTools.mmToHeight(size); // size * Constants.mm_h;
 			}
 		}
-
-		//private void AlignBorders()
-		//{
-		//	SortedSet<int> cols = XMLTools.GetSortedSet(Columns);
-		//	SortedSet<int> rows = XMLTools.GetSortedSet(Rows);
-
-		//	Array cols_arr = cols.ToArray();
-		//	for (int i = 0; i < Columns.Count; i++)
-		//	{
-		//		for (int j = 0; j < Columns[i].Length; j++)
-		//		{
-		//			int j_real = Array.IndexOf(cols_arr, Columns[i].Take(j + 1).Sum()) + 1;
-		//			if (j_real == 0 || Columns[i].Take(j + 1).Sum() >= cols.Max())
-		//				break;
-		//			WS.Cell(i + 1, j_real).Style.Border.RightBorder = XLBorderStyleValues.Thin;
-		//		}
-		//	}
-		//	Array rows_arr = rows.ToArray();
-		//	for (int i = 0; i < Rows.Count; i++)
-		//	{
-		//		for (int j = 0; j < Rows[i].Length; j++)
-		//		{
-		//			int j_real = Array.IndexOf(rows_arr, Rows[i].Take(j + 1).Sum()) + 1;
-		//			if (j_real == 0 || Rows[i].Take(j + 1).Sum() >= rows.Max())
-		//				break;
-		//			WS.Cell(j_real, i + 1).Style.Border.BottomBorder = XLBorderStyleValues.Thin;
-		//		}
-		//	}
-		//}
 
 		private void MergeCells()
 		{
@@ -329,7 +300,7 @@ namespace RevitToGOST
 						(int y1, int x1) = (table.Fields[table.Line][field][0], table.Fields[table.Line][field][1]);
 						(y1, x1) = XMLTools.GetCellIndexesBySize(Rows, Columns, y1, x1);
 						WS.Cell(y1, x1).Value = table.Data[dataLine][field];
-						if (table.Type == "Page")
+						if (table.Type == GOST.Types.Table)
 						{
 							(int y2, int x2) = (table.Fields[table.Line][field][2], table.Fields[table.Line][field][3]);
 							(y2, x2) = XMLTools.GetCellIndexesBySize(Rows, Columns, y2, x2);

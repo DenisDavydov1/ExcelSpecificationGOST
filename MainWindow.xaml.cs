@@ -39,6 +39,8 @@ namespace RevitToGOST
 			PickedCategories.ItemsSource = Rvt.Data.PickedCategories;
 			AvailableElements.ItemsSource = Rvt.Data.AvailableElements;
 			PickedElements.ItemsSource = Rvt.Data.PickedElements;
+			MakeAllComboBoxUpdate();
+			// DrawPreview(); TO DO!
 		}
 
 		private void Export_Click(object sender, RoutedEventArgs e)
@@ -54,7 +56,7 @@ namespace RevitToGOST
 		}
 
 		/*
-		** Группировать элементы CheckBox
+		** Группировать элементы (CheckBox)
 		*/
 
 		private void GroupElemsCheckBox_Checked(object sender, RoutedEventArgs e)
@@ -71,6 +73,54 @@ namespace RevitToGOST
 			PickedElementsView.GroupDescriptions.Remove(PickedElementsView.GroupDescriptions.Last());
 			AvailableElementsView.GroupDescriptions.Remove(AvailableElementsView.GroupDescriptions.Last());
 			Rvt.Control.GroupElemsCheckBox = false;
+		}
+
+		/*
+		** Настройка конфигурации таблицы (ComboBox)
+		*/
+
+		private void MakeAllComboBoxUpdate()
+		{
+			TitleComboBox_SelectionChanged(null, null);
+			TableComboBox_SelectionChanged(null, null);
+			StampComboBox_SelectionChanged(null, null);
+			DopComboBox_SelectionChanged(null, null);
+		}
+
+		private void TitleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (TitleComboBox.SelectedIndex == 0)
+				Work.Book.Title = GOST.Standarts.None;
+			else if (TitleComboBox.SelectedIndex == 1)
+				Work.Book.Title = GOST.Standarts.GOST_P_21_101_2020_Title_12;
+			// DrawPreview(); TO DO!
+		}
+
+		private void TableComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (TableComboBox.SelectedIndex == 0)
+				Work.Book.Table = GOST.Standarts.None;
+			else if (TableComboBox.SelectedIndex == 1)
+				Work.Book.Table = GOST.Standarts.GOST_21_110_2013_Table1;
+			// DrawPreview(); TO DO!
+		}
+
+		private void StampComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (StampComboBox.SelectedIndex == 0)
+				Work.Book.Stamp = GOST.Standarts.None;
+			else if (StampComboBox.SelectedIndex == 1)
+				Work.Book.Stamp = GOST.Standarts.GOST_P_21_101_2020_Stamp3;
+			// DrawPreview(); TO DO!
+		}
+
+		private void DopComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (DopComboBox.SelectedIndex == 0)
+				Work.Book.Dop = GOST.Standarts.None;
+			else if (DopComboBox.SelectedIndex == 1)
+				Work.Book.Dop = GOST.Standarts.GOST_P_21_101_2020_Dop3;
+			// DrawPreview(); TO DO!
 		}
 
 	} // class MainWindow

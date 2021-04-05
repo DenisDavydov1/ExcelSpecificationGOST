@@ -22,7 +22,7 @@ namespace RevitToGOST
 		*/
 
 		public string Name { get; set; }
-		public string Type { get; set; }
+		public Types Type { get; set; }
 		public string Format { get; set; }
 		public string Orientation { get; set; }
 
@@ -66,7 +66,25 @@ namespace RevitToGOST
 
 		public int[] Frame { get; set; }
 		public List<int[]> Borders { get; set; }
-		public int Form { get; set; }
+		public Standarts Standart { get; set; }
+
+		public enum Types
+		{
+			None,
+			Title,
+			Table,
+			Stamp,
+			Dop
+		}
+
+		public enum Standarts
+		{
+			None,
+			GOST_21_110_2013_Table1,
+			GOST_P_21_101_2020_Dop3,
+			GOST_P_21_101_2020_Stamp3,
+			GOST_P_21_101_2020_Title_12
+		}
 
 		/*
 		**	Member methods
@@ -77,7 +95,10 @@ namespace RevitToGOST
 			if (!File.Exists(ConfFilePath))
 				throw new Exception();
 			string config = File.ReadAllText(ConfFilePath);
-			return JsonConvert.DeserializeObject<GOST>(config);
+			GOST newGOST = JsonConvert.DeserializeObject<GOST>(config);
+			newGOST.Data = new List<List<string>>();
+			newGOST.ElemCol = new ElementCollection();
+			return newGOST;
 		}
 
 		public void AddData(List<List<string>> data)
@@ -105,6 +126,14 @@ namespace RevitToGOST
 				ElemCol.Add(elem);
 		}
 
+		public void AddElement(ElementCollection elemCol, int from, int to) // [from, to)
+		{
+			if (ElemCol == null)
+				ElemCol = new ElementCollection();
+			for (int i = from; i < to; ++i)
+				ElemCol.Add(elemCol[i]);
+		}
+
 		public void AddElement(ElementContainer element)
 		{
 			if (ElemCol == null)
@@ -114,27 +143,18 @@ namespace RevitToGOST
 
 		public void ApplyGostData()
 		{
-			if (Name == "ГОСТ 21.110—2013" && Type == "Page")
+			if (Standart == Standarts.GOST_21_110_2013_Table1)
 			{
 				GostData = new GOST_21_110_2013(ElemCol);
-				GostData.FillLines();
+				GostData.FillLines();	
 				Data = GostData.FillList();
 			}
-			if (Name == "ГОСТ 21.101—2020" && Form == 12)
+			if (Standart == Standarts.GOST_P_21_101_2020_Title_12)
 			{
 				GostData = new GOST_P_21_101_2020_Title_12();
 				GostData.FillLines();
 				Data = GostData.FillList();
 			}
-		}
-
-		public string ElementName(ElementContainer elementContainer)
-		{
-			if (Name == "ГОСТ 21.110—2013" && Type == "Page")
-			{
-				return GOST_21_110_2013.ElementName(elementContainer);
-			}
-			return String.Empty;
 		}
 
 	} // class GOST

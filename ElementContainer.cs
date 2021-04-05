@@ -26,7 +26,7 @@ namespace RevitToGOST
 		{
 			get
 			{
-				return Work.Gost.ElementName(this);
+				return GOST_21_110_2013.ElementName(this);
 			}
 		}
 		public string Type

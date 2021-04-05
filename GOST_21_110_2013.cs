@@ -47,15 +47,12 @@ namespace RevitToGOST
 
 			// "Примечание"
 			public string Note;
-
-			//public Line(int pos) { }
 		}
 
 		public ElementCollection ElemCol { get; set; }
 		private List<double> AmountList { get; set; }
 		public List<Line> Lines { get; set; }
 		private int Position;
-
 
 		/*
 		**	Member methods
@@ -120,13 +117,16 @@ namespace RevitToGOST
 			// ELEM_FAMILY_AND_TYPE_PARAM			// Family and Type
 			// SYMBOL_FAMILY_AND_TYPE_NAMES_PARAM	// Family and Type
 
-			return GetStringParameter(elemContainer.Element, new BuiltInParameter[] {
+			string type = GetStringParameter(elemContainer.Element, new BuiltInParameter[] {
 				BuiltInParameter.ELEM_TYPE_PARAM,
 				BuiltInParameter.SYMBOL_NAME_PARAM,
 				BuiltInParameter.ALL_MODEL_TYPE_NAME,
 				BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM,
 				BuiltInParameter.SYMBOL_FAMILY_AND_TYPE_NAMES_PARAM
 			});
+			if (type == String.Empty)
+				type = elemContainer.Element.Category.Name;
+			return type;
 		}
 
 		public static string ElementProdCode(ElementContainer elemContainer)
@@ -230,59 +230,6 @@ namespace RevitToGOST
 			});
 		}
 
-		//private void RemoveDuplicates()
-		//{
-		//	ElementCollection newElemCol = new ElementCollection();
-		//	AmountList = new List<double>();
-		//	for (int i = 0; i < ElemCol.Count; ++i)
-		//	{
-		//		int dupIndex = FindElementDuplicateIndex(i);
-		//		if (dupIndex >= 0)
-		//		{
-		//			AmountList[dupIndex] += 1.0;
-		//		}
-		//		else
-		//		{
-		//			newElemCol.Add(ElemCol[i]);
-		//			AmountList.Add(1.0);
-		//		}
-		//	}
-		//	ElemCol = newElemCol;
-		//	if (ElemCol.Count != AmountList.Count)
-		//		Log.WriteLine("Collections sizes not equal: {0} vs {1}", ElemCol.Count, AmountList.Count);
-		//}
-
-		//private int FindElementDuplicateIndex(int index)
-		//{
-		//	for (int i = 0; i < index; ++i)
-		//	{
-		//		if (ElemCol[i].Equals(ElemCol[index]) == true) // mb special function to get element equality
-		//		{
-		//			return i;
-		//		}
-		//	}
-		//	return -1;
-		//}
-
-		// TO DO ! INDEX ERROR
-		//private bool ElementHasDuplicate(Element newElem, ElementCollection elemCol)
-		//{
-		//	for (int i = 0; i < elemCol.Count; ++i)
-		//	{
-		//		if (elemCol[i].Equals(newElem))
-		//		{
-		//			Lines[i].Amount += 1.0;
-		//			return true;
-		//		}
-		//	}
-		//	return false;
-		//}
-
-		//private bool EqualElements(Element elem1, Element elem2)
-		//{
-		//	if (elem1.get_Parameter)
-		//	return false;
-		//}
 
 		private static string GetStringParameter(Element elem, BuiltInParameter[] parameters)
 		{
@@ -389,13 +336,27 @@ namespace RevitToGOST
 				curLineList.Add(line.Type);                 // "Тип, марка, обозначение документа, опросного листа"
 				curLineList.Add(line.ProdCode);             // "Код продукции"
 				curLineList.Add(line.Provider);             // "Поставщик"
-				curLineList.Add(line.Unit);                 // "Ед. измерения"
-				curLineList.Add(line.Amount.ToString());    // "Количество"
-				curLineList.Add(line.Weight.ToString());    // "Масса 1 ед., кг"
+				
+				if (line.Unit == String.Empty)              // "Ед. измерения"
+					curLineList.Add("Шт.");
+				else
+					curLineList.Add(line.Unit);
+
+				if (line.Amount == 0.0)                     // "Количество"
+					curLineList.Add(String.Empty);
+				else
+					curLineList.Add(line.Amount.ToString());
+
+				if (line.Weight == 0.0)                     // "Масса 1 ед., кг"
+					curLineList.Add(String.Empty);
+				else
+					curLineList.Add(line.Weight.ToString());
+
 				curLineList.Add(line.Note);                 // "Примечание"
 			}
 			return output;
 		}
+
 	} // class GOST_21_110_2013
 
 } // namespace RevitToGOST
