@@ -127,6 +127,16 @@ namespace RevitToGOST
 				Data = GostData.FillList();
 			}
 		}
+
+		public string ElementInstanceName(Element elem)
+		{
+			if (Name == "ГОСТ 21.110—2013" && Type == "Page")
+			{
+				return GOST_21_110_2013.ElementInstanceName(elem);
+			}
+			return String.Empty;
+		}
+
 	} // class GOST
 
 } // namespace RevitToGOST

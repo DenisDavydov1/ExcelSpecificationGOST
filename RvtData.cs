@@ -77,6 +77,8 @@ namespace RevitToGOST
 			public string Name { get { return Category.Name; } }
 			public int Id { get { return Category.Id.IntegerValue; } }
 			public int Count { get { return Elements.Count; } }
+			public string Zaz()
+			{ return "Zaz"; }
 			public override string ToString() { return String.Format("{0} ({1})", Name, Count); }
 		}
 

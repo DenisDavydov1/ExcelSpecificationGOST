@@ -26,15 +26,16 @@ namespace RevitToGOST
 		public void ExportButton()
 		{
 
-			GOST page = GOST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\GOST_21_110_2013_Page.json");
+			
+
+			Work.Gost.AddElement(Rvt.Data.PickedElements);
+
+			//Work.Book = new WorkBook();
+			Work.Book.AddWorkSheet("Листик");
+			Work.Book.WSs[0].AddTable(Work.Gost);
+
 			GOST stamp = GOST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\GOST_21_101_2020_Stamp_3.json");
 			GOST dop = GOST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\GOST_21_101_2020_Dop_3.json");
-
-			page.AddElement(Rvt.Data.PickedElements);
-
-			Work.Book = new WorkBook();
-			Work.Book.AddWorkSheet("Листик");
-			Work.Book.WSs[0].AddTable(page);
 			Work.Book.WSs[0].AddTable(stamp);
 			Work.Book.WSs[0].AddTable(dop);
 

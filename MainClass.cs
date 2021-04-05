@@ -26,6 +26,9 @@ namespace RevitToGOST
 			Rvt.Data = new RvtData();
 			Rvt.Control = new RvtControl();
 
+			GOST page = GOST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\GOST_21_110_2013_Page.json");
+			Work.Gost = page;
+
 			MainWindow mainWin = new MainWindow();
 			mainWin.Show();
 

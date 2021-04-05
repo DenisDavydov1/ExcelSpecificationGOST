@@ -53,6 +53,7 @@ namespace RevitToGOST
 
 		//public ElementSet ElemSet { get; set; }
 		public ElementCollection ElemCol { get; set; }
+		private List<double> AmountList { get; set; }
 		public List<Line> Lines { get; set; }
 		private int Position;
 
@@ -69,12 +70,19 @@ namespace RevitToGOST
 
 		public void FillLines()
 		{
+			RemoveDuplicates();
 			Lines = new List<Line>();
 
-			foreach (Element elem in ElemCol)
+			//foreach (Element elem in ElemCol)
+			//foreach (var nw in numbers.Zip(words, Tuple.Create))
+			//{
+			//	Console.WriteLine(nw.Item1 + nw.Item2);
+			//}
+			foreach (var ea in ElemCol.Zip(AmountList, Tuple.Create))
 			{
-				if (ElementHasDuplicate(elem, ElemCol) == true)
-					continue;
+				Element elem = ea.Item1;
+				//if (ElementHasDuplicate(elem, ElemCol) == true)
+				//	continue;
 				Line line = new Line();
 
 				///// "Поз."
@@ -91,11 +99,12 @@ namespace RevitToGOST
 				// FAMILY_NAME_PSEUDO_PARAM		// Family
 				// DPART_ORIGINAL_FAMILY		// Original Family
 
-				line.Name = GetStringParameter(elem, new BuiltInParameter[] {
-					BuiltInParameter.ELEM_FAMILY_PARAM,
-					BuiltInParameter.SYMBOL_FAMILY_NAME_PARAM,
-					BuiltInParameter.ALL_MODEL_FAMILY_NAME
-				});
+				line.Name = ElementInstanceName(elem);
+				//line.Name = GetStringParameter(elem, new BuiltInParameter[] {
+				//	BuiltInParameter.ELEM_FAMILY_PARAM,
+				//	BuiltInParameter.SYMBOL_FAMILY_NAME_PARAM,
+				//	BuiltInParameter.ALL_MODEL_FAMILY_NAME
+				//});
 
 
 				///// "Тип, марка, обозначение документа, опросного листа"
@@ -160,7 +169,7 @@ namespace RevitToGOST
 				//// Variable: public double Amount;
 				/// Real parameters:
 
-				line.Amount = 1.0;
+				line.Amount = ea.Item2;
 
 				///// "Масса 1 ед., кг"
 				//// Variable: public double Weight;
@@ -199,19 +208,73 @@ namespace RevitToGOST
 			}
 		}
 
-		// TO DO ! INDEX ERROR
-		private bool ElementHasDuplicate(Element newElem, ElementCollection elemCol)
+		public static string ElementInstanceName(Element elem)
 		{
-			//for (int i = 0; i < elemCol.Count && elemCol[i] != newElem; ++i)
-			//{
-			//	if (elemCol[i].Equals(newElem))
-			//	{
-			//		Lines[i].Amount += 1.0;
-			//		return true;
-			//	}
-			//}
-			return false;
+			///// "Наименование и техническая характеристика"
+			//// Variable: public string Name;
+			/// Real parameters:
+			// ELEM_FAMILY_PARAM		// Family
+			// SYMBOL_FAMILY_NAME_PARAM	// Family Name
+			// ALL_MODEL_FAMILY_NAME	// Family Name
+
+			/// Doubtful:
+			// FAMILY_NAME_PSEUDO_PARAM		// Family
+			// DPART_ORIGINAL_FAMILY		// Original Family
+
+			return GetStringParameter(elem, new BuiltInParameter[] {
+				BuiltInParameter.ELEM_FAMILY_PARAM,
+				BuiltInParameter.SYMBOL_FAMILY_NAME_PARAM,
+				BuiltInParameter.ALL_MODEL_FAMILY_NAME
+			});
 		}
+
+		private void RemoveDuplicates()
+		{
+			ElementCollection newElemCol = new ElementCollection();
+			AmountList = new List<double>();
+			for (int i = 0; i < ElemCol.Count; ++i)
+			{
+				int dupIndex = FindElementDuplicateIndex(i);
+				if (dupIndex >= 0)
+				{
+					AmountList[dupIndex] += 1.0;
+				}
+				else
+				{
+					newElemCol.Add(ElemCol[i]);
+					AmountList.Add(1.0);
+				}
+			}
+			ElemCol = newElemCol;
+			if (ElemCol.Count != AmountList.Count)
+				Log.WriteLine("Collections sizes not equal: {0} vs {1}", ElemCol.Count, AmountList.Count);
+		}
+
+		private int FindElementDuplicateIndex(int index)
+		{
+			for (int i = 0; i < index; ++i)
+			{
+				if (ElemCol[i].Equals(ElemCol[index]) == true) // mb special function to get element equality
+				{
+					return i;
+				}
+			}
+			return -1;
+		}
+
+		// TO DO ! INDEX ERROR
+		//private bool ElementHasDuplicate(Element newElem, ElementCollection elemCol)
+		//{
+		//	for (int i = 0; i < elemCol.Count; ++i)
+		//	{
+		//		if (elemCol[i].Equals(newElem))
+		//		{
+		//			Lines[i].Amount += 1.0;
+		//			return true;
+		//		}
+		//	}
+		//	return false;
+		//}
 
 		//private bool EqualElements(Element elem1, Element elem2)
 		//{
