@@ -101,11 +101,11 @@ namespace RevitToGOST
 		{
 			if (ElemCol == null)
 				ElemCol = new ElementCollection();
-			foreach (Element elem in elemCol)
+			foreach (ElementContainer elem in elemCol)
 				ElemCol.Add(elem);
 		}
 
-		public void AddElement(Element element)
+		public void AddElement(ElementContainer element)
 		{
 			if (ElemCol == null)
 				ElemCol = new ElementCollection();
@@ -128,11 +128,11 @@ namespace RevitToGOST
 			}
 		}
 
-		public string ElementInstanceName(Element elem)
+		public string ElementName(ElementContainer elementContainer)
 		{
 			if (Name == "ГОСТ 21.110—2013" && Type == "Page")
 			{
-				return GOST_21_110_2013.ElementInstanceName(elem);
+				return GOST_21_110_2013.ElementName(elementContainer);
 			}
 			return String.Empty;
 		}

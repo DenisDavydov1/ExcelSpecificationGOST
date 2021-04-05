@@ -8,7 +8,7 @@
 	xmlns:local="clr-namespace:RevitToGOST"
 	xmlns:rvt="clr-namespace:Autodesk.Revit.DB;assembly=RevitAPI"
 	mc:Ignorable="d" 
-	Title="MainWindow" Height="500" Width="800"
+	Title="MainWindow" Height="600" Width="800"
 	ResizeMode="CanMinimize" 
 	WindowStartupLocation="CenterOwner">
 
@@ -24,27 +24,25 @@
 			Click="Export_Click"
 			Panel.ZIndex="1"/>
 
-		<TabControl
-			TabStripPlacement="Left"
-			Panel.ZIndex="0"
-			Height="471" Width="794"
-			VerticalAlignment="Top"
-			HorizontalAlignment="Left">
-			<TabItem
-				Header="2. Выбор категорий" Height="24" VerticalAlignment="Top">
+		<TabControl TabStripPlacement="Left"
+					Panel.ZIndex="0"
+					Height="471" Width="794"
+					VerticalAlignment="Top"
+					HorizontalAlignment="Left">
+			<TabItem Header="2. Выбор категорий"
+					 Height="24"
+					 VerticalAlignment="Top">
 				<Grid>
 
-					<TextBlock
-						Text="Доступные категории"
-						VerticalAlignment="Center"
-						Margin="61,14,353,426" Height="25"/>
-					<ListView
-						x:Name="AvailableCategories"
-						Margin="61,44,353,22"
-						ItemsSource="{Binding}"
-						SelectionMode="Extended"
-						dd:DragDrop.IsDragSource="True"
-						dd:DragDrop.IsDropTarget="True">
+					<TextBlock Text="Доступные категории"
+							   VerticalAlignment="Center"
+							   Margin="61,14,353,426" Height="25"/>
+					<ListView x:Name="AvailableCategories"
+							  Margin="61,44,353,22"
+							  ItemsSource="{Binding}"
+							  SelectionMode="Extended"
+							  dd:DragDrop.IsDragSource="True"
+							  dd:DragDrop.IsDropTarget="True">
 						<ListView.View>
 							<GridView>
 								<GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Категория"/>
@@ -53,20 +51,18 @@
 						</ListView.View>
 					</ListView>
 
-					<TextBlock
-						Text="Выбранные категории"
-						VerticalAlignment="Center" 
-						Margin="361,14,53,426" Height="25"/>
-					<ListView
-						x:Name="PickedCategories"
-						Margin="361,44,53,22"
-						ItemsSource="{Binding}"
-						SelectionMode="Extended"
-						dd:DragDrop.IsDragSource="True"
-						dd:DragDrop.IsDropTarget="True">
+					<TextBlock Text="Выбранные категории"
+							   VerticalAlignment="Center" 
+							   Margin="361,14,53,426" Height="25"/>
+					<ListView x:Name="PickedCategories"
+							  Margin="361,44,53,22"
+							  ItemsSource="{Binding}"
+							  SelectionMode="Extended"
+							  dd:DragDrop.IsDragSource="True"
+							  dd:DragDrop.IsDropTarget="True">
 						<ListView.View>
 							<GridView>
-								<GridViewColumn DisplayMemberBinding="{Binding Zaz}" Header="Категория"/>
+								<GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Категория"/>
 								<GridViewColumn DisplayMemberBinding="{Binding Count}" Header="Элем."/>
 							</GridView>
 						</ListView.View>
@@ -78,43 +74,54 @@
 			<TabItem Header="3. Выбор элементов" >
 				<Grid>
 
-					<TextBlock
-						Text="Доступные элементы"
-						VerticalAlignment="Center"
-						Margin="61,14,353,426" Height="25"/>
-					<ListView
-						x:Name="AvailableElements"
-						Margin="61,44,353,22"
-						ItemsSource="{Binding}"
-						SelectionMode="Extended"
-						dd:DragDrop.IsDragSource="True"
-						dd:DragDrop.IsDropTarget="True">
+					<TextBlock Text="Доступные элементы"
+							   VerticalAlignment="Center"
+							   Margin="61,14,353,426" Height="25"/>
+					<ListView x:Name="AvailableElements"
+							  Margin="61,44,353,22"
+							  ItemsSource="{Binding}"
+							  SelectionMode="Extended"
+							  dd:DragDrop.IsDragSource="True"
+							  dd:DragDrop.IsDropTarget="True">
 						<ListView.View>
+							<!-- Table -->
 							<GridView>
-								<GridViewColumn DisplayMemberBinding="{Binding Fuck }" Header="Имя"/>
-								<GridViewColumn DisplayMemberBinding="{Binding Name }" Header="Тип"/>
-							</GridView>
-						</ListView.View>
-					</ListView>
-
-					<TextBlock
-						Text="Выбрано"
-						VerticalAlignment="Center" 
-						Margin="361,14,53,426" Height="25"/>
-					<ListView
-						x:Name="PickedElements"
-						Margin="361,44,53,22"
-						ItemsSource="{Binding}"
-						SelectionMode="Extended"
-						dd:DragDrop.IsDragSource="True"
-						dd:DragDrop.IsDropTarget="True">
-						<ListView.View>
-							<GridView>
-								<GridViewColumn DisplayMemberBinding="{Binding Fuck }" Header="Имя"/>
-								<GridViewColumn DisplayMemberBinding="{Binding Name }" Header="Тип"/>
+								<GridViewColumn DisplayMemberBinding="{Binding InstanceName }" Header="Имя" Width="50px"/>
+								<GridViewColumn DisplayMemberBinding="{Binding Type }" Header="Тип" Width="50px"/>
+								<GridViewColumn DisplayMemberBinding="{Binding Amount }" Header="Кол-во" Width="50px"/>
 							</GridView>
 						</ListView.View>
 						<ListView.GroupStyle>
+							<!-- Grouping (if enabled) -->
+							<GroupStyle>
+								<GroupStyle.HeaderTemplate>
+									<DataTemplate>
+										<TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
+									</DataTemplate>
+								</GroupStyle.HeaderTemplate>
+							</GroupStyle>
+						</ListView.GroupStyle>
+					</ListView>
+
+					<TextBlock Text="Выбрано"
+							   VerticalAlignment="Center"
+							   Margin="361,14,53,426" Height="25"/>
+					<ListView x:Name="PickedElements"
+							  Margin="361,44,53,22"
+							  ItemsSource="{Binding}"
+							  SelectionMode="Extended"
+							  dd:DragDrop.IsDragSource="True"
+							  dd:DragDrop.IsDropTarget="True">
+						<ListView.View >
+							<!-- Table -->
+							<GridView>
+								<GridViewColumn DisplayMemberBinding="{Binding InstanceName }" Header="Имя" Width="50px"/>
+								<GridViewColumn DisplayMemberBinding="{Binding Type }" Header="Тип" Width="50px"/>
+								<GridViewColumn DisplayMemberBinding="{Binding Amount }" Header="Кол-во" Width="50px"/>
+							</GridView>
+						</ListView.View>
+						<ListView.GroupStyle>
+							<!-- Grouping (if enabled) -->
 							<GroupStyle>
 								<GroupStyle.HeaderTemplate>
 									<DataTemplate>
@@ -133,18 +140,20 @@
 
 		</TabControl>
 		
+		<CheckBox x:Name="GroupElemsCheckBox"
+				  Content="Группировать элементы"
+				  IsThreeState="False"
+				  IsChecked="False"
+				  Checked="GroupElemsCheckBox_Checked"
+				  Unchecked="GroupElemsCheckBox_Unchecked"
+				  HorizontalAlignment="Left" VerticalAlignment="Top"
+				  Margin="128,490,0,0"/>
+
 	</Grid>
 
-	 
-	 <Window.Resources>
-		<ObjectDataProvider ObjectType="{x:Type local:GOST}"
-							MethodName="ElementInstanceName" x:Key="getElemName">
-			<ObjectDataProvider.MethodParameters>
-				
-			</ObjectDataProvider.MethodParameters>
-		</ObjectDataProvider>
-							
-	 </Window.Resources>
+
+	<Window.Resources>
+	</Window.Resources>
 	 
 
 </Window>

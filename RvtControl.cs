@@ -19,9 +19,16 @@ namespace RevitToGOST
 		** Member fields
 		*/
 
+		public bool GroupElemsCheckBox { get; set; }
+
 		/*
 		** Member methods
 		*/
+
+		public RvtControl()
+		{
+			GroupElemsCheckBox = false;
+		}
 
 		public void ExportButton()
 		{

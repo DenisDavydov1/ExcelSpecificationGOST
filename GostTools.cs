@@ -29,18 +29,4 @@ namespace RevitToGOST
 
 	} // class GostTools
 
-	static class ElementExtension
-	{
-		public static string Fuck(this Element elem)
-		{
-			return "Fuck";
-		}
-
-		public static string InstanceName(this Element elem)
-		{
-			Log.WriteLine("Getting instance name: {0}", Work.Gost.ElementInstanceName(elem));
-			return Work.Gost.ElementInstanceName(elem);
-		}
-	}
-
 } // namespace RevitToGOST

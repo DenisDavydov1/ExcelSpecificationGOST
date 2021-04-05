@@ -51,7 +51,6 @@ namespace RevitToGOST
 			//public Line(int pos) { }
 		}
 
-		//public ElementSet ElemSet { get; set; }
 		public ElementCollection ElemCol { get; set; }
 		private List<double> AmountList { get; set; }
 		public List<Line> Lines { get; set; }
@@ -70,145 +69,27 @@ namespace RevitToGOST
 
 		public void FillLines()
 		{
-			RemoveDuplicates();
 			Lines = new List<Line>();
 
-			//foreach (Element elem in ElemCol)
-			//foreach (var nw in numbers.Zip(words, Tuple.Create))
-			//{
-			//	Console.WriteLine(nw.Item1 + nw.Item2);
-			//}
-			foreach (var ea in ElemCol.Zip(AmountList, Tuple.Create))
+			foreach (ElementContainer element in ElemCol)
 			{
-				Element elem = ea.Item1;
-				//if (ElementHasDuplicate(elem, ElemCol) == true)
-				//	continue;
 				Line line = new Line();
 
-				///// "Поз."
-				line.Position = Position++;
-
-				///// "Наименование и техническая характеристика"
-				//// Variable: public string Name;
-				/// Real parameters:
-				// ELEM_FAMILY_PARAM		// Family
-				// SYMBOL_FAMILY_NAME_PARAM	// Family Name
-				// ALL_MODEL_FAMILY_NAME	// Family Name
-
-				/// Doubtful:
-				// FAMILY_NAME_PSEUDO_PARAM		// Family
-				// DPART_ORIGINAL_FAMILY		// Original Family
-
-				line.Name = ElementInstanceName(elem);
-				//line.Name = GetStringParameter(elem, new BuiltInParameter[] {
-				//	BuiltInParameter.ELEM_FAMILY_PARAM,
-				//	BuiltInParameter.SYMBOL_FAMILY_NAME_PARAM,
-				//	BuiltInParameter.ALL_MODEL_FAMILY_NAME
-				//});
-
-
-				///// "Тип, марка, обозначение документа, опросного листа"
-				//// Variable: public string Type;
-				/// Real parameters:
-				// ELEM_TYPE_PARAM						// Type
-				// SYMBOL_NAME_PARAM					// Type Name
-				// ALL_MODEL_TYPE_NAME					// Type Name
-				// ELEM_FAMILY_AND_TYPE_PARAM			// Family and Type
-				// SYMBOL_FAMILY_AND_TYPE_NAMES_PARAM	// Family and Type
-
-				line.Type = GetStringParameter(elem, new BuiltInParameter[] {
-					BuiltInParameter.ELEM_TYPE_PARAM,
-					BuiltInParameter.SYMBOL_NAME_PARAM,
-					BuiltInParameter.ALL_MODEL_TYPE_NAME,
-					BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM,
-					BuiltInParameter.SYMBOL_FAMILY_AND_TYPE_NAMES_PARAM
-				});
-
-				///// "Код продукции"
-				//// Variable: public string ProdCode; //int ProdCode;
-				/// Real parameters:
-				// STRUCTURAL_FAMILY_CODE_NAME	// Code Name
-				// OMNICLASS_CODE				// OmniClass Number
-				// FABRICATION_PRODUCT_CODE		// Product Code
-				// UNIFORMAT_CODE				// Assembly code
-
-				line.ProdCode = GetStringParameter(elem, new BuiltInParameter[] {
-					BuiltInParameter.STRUCTURAL_FAMILY_CODE_NAME,
-					BuiltInParameter.OMNICLASS_CODE,
-					BuiltInParameter.FABRICATION_PRODUCT_CODE,
-					BuiltInParameter.UNIFORMAT_CODE
-				});
-
-				///// "Поставщик"
-				//// Variable: public string Provider;
-				/// Real parameters:
-				// ALL_MODEL_MANUFACTURER	// Manufacturer
-				// FABRICATION_VENDOR		// Vendor
-				// FABRICATION_VENDOR_CODE	// Vendor Code
-
-				line.Provider = GetStringParameter(elem, new BuiltInParameter[] {
-					BuiltInParameter.ALL_MODEL_MANUFACTURER,
-					BuiltInParameter.FABRICATION_VENDOR,
-					BuiltInParameter.FABRICATION_VENDOR_CODE
-				});
-
-				///// "Ед. измерения"
-				//// Variable: public string Unit;
-				/// Real parameters:
-				// IMPORT_DISPLAY_UNITS				// Import Units
-				// ALTERNATE_UNITS					// Alternate Units
-				// POINT_ELEMENT_MEASUREMENT_TYPE	// Measurement Type
-
-				line.Unit = GetStringParameter(elem, new BuiltInParameter[] {
-					BuiltInParameter.IMPORT_DISPLAY_UNITS,
-					BuiltInParameter.ALTERNATE_UNITS,
-					BuiltInParameter.POINT_ELEMENT_MEASUREMENT_TYPE
-				});
-
-				///// "Количество"
-				//// Variable: public double Amount;
-				/// Real parameters:
-
-				line.Amount = ea.Item2;
-
-				///// "Масса 1 ед., кг"
-				//// Variable: public double Weight;
-				/// Real parameters:
-				// FABRIC_SHEET_MASSUNIT	// "Sheet Mass per Unit Area": Structural Sheet Mass
-				// per Unit Area [Sheet Mass / (Overall Length * Overall Width)]
-				// COUPLER_WEIGHT			// Mass
-
-				line.Weight = GetDoubleParameter(elem, new BuiltInParameter[] {
-					BuiltInParameter.FABRIC_SHEET_MASSUNIT,
-					BuiltInParameter.COUPLER_WEIGHT
-				});
-
-				///// "Примечание"
-				//// Variable: public string Note;
-				/// Real parameters:
-				// ALL_MODEL_INSTANCE_COMMENTS	// Comments
-				// ALL_MODEL_DESCRIPTION		// Description
-				// ALL_MODEL_TYPE_COMMENTS		// Type comments
-				// MARKUPS_NOTES				// Notes
-				// SHEET_ASSEMBLY_KEYNOTE		// Assembly: Keynote
-				// FABRICATION_PART_NOTES		// Fabrication Notes
-				// ALL_MODEL_URL				// URL
-
-				line.Note = GetStringParameter(elem, new BuiltInParameter[] {
-					BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS,
-					BuiltInParameter.ALL_MODEL_DESCRIPTION,
-					BuiltInParameter.ALL_MODEL_TYPE_COMMENTS,
-					BuiltInParameter.MARKUPS_NOTES,
-					BuiltInParameter.SHEET_ASSEMBLY_KEYNOTE,
-					BuiltInParameter.FABRICATION_PART_NOTES,
-					BuiltInParameter.ALL_MODEL_URL
-				});
+				line.Position = Position++;					// "Поз."
+				line.Name = ElementName(element);			// "Наименование и техническая характеристика"
+				line.Type = ElementType(element);			// "Тип, марка, обозначение документа, опросного листа"
+				line.ProdCode = ElementProdCode(element);	// "Код продукции"
+				line.Provider = ElementProvider(element);	// "Поставщик"
+				line.Unit = ElementUnit(element);			// "Ед. измерения"
+				line.Amount = ElementAmount(element);		// "Количество"
+				line.Weight = ElementWeight(element);		// "Масса 1 ед., кг"
+				line.Note = ElementNote(element);			// "Примечание"
 
 				Lines.Add(line);
 			}
 		}
 
-		public static string ElementInstanceName(Element elem)
+		public static string ElementName(ElementContainer elemContainer)
 		{
 			///// "Наименование и техническая характеристика"
 			//// Variable: public string Name;
@@ -221,46 +102,167 @@ namespace RevitToGOST
 			// FAMILY_NAME_PSEUDO_PARAM		// Family
 			// DPART_ORIGINAL_FAMILY		// Original Family
 
-			return GetStringParameter(elem, new BuiltInParameter[] {
+			return GetStringParameter(elemContainer.Element, new BuiltInParameter[] {
 				BuiltInParameter.ELEM_FAMILY_PARAM,
 				BuiltInParameter.SYMBOL_FAMILY_NAME_PARAM,
 				BuiltInParameter.ALL_MODEL_FAMILY_NAME
 			});
 		}
 
-		private void RemoveDuplicates()
+		public static string ElementType(ElementContainer elemContainer)
 		{
-			ElementCollection newElemCol = new ElementCollection();
-			AmountList = new List<double>();
-			for (int i = 0; i < ElemCol.Count; ++i)
-			{
-				int dupIndex = FindElementDuplicateIndex(i);
-				if (dupIndex >= 0)
-				{
-					AmountList[dupIndex] += 1.0;
-				}
-				else
-				{
-					newElemCol.Add(ElemCol[i]);
-					AmountList.Add(1.0);
-				}
-			}
-			ElemCol = newElemCol;
-			if (ElemCol.Count != AmountList.Count)
-				Log.WriteLine("Collections sizes not equal: {0} vs {1}", ElemCol.Count, AmountList.Count);
+			///// "Тип, марка, обозначение документа, опросного листа"
+			//// Variable: public string Type;
+			/// Real parameters:
+			// ELEM_TYPE_PARAM						// Type
+			// SYMBOL_NAME_PARAM					// Type Name
+			// ALL_MODEL_TYPE_NAME					// Type Name
+			// ELEM_FAMILY_AND_TYPE_PARAM			// Family and Type
+			// SYMBOL_FAMILY_AND_TYPE_NAMES_PARAM	// Family and Type
+
+			return GetStringParameter(elemContainer.Element, new BuiltInParameter[] {
+				BuiltInParameter.ELEM_TYPE_PARAM,
+				BuiltInParameter.SYMBOL_NAME_PARAM,
+				BuiltInParameter.ALL_MODEL_TYPE_NAME,
+				BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM,
+				BuiltInParameter.SYMBOL_FAMILY_AND_TYPE_NAMES_PARAM
+			});
 		}
 
-		private int FindElementDuplicateIndex(int index)
+		public static string ElementProdCode(ElementContainer elemContainer)
 		{
-			for (int i = 0; i < index; ++i)
-			{
-				if (ElemCol[i].Equals(ElemCol[index]) == true) // mb special function to get element equality
-				{
-					return i;
-				}
-			}
-			return -1;
+			///// "Код продукции"
+			//// Variable: public string ProdCode; //int ProdCode;
+			/// Real parameters:
+			// STRUCTURAL_FAMILY_CODE_NAME	// Code Name
+			// OMNICLASS_CODE				// OmniClass Number
+			// FABRICATION_PRODUCT_CODE		// Product Code
+			// UNIFORMAT_CODE				// Assembly code
+
+			return GetStringParameter(elemContainer.Element, new BuiltInParameter[] {
+				BuiltInParameter.STRUCTURAL_FAMILY_CODE_NAME,
+				BuiltInParameter.OMNICLASS_CODE,
+				BuiltInParameter.FABRICATION_PRODUCT_CODE,
+				BuiltInParameter.UNIFORMAT_CODE
+			});
 		}
+
+		public static string ElementProvider(ElementContainer elemContainer)
+		{
+			///// "Поставщик"
+			//// Variable: public string Provider;
+			/// Real parameters:
+			// ALL_MODEL_MANUFACTURER	// Manufacturer
+			// FABRICATION_VENDOR		// Vendor
+			// FABRICATION_VENDOR_CODE	// Vendor Code
+
+			return GetStringParameter(elemContainer.Element, new BuiltInParameter[] {
+				BuiltInParameter.ALL_MODEL_MANUFACTURER,
+				BuiltInParameter.FABRICATION_VENDOR,
+				BuiltInParameter.FABRICATION_VENDOR_CODE
+			});
+		}
+
+		public static string ElementUnit(ElementContainer elemContainer)
+		{
+			///// "Ед. измерения"
+			//// Variable: public string Unit;
+			/// Real parameters:
+			// IMPORT_DISPLAY_UNITS				// Import Units
+			// ALTERNATE_UNITS					// Alternate Units
+			// POINT_ELEMENT_MEASUREMENT_TYPE	// Measurement Type
+
+			return GetStringParameter(elemContainer.Element, new BuiltInParameter[] {
+				BuiltInParameter.IMPORT_DISPLAY_UNITS,
+				BuiltInParameter.ALTERNATE_UNITS,
+				BuiltInParameter.POINT_ELEMENT_MEASUREMENT_TYPE
+			});
+		}
+
+		public static double ElementAmount(ElementContainer elemContainer)
+		{
+			///// "Количество"
+			//// Variable: public double Amount;
+			/// Real parameters:
+
+			return elemContainer.Amount;
+			
+			// TO DO! Consider measurement units!
+
+		}
+
+		public static double ElementWeight(ElementContainer elemContainer)
+		{
+			///// "Масса 1 ед., кг"
+			//// Variable: public double Weight;
+			/// Real parameters:
+			// FABRIC_SHEET_MASSUNIT	// "Sheet Mass per Unit Area": Structural Sheet Mass
+			// per Unit Area [Sheet Mass / (Overall Length * Overall Width)]
+			// COUPLER_WEIGHT			// Mass
+
+			return GetDoubleParameter(elemContainer.Element, new BuiltInParameter[] {
+				BuiltInParameter.FABRIC_SHEET_MASSUNIT,
+				BuiltInParameter.COUPLER_WEIGHT
+			});
+		}
+
+		public static string ElementNote(ElementContainer elemContainer)
+		{
+			///// "Примечание"
+			//// Variable: public string Note;
+			/// Real parameters:
+			// ALL_MODEL_INSTANCE_COMMENTS	// Comments
+			// ALL_MODEL_DESCRIPTION		// Description
+			// ALL_MODEL_TYPE_COMMENTS		// Type comments
+			// MARKUPS_NOTES				// Notes
+			// SHEET_ASSEMBLY_KEYNOTE		// Assembly: Keynote
+			// FABRICATION_PART_NOTES		// Fabrication Notes
+			// ALL_MODEL_URL				// URL
+
+			return GetStringParameter(elemContainer.Element, new BuiltInParameter[] {
+				BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS,
+				BuiltInParameter.ALL_MODEL_DESCRIPTION,
+				BuiltInParameter.ALL_MODEL_TYPE_COMMENTS,
+				BuiltInParameter.MARKUPS_NOTES,
+				BuiltInParameter.SHEET_ASSEMBLY_KEYNOTE,
+				BuiltInParameter.FABRICATION_PART_NOTES,
+				BuiltInParameter.ALL_MODEL_URL
+			});
+		}
+
+		//private void RemoveDuplicates()
+		//{
+		//	ElementCollection newElemCol = new ElementCollection();
+		//	AmountList = new List<double>();
+		//	for (int i = 0; i < ElemCol.Count; ++i)
+		//	{
+		//		int dupIndex = FindElementDuplicateIndex(i);
+		//		if (dupIndex >= 0)
+		//		{
+		//			AmountList[dupIndex] += 1.0;
+		//		}
+		//		else
+		//		{
+		//			newElemCol.Add(ElemCol[i]);
+		//			AmountList.Add(1.0);
+		//		}
+		//	}
+		//	ElemCol = newElemCol;
+		//	if (ElemCol.Count != AmountList.Count)
+		//		Log.WriteLine("Collections sizes not equal: {0} vs {1}", ElemCol.Count, AmountList.Count);
+		//}
+
+		//private int FindElementDuplicateIndex(int index)
+		//{
+		//	for (int i = 0; i < index; ++i)
+		//	{
+		//		if (ElemCol[i].Equals(ElemCol[index]) == true) // mb special function to get element equality
+		//		{
+		//			return i;
+		//		}
+		//	}
+		//	return -1;
+		//}
 
 		// TO DO ! INDEX ERROR
 		//private bool ElementHasDuplicate(Element newElem, ElementCollection elemCol)

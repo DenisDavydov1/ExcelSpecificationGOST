@@ -19,44 +19,6 @@ namespace RevitToGOST
 		public static RvtData Data;
 	}
 
-	class ElementCollection : ObservableCollection<Element>
-	{
-		protected override void InsertItem(int index, Element element)
-		{
-			base.InsertItem(index, element);
-		}
-
-		protected override void RemoveItem(int index)
-		{
-			base.RemoveItem(index);
-		}
-
-		public void InsertElementCollection(int index, ElementCollection elemC)
-		{
-			foreach (Element elem in elemC)
-			{
-				this.Insert(index++, elem);
-			}
-		}
-
-		public void InsertElementCollection(int index, List<Element> elemL)
-		{
-			foreach (Element elem in elemL)
-			{
-				this.Insert(index++, elem);
-			}
-		}
-
-		internal void RemoveCategory(Category catToDel)
-		{
-			for (int i = 0; i < Count; i++)
-			{
-				if (this[i].Category.Id.IntegerValue == catToDel.Id.IntegerValue)
-					RemoveAt(i--);
-			}
-		}
-	} // class ElementCollection
-
 	class RvtData
 	{
 		/*
@@ -77,8 +39,6 @@ namespace RevitToGOST
 			public string Name { get { return Category.Name; } }
 			public int Id { get { return Category.Id.IntegerValue; } }
 			public int Count { get { return Elements.Count; } }
-			public string Zaz()
-			{ return "Zaz"; }
 			public override string ToString() { return String.Format("{0} ({1})", Name, Count); }
 		}
 
