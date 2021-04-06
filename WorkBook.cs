@@ -109,17 +109,10 @@ namespace RevitToGOST
 
 		public void LoadConfigs()
 		{
-			// Add title page
-			if (Title != GOST.Standarts.None)
-			{
-				WorkSheet newWS = AddWorkSheet("Титульный лист");
-				newWS.AddTable(GOST.LoadConfFile(ConfFile.Paths[(int)Title]));
-			}
-
 			// Add table page(s)
 			if (Table != GOST.Standarts.None)
 			{
-				for (int i = 0; i < GetTablePagesCount(Rvt.Data.PickedElements.Count, ConfFile.Lines[(int)Table]); ++i)
+				for (int i = 0; i < GetTablePagesCount(Rvt.Data.ExportElements.Count, ConfFile.Lines[(int)Table]); ++i)
 				{
 					WorkSheet newWS = AddWorkSheet(String.Format("Лист {0}",  i + 1));
 					newWS.AddTable(GOST.LoadConfFile(ConfFile.Paths[(int)Table]));
@@ -139,19 +132,30 @@ namespace RevitToGOST
 					}
 				}
 			}
+
+			// Add title page
+			if (Title != GOST.Standarts.None)
+			{
+				WorkSheet newWS = AddWorkSheet("Титульный лист");
+				newWS.AddTable(GOST.LoadConfFile(ConfFile.Paths[(int)Title]));
+			}
 		}
 
-		public void AddElementCollection(ElementCollection elementCollection)
+		public void AddExportElements()
 		{
-			int lines = ConfFile.Lines[(int)Table];
-			int count = elementCollection.Count;
-			int page = Work.Book.Title == GOST.Standarts.None ? 0 : 1;
-			for (int from = 0; from < count; )
+			int totalLines = Rvt.Data.ExportElements.Count;
+			for (int line = 0, page = 0; line < totalLines; line++)
 			{
-				int to = count - from > lines ? lines : count;
-				WSs[page++].Tables[0].AddElement(elementCollection, from, to);
-				from += to;
+				if (WSs[page].Tables[0].IsFull == true)
+					page++;
+				WSs[page].Tables[0].AddElement(Rvt.Data.ExportElements[line]);
 			}
+		}
+
+		public void MovePagesToRightPlaces()
+		{
+			if (Title != GOST.Standarts.None)
+				WB.Worksheet(WB.Worksheets.Count()).Position = 1;
 		}
 
 	} // class WorkBook

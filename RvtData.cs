@@ -22,7 +22,7 @@ namespace RevitToGOST
 	class RvtData
 	{
 		/*
-		** Member fields
+		** Member properties
 		*/
 
 		public class CategoryNode
@@ -65,6 +65,9 @@ namespace RevitToGOST
 		public CategoryNodeCollection PickedCategories { get; set; }
 		public ElementCollection AvailableElements { get; set; }
 		public ElementCollection PickedElements { get; set; }
+		public ElementCollection ExportElements { get; set; }
+
+		public int Count { get { return AvailableCategories.Count + PickedCategories.Count; } }
 
 		/*
 		** Member methods
@@ -76,6 +79,7 @@ namespace RevitToGOST
 			PickedCategories = new CategoryNodeCollection();
 			AvailableElements = new ElementCollection();
 			PickedElements = new ElementCollection();
+			ExportElements = new ElementCollection();
 			InitData();
 		}
 
@@ -118,13 +122,6 @@ namespace RevitToGOST
 			return categoryNode;
 		}
 
-		private int CompareCategoryNodes(CategoryNode x, CategoryNode y)
-		{
-			string name1 = x.Name;
-			string name2 = y.Name;
-			return String.Compare(name1, name2);
-		}
-
 		public bool CategoryNodeInList(CategoryNodeCollection list, CategoryNode categoryNode)
 		{
 			foreach (var node in list)
@@ -133,7 +130,39 @@ namespace RevitToGOST
 			return false;
 		}
 
-		public int Count { get { return AvailableCategories.Count + PickedCategories.Count; } }
+		public void SetExportElements()
+		{
+			if (Rvt.Control.GroupElemsCheckBox == true)
+				ExportElements = PickedElements.GroupByCategory();
+			else
+				ExportElements = PickedElements;
+			ExportElements.Enumerate();
+		}
+
+		public void CreateLines()
+		{
+			if (ConfFile.FillLine[(int)Work.Book.Table] == null)
+				return;
+			foreach (ElementContainer elemCont in ExportElements)
+			{
+				ConfFile.FillLine[(int)Work.Book.Table](elemCont);
+			}
+		}
+
+		public void InitExportElements()
+		{
+			ExportElements = new ElementCollection();
+		}
+
+		public void InsertColumnsEnumerationLines()
+		{
+			if (Rvt.Control.EnumerateColumnsCheckBox == false)
+				return;
+			for (int i = 0; i < ExportElements.Count; i += ConfFile.Lines[(int)Work.Book.Table])
+			{
+				ExportElements.Insert(i, new ElementContainer(ElementContainer.ContType.ColumnsEnumeration));
+			}
+		}
 
 	} // class RvtData
 

@@ -61,65 +61,66 @@ namespace RevitToGOST
 		** Member methods
 		*/
 
-		public void FillLines()
-		{
-			// "_1"
-			OrgName = Rvt.Handler.ProjInfo.OrganizationName;
+		//public void FillLines()
+		//{
+		//	// "_1"
+		//	OrgName = Rvt.Handler.ProjInfo.OrganizationName;
 
-			// "_2"
-			FullOrgName = Rvt.Handler.ProjInfo.OrganizationDescription;
+		//	// "_2"
+		//	FullOrgName = Rvt.Handler.ProjInfo.OrganizationDescription;
 
-			// "_4"
-			ObjName = Rvt.Handler.ProjInfo.Name + "\r\n" + Rvt.Handler.ProjInfo.Address;
+		//	// "_4"
+		//	ObjName = Rvt.Handler.ProjInfo.Name + "\r\n" + Rvt.Handler.ProjInfo.Address;
 
-			// "_5"
-			DocType = "Вид документации";
+		//	// "_5"
+		//	DocType = "Вид документации";
 
-			// "_6"
-			DocName = "Наименование документа";
+		//	// "_6"
+		//	DocName = "Наименование документа";
 
-			// "_7"
-			TomName = "Обозначение документа или тома";
+		//	// "_7"
+		//	TomName = "Обозначение документа или тома";
 
-			// "_8"
-			TomNumber = "Номер тома";
+		//	// "_8"
+		//	TomNumber = "Номер тома";
 
-			// "_9"
-			AuthorsPositions = "________________________\r\n(должность)";
+		//	// "_9"
+		//	AuthorsPositions = "________________________\r\n(должность)";
 
-			// "_10"
-			Date = "(подпись)\r\n";
-			Date += DateTime.UtcNow.ToString("dd.MM.yyyy");
+		//	// "_10"
+		//	Date = "(подпись)\r\n";
+		//	Date += DateTime.UtcNow.ToString("dd.MM.yyyy");
 
-			// "_11"
-			AuthorsNames = Rvt.Handler.ProjInfo.Author;
+		//	// "_11"
+		//	AuthorsNames = Rvt.Handler.ProjInfo.Author;
 
-			// "_12"
-			Year = DateTime.UtcNow.ToString("yyyy");
+		//	// "_12"
+		//	Year = DateTime.UtcNow.ToString("yyyy");
 
-			// "_3"
-			Agreement = String.Empty;
-			//Agreement = "СОГЛАСОВАНО\r\n________________________\r\n" +
-			//	"________________________\r\n«___» __________ " +
-			//	Year + " г.";
-		}
+		//	// "_3"
+		//	Agreement = String.Empty;
+		//	//Agreement = "СОГЛАСОВАНО\r\n________________________\r\n" +
+		//	//	"________________________\r\n«___» __________ " +
+		//	//	Year + " г.";
+		//}
 
-		public List<List<string>> FillList()
-		{
-			List<List<string>> output = new List<List<string>>()
-			{
-				new List<string>() { OrgName },
-				new List<string>() { FullOrgName },
-				new List<string>() { Agreement },
-				new List<string>() { ObjName },
-				new List<string>() { DocType },
-				new List<string>() { DocName },
-				new List<string>() { TomName },
-				new List<string>() { TomNumber },
-				new List<string>() { AuthorsPositions, Date, AuthorsNames },
-				new List<string>() { Year }
-			};
-			return output;
-		}
+		//public List<List<string>> FillList()
+		//{
+		//	List<List<string>> output = new List<List<string>>()
+		//	{
+		//		new List<string>() { OrgName },
+		//		new List<string>() { FullOrgName },
+		//		new List<string>() { Agreement },
+		//		new List<string>() { ObjName },
+		//		new List<string>() { DocType },
+		//		new List<string>() { DocName },
+		//		new List<string>() { TomName },
+		//		new List<string>() { TomNumber },
+		//		new List<string>() { AuthorsPositions, Date, AuthorsNames },
+		//		new List<string>() { Year }
+		//	};
+		//	return output;
+		//}
+
 	} // class GOST_P_21_101_2020_Title_12
 } // namespace RevitToGOST

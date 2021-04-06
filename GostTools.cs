@@ -72,6 +72,26 @@ namespace RevitToGOST
 			0,	// GOST_P_21_101_2020_Stamp3
 			0	// GOST_P_21_101_2020_Title_12
 		};
+
+		public static readonly Action<ElementContainer>[] FillLine =
+		{
+			null,
+			GOST_21_110_2013.FillLine,
+			null,
+			null,
+			null
+		};
+	}
+
+	static class ClassExtensions
+	{
+		public static int TotalLinesCount(this Dictionary<string, ElementCollection> dict)
+		{
+			int lines = dict.Keys.Count;
+			foreach (ElementCollection elemCol in dict.Values)
+				lines += elemCol.Count;
+			return lines;
+		}
 	}
 
 } // namespace RevitToGOST

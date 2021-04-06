@@ -23,7 +23,5 @@ namespace RevitToGOST
 		**	Member methods
 		*/
 
-		void FillLines();
-		List<List<string>> FillList();
 	} // public interface IGostData
 } // namespace RevitToGOST

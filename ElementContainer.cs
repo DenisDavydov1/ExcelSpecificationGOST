@@ -21,7 +21,7 @@ namespace RevitToGOST
 		*/
 
 		public Element Element { get; set; }
-		public int Amount { get; set; }
+		public int Amount { get; set; } = 0;
 		public string InstanceName
 		{
 			get
@@ -36,19 +36,42 @@ namespace RevitToGOST
 				return Element.Name;
 			}
 		}
+		public Category Category { get { return Element.Category; } }
+		public string CategoryName { get { return Category.Name; } }
+		public string CategoryLine { get; set; } = null;
+		public int Position { get; set; } = 0;
+		public ContType LineType { get; set; } = ContType.Element;
+		public List<string> Line { get; set; }
+
+
+		public enum ContType
+		{
+			Element,
+			Category,
+			ColumnsEnumeration
+		}
 
 		/*
 		** Member methods
 		*/
 
-		public ElementContainer()
+		public ElementContainer(ContType contType = ContType.Element)
 		{
 			Amount = 1;
+			LineType = contType;
 		}
+		
 		public ElementContainer(Element element)
 		{
 			Element = element;
 			Amount = 1;
+			LineType = ContType.Element;
+		}
+
+		public ElementContainer(string categoryLine)
+		{
+			CategoryLine = categoryLine;
+			LineType = ContType.Category;
 		}
 
 		public bool Equals(ElementContainer other)
@@ -98,6 +121,15 @@ namespace RevitToGOST
 			}
 		}
 
+		public void AddElementCollection(ElementCollection elemCol)
+		{
+			foreach (ElementContainer elemCont in elemCol)
+			{
+				if (HasDuplicate(elemCont) == false)
+					this.Add(elemCont);
+			}
+		}
+
 		/*
 		** Common
 		*/
@@ -118,8 +150,12 @@ namespace RevitToGOST
 
 		private bool HasDuplicate(ElementContainer elementContainer)
 		{
+			if (elementContainer.LineType != ElementContainer.ContType.Element)
+				return false;
 			foreach (ElementContainer currentElem in this)
 			{
+				if (currentElem.LineType != ElementContainer.ContType.Element)
+					continue;
 				if (currentElem.Equals(elementContainer))
 				{
 					currentElem.Amount++;
@@ -129,7 +165,39 @@ namespace RevitToGOST
 			return false;
 		}
 
-		
+		public ElementCollection GroupByCategory()
+		{
+			// Fill a dictionary by elements categories
+			Dictionary<string, ElementCollection> categoryDict = new Dictionary<string, ElementCollection>();
+			foreach (ElementContainer elemCont in Rvt.Data.PickedElements)
+			{
+				if (categoryDict.Keys.Contains(elemCont.CategoryName) == false)
+					categoryDict.Add(elemCont.CategoryName, new ElementCollection());
+				categoryDict[elemCont.CategoryName].Add(elemCont);
+			}
+
+			// Create a new element collection filled by the dictionary order
+			ElementCollection groupedCol = new ElementCollection();
+			foreach (var pair in categoryDict)
+			{
+				groupedCol.Add(new ElementContainer(pair.Key));	// Add category line
+				groupedCol.AddElementCollection(pair.Value);	// Add elements of category
+			}
+			return groupedCol;
+		}
+
+		public void Enumerate()
+		{
+			int pos = 1;
+			foreach (ElementContainer elemCont in this)
+			{
+				if (elemCont.LineType == ElementContainer.ContType.Element)
+					elemCont.Position = pos++;
+				else if (elemCont.LineType == ElementContainer.ContType.Category)
+					pos = 1;
+			}
+		}
 
 	} // class ElementCollection
-}
+
+} // namespace RevitToGOST

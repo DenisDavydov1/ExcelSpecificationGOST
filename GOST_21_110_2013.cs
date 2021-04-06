@@ -50,9 +50,7 @@ namespace RevitToGOST
 		}
 
 		public ElementCollection ElemCol { get; set; }
-		private List<double> AmountList { get; set; }
 		public List<Line> Lines { get; set; }
-		private int Position;
 
 		/*
 		**	Member methods
@@ -61,30 +59,126 @@ namespace RevitToGOST
 		public GOST_21_110_2013(ElementCollection elemCol)
 		{
 			ElemCol = elemCol;
-			Position = 1;
 		}
 
-		public void FillLines()
+		public static void FillLine(ElementContainer elemCont)
 		{
-			Lines = new List<Line>();
-
-			foreach (ElementContainer element in ElemCol)
+			//// Заголовок категории
+			if (elemCont.LineType == ElementContainer.ContType.Category)
 			{
-				Line line = new Line();
+				elemCont.Line = new List<string>() { "", elemCont.CategoryLine, "", "", "", "", "", "", "" };
+			}
 
-				line.Position = Position++;					// "Поз."
-				line.Name = ElementName(element);			// "Наименование и техническая характеристика"
-				line.Type = ElementType(element);			// "Тип, марка, обозначение документа, опросного листа"
-				line.ProdCode = ElementProdCode(element);	// "Код продукции"
-				line.Provider = ElementProvider(element);	// "Поставщик"
-				line.Unit = ElementUnit(element);			// "Ед. измерения"
-				line.Amount = ElementAmount(element);		// "Количество"
-				line.Weight = ElementWeight(element);		// "Масса 1 ед., кг"
-				line.Note = ElementNote(element);			// "Примечание"
+			//// Нумерация стоблцов
+			else if (elemCont.LineType == ElementContainer.ContType.ColumnsEnumeration)
+			{
+				elemCont.Line = new List<string>() { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+			}
 
-				Lines.Add(line);
+			//// Настоящий элемент
+			else
+			{
+				elemCont.Line = new List<string>();
+
+				// "Поз."
+				elemCont.Line.Add(elemCont.Position.ToString());
+
+				// "Наименование и техническая характеристика"
+				elemCont.Line.Add(ElementName(elemCont));
+
+				// "Тип, марка, обозначение документа, опросного листа"
+				elemCont.Line.Add(ElementType(elemCont));
+
+				// "Код продукции"
+				elemCont.Line.Add(ElementProdCode(elemCont));
+
+				// "Поставщик"
+				elemCont.Line.Add(ElementProvider(elemCont));
+
+				// "Ед. измерения"
+				string unit = ElementUnit(elemCont);
+				if (unit == String.Empty)
+					elemCont.Line.Add("Шт.");
+				else
+					elemCont.Line.Add(unit);
+
+				// "Количество"
+				double amount = ElementAmount(elemCont);
+				if (amount == 0.0)
+					elemCont.Line.Add(String.Empty);
+				else
+					elemCont.Line.Add(amount.ToString());
+
+				// "Масса 1 ед., кг"
+				double weight = ElementWeight(elemCont);
+				if (weight == 0.0)
+					elemCont.Line.Add(String.Empty);
+				else
+					elemCont.Line.Add(weight.ToString());
+
+				// "Примечание"
+				elemCont.Line.Add(ElementNote(elemCont));
+
+				//line.Position = elemCont.Position;           // "Поз."
+				//line.Name = ElementName(elemCont);           // "Наименование и техническая характеристика"
+				//line.Type = ElementType(elemCont);           // "Тип, марка, обозначение документа, опросного листа"
+				//line.ProdCode = ElementProdCode(elemCont);   // "Код продукции"
+				//line.Provider = ElementProvider(elemCont);   // "Поставщик"
+				//line.Unit = ElementUnit(elemCont);           // "Ед. измерения"
+				//line.Amount = ElementAmount(elemCont);       // "Количество"
+				//line.Weight = ElementWeight(elemCont);       // "Масса 1 ед., кг"
+				//line.Note = ElementNote(elemCont);           // "Примечание"
 			}
 		}
+
+		//public void FillLines()
+		//{
+		//	Lines = new List<Line>();
+
+		//	foreach (ElementContainer element in ElemCol)
+		//	{
+		//		Line line = new Line();
+
+		//		line.Position = element.Position;               // "Поз."
+				
+		//		//// Заголовок категории
+		//		if (element.LineType == ElementContainer.ContType.Category)
+		//		{
+		//			line.Name = element.CategoryLine;
+		//			line.Name = line.Name ?? String.Empty;
+		//			line.Type = line.ProdCode = line.Provider = line.Note = String.Empty;
+		//			line.Unit = " ";
+		//			line.Amount = line.Weight = 0.0;
+		//		}
+
+		//		//// Нумерация стоблцов
+		//		else if (element.LineType == ElementContainer.ContType.Category)
+		//		{
+		//			line.Name = ElementName(element);
+		//			line.Type = ElementType(element);
+		//			line.ProdCode = ElementProdCode(element);
+		//			line.Provider = ElementProvider(element);
+		//			line.Unit = ElementUnit(element);
+		//			line.Amount = ElementAmount(element);
+		//			line.Weight = ElementWeight(element);
+		//			line.Note = ElementNote(element);
+		//		}
+
+		//		//// Настоящий элемент
+		//		else
+		//		{
+		//			line.Name = ElementName(element);			// "Наименование и техническая характеристика"
+		//			line.Type = ElementType(element);			// "Тип, марка, обозначение документа, опросного листа"
+		//			line.ProdCode = ElementProdCode(element);	// "Код продукции"
+		//			line.Provider = ElementProvider(element);	// "Поставщик"
+		//			line.Unit = ElementUnit(element);			// "Ед. измерения"
+		//			line.Amount = ElementAmount(element);		// "Количество"
+		//			line.Weight = ElementWeight(element);		// "Масса 1 ед., кг"
+		//			line.Note = ElementNote(element);			// "Примечание"
+		//		}
+		//		Lines.Add(line);
+		//	}
+		//}
 
 		public static string ElementName(ElementContainer elemContainer)
 		{
@@ -253,43 +347,6 @@ namespace RevitToGOST
 			return 0.0;
 		}
 
-		//private static string GetStringParameterValue(Parameter param)
-		//{
-		//	if (param == null || param.HasValue == false)
-		//		return String.Empty;
-
-		//	// Storage type: None
-		//	if (param.StorageType == StorageType.None)
-		//		return String.Empty;
-
-		//	// Storage type: Integer
-		//	if (param.StorageType == StorageType.Integer)
-		//		return param.AsInteger().ToString();
-
-		//	// Storage type: Double
-		//	if (param.StorageType == StorageType.Double)
-		//		return param.AsDouble().ToString();
-
-		//	// Storage type: String
-		//	if (param.StorageType == StorageType.String)
-		//	{
-		//		string asString = param.AsString();
-		//		string asValueString = param.AsValueString();
-		//		if (asValueString != null && asValueString.Length > 0)
-		//			return asValueString;
-		//		if (asString != null && asString.Length > 0)
-		//			return asString;
-		//		return String.Empty;
-		//	}
-
-		//	// Storage type: ElementId
-		//	if (param.StorageType == StorageType.ElementId)
-		//		return param.AsElementId().IntegerValue.ToString();
-
-		//	//return param.AsValueString();
-		//	return String.Empty;
-		//}
-
 		private static string GetStringParameterValue(Parameter param)
 		{
 			if (param == null || param.HasValue == false)
@@ -322,40 +379,56 @@ namespace RevitToGOST
 			return 0.0;
 		}
 
-		public List<List<string>> FillList()
-		{
-			List<List<string>> output = new List<List<string>>();
-			//for (int i = 0; i < Lines.Count; ++i)
-			foreach (Line line in Lines)
-			{
-				output.Add(new List<string>());
-				List<string> curLineList = output.Last();
+		//public List<List<string>> FillList()
+		//{
+		//	List<List<string>> output = new List<List<string>>();
+		//	//for (int i = 0; i < Lines.Count; ++i)
+		//	foreach (Line line in Lines)
+		//	{
+		//		output.Add(new List<string>());
+		//		List<string> curLineList = output.Last();
 
-				curLineList.Add(line.Position.ToString());  // "Поз."
-				curLineList.Add(line.Name);                 // "Наименование и техническая характеристика"
-				curLineList.Add(line.Type);                 // "Тип, марка, обозначение документа, опросного листа"
-				curLineList.Add(line.ProdCode);             // "Код продукции"
-				curLineList.Add(line.Provider);             // "Поставщик"
+		//		// "Поз."
+		//		if (line.Position == 0)
+		//			curLineList.Add(String.Empty);
+		//		else
+		//			curLineList.Add(line.Position.ToString());
 				
-				if (line.Unit == String.Empty)              // "Ед. измерения"
-					curLineList.Add("Шт.");
-				else
-					curLineList.Add(line.Unit);
+		//		// "Наименование и техническая характеристика"
+		//		curLineList.Add(line.Name);
 
-				if (line.Amount == 0.0)                     // "Количество"
-					curLineList.Add(String.Empty);
-				else
-					curLineList.Add(line.Amount.ToString());
+		//		// "Тип, марка, обозначение документа, опросного листа"
+		//		curLineList.Add(line.Type);
 
-				if (line.Weight == 0.0)                     // "Масса 1 ед., кг"
-					curLineList.Add(String.Empty);
-				else
-					curLineList.Add(line.Weight.ToString());
+		//		// "Код продукции"
+		//		curLineList.Add(line.ProdCode);
 
-				curLineList.Add(line.Note);                 // "Примечание"
-			}
-			return output;
-		}
+		//		// "Поставщик"
+		//		curLineList.Add(line.Provider);
+
+		//		// "Ед. измерения"
+		//		if (line.Unit == String.Empty)
+		//			curLineList.Add("Шт.");
+		//		else
+		//			curLineList.Add(line.Unit);
+
+		//		// "Количество"
+		//		if (line.Amount == 0.0)
+		//			curLineList.Add(String.Empty);
+		//		else
+		//			curLineList.Add(line.Amount.ToString());
+
+		//		// "Масса 1 ед., кг"
+		//		if (line.Weight == 0.0)
+		//			curLineList.Add(String.Empty);
+		//		else
+		//			curLineList.Add(line.Weight.ToString());
+
+		//		// "Примечание"
+		//		curLineList.Add(line.Note);
+		//	}
+		//	return output;
+		//}
 
 	} // class GOST_21_110_2013
 

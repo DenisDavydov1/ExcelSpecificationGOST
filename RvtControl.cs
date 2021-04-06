@@ -19,32 +19,43 @@ namespace RevitToGOST
 		** Member properties
 		*/
 
-		public bool GroupElemsCheckBox { get; set; }
+		public bool GroupElemsCheckBox { get; set; } = false;
+		public bool EnumerateColumnsCheckBox { get; set; } = false;
 
 		/*
 		** Member methods
 		*/
 
-		public RvtControl()
-		{
-			GroupElemsCheckBox = false;
-		}
-
 		public void ExportButton()
 		{
-			//GOST page = GOST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\GOST_21_110_2013_Table1.json");
-			//GOST stamp = GOST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\GOST_21_101_2020_Stamp3.json");
-			//GOST dop = GOST.LoadConfFile(@"F:\CS_CODE\REVIT\PROJECTS\Templates\GOST_21_101_2020_Dop3.json");
+			// Pick data and assign it to Rvt.Data.ExportElements
+			Rvt.Data.SetExportElements();
 
-			//page.AddElement(Rvt.Data.PickedElements);
+			// Enumerate columns - add lines to Rvt.Data.ExportElements (if a box checked)
+			Rvt.Data.InsertColumnsEnumerationLines();
 
+			// Load needed configuration files and add worksheets
+			// and assign worksheets with GOSTs
 			Work.Book.LoadConfigs();
-			Work.Book.AddElementCollection(Rvt.Data.PickedElements);
 
+			// Add element collection to GOSTs
+			Rvt.Data.CreateLines();
+			Work.Book.AddExportElements();
+
+			// Build tables and fill it with data lines
 			Work.Book.BuildWorkSheets();
+
+			// Move title page to front of workbook
+			Work.Book.MovePagesToRightPlaces();
+
+			// Set author parameters to workbook
 			Work.Book.SetWorkbookAuthor();
 
+			// Save file
 			SaveProcedure();
+
+			// Unset Rvt.Data.ExportElements
+			Rvt.Data.InitExportElements();
 		}
 
 		private void SaveProcedure()
@@ -85,9 +96,9 @@ namespace RevitToGOST
 			}
 		}
 
+		// Checks if a file is ready for writing
 		private bool IsFileLocked(string filePath)
 		{
-			// Check if a file is ready for writing
 			try
 			{
 				using (FileStream stream = File.Open(filePath, FileMode.OpenOrCreate, FileAccess.Write))
@@ -99,5 +110,6 @@ namespace RevitToGOST
 			}
 			return false;
 		}
+
 	} // class RvtControl
 } // namespace RevitToGOST

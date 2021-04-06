@@ -92,7 +92,7 @@ namespace RevitToGOST
 			DrawFrame();
 			FillHeader();
 			FillTable();
-			
+			Kostyl();
 		}
 
 		private void ApplyParameters()
@@ -284,34 +284,74 @@ namespace RevitToGOST
 			}
 		}
 
-		public void FillTable()
+		private void FillTable()
 		{
 			foreach (GOST table in Tables)
 			{
-				table.ApplyGostData();
 				for (int dataLine = 0;
-					dataLine < table.LinesCount && dataLine < table.Data.Count;
+					dataLine < table.LinesCount && dataLine < table.ElemCol.Count;
 					table.Line++, dataLine++)
 				{
 					for (int field = 0;
-						field < table.Fields[table.Line].Count && field < table.Data[dataLine].Count;
+						field < table.Fields[table.Line].Count && field < table.ElemCol[dataLine].Line.Count;
 						field++)
 					{
 						(int y1, int x1) = (table.Fields[table.Line][field][0], table.Fields[table.Line][field][1]);
 						(y1, x1) = XMLTools.GetCellIndexesBySize(Rows, Columns, y1, x1);
-						WS.Cell(y1, x1).Value = table.Data[dataLine][field];
+						WS.Cell(y1, x1).Value = table.ElemCol[dataLine].Line[field];
 						if (table.Type == GOST.Types.Table)
 						{
 							(int y2, int x2) = (table.Fields[table.Line][field][2], table.Fields[table.Line][field][3]);
 							(y2, x2) = XMLTools.GetCellIndexesBySize(Rows, Columns, y2, x2);
 							WS.Range(y1, x1, y2, x2).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
 						}
-						//int y = table.Fields[table.Line][field][0];
-						//int x = table.Fields[table.Line][field][1];
-						//(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
-						//WS.Cell(y, x).Value = table.Data[dataLine][field];
 					}
 				}
+			}
+		}
+
+		//public void FillTable()
+		//{
+		//	foreach (GOST table in Tables)
+		//	{
+		//		table.ApplyGostData();
+		//		for (int dataLine = 0;
+		//			dataLine < table.LinesCount && dataLine < table.Data.Count;
+		//			table.Line++, dataLine++)
+		//		{
+		//			for (int field = 0;
+		//				field < table.Fields[table.Line].Count && field < table.Data[dataLine].Count;
+		//				field++)
+		//			{
+		//				(int y1, int x1) = (table.Fields[table.Line][field][0], table.Fields[table.Line][field][1]);
+		//				(y1, x1) = XMLTools.GetCellIndexesBySize(Rows, Columns, y1, x1);
+		//				WS.Cell(y1, x1).Value = table.Data[dataLine][field];
+		//				if (table.Type == GOST.Types.Table)
+		//				{
+		//					(int y2, int x2) = (table.Fields[table.Line][field][2], table.Fields[table.Line][field][3]);
+		//					(y2, x2) = XMLTools.GetCellIndexesBySize(Rows, Columns, y2, x2);
+		//					WS.Range(y1, x1, y2, x2).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+		//				}
+		//				//int y = table.Fields[table.Line][field][0];
+		//				//int x = table.Fields[table.Line][field][1];
+		//				//(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
+		//				//WS.Cell(y, x).Value = table.Data[dataLine][field];
+		//			}
+		//		}
+		//	}
+		//}
+
+		private void Kostyl()
+		{
+			// Set horizontal alignment for columns enumeration row
+			if (Work.Book.Table == GOST.Standarts.GOST_21_110_2013_Table1 &&
+				Tables[0].Standart == Work.Book.Table &&
+				Rvt.Control.EnumerateColumnsCheckBox == true)
+			{
+				(int y, int x) = (Tables[0].Fields[1][1][0], Tables[0].Fields[1][1][1]);
+				(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
+				Log.WriteLine("cell {0} {1}. Text: {2}", y, x, WS.Cell(y, x).Value);
+				WS.Cell(y, x).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 			}
 		}
 

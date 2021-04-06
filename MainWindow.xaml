@@ -85,6 +85,15 @@
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 3)</TextBlock>
 					</ComboBox>
 
+					<CheckBox x:Name="EnumerateColumnsCheckBox"
+							  Content="Нумерация столбцов"
+							  IsThreeState="False"
+							  IsChecked="False"
+							  Checked="EnumerateColumnsCheckBox_Checked"
+							  Unchecked="EnumerateColumnsCheckBox_Unchecked"
+							  HorizontalAlignment="Left" VerticalAlignment="Top"
+							  Margin="153,148,0,0"/>
+
 				</Grid>
 
 			</TabItem>

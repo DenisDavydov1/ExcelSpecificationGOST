@@ -48,11 +48,17 @@ namespace RevitToGOST
 			try
 			{
 				Rvt.Control.ExportButton();
+				//Rvt.Control.LogSortedByCategory();
 			}
 			catch (Exception ex)
 			{
-				Log.WriteLine("Exception caught((: {0}", ex.Message);
+				MessageBox.Show(String.Format("{0}\n\nStack trace:\n{1}", ex.Message, ex.StackTrace),
+					"Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
+			AvailableCategories.Items.Refresh();
+			PickedCategories.Items.Refresh();
+			AvailableElements.Items.Refresh();
+			PickedElements.Items.Refresh();
 		}
 
 		/*
@@ -74,6 +80,8 @@ namespace RevitToGOST
 			AvailableElementsView.GroupDescriptions.Remove(AvailableElementsView.GroupDescriptions.Last());
 			Rvt.Control.GroupElemsCheckBox = false;
 		}
+
+		////////////////////////////////////// TAB 1 //////////////////////////////////////
 
 		/*
 		** Настройка конфигурации таблицы (ComboBox)
@@ -120,6 +128,22 @@ namespace RevitToGOST
 				Work.Book.Dop = GOST.Standarts.None;
 			else if (DopComboBox.SelectedIndex == 1)
 				Work.Book.Dop = GOST.Standarts.GOST_P_21_101_2020_Dop3;
+			// DrawPreview(); TO DO!
+		}
+
+		/*
+		** Нумерация столбцов (CheckBox)
+		*/
+
+		private void EnumerateColumnsCheckBox_Checked(object sender, RoutedEventArgs e)
+		{
+			Rvt.Control.EnumerateColumnsCheckBox = true;
+			// DrawPreview(); TO DO!
+		}
+
+		private void EnumerateColumnsCheckBox_Unchecked(object sender, RoutedEventArgs e)
+		{
+			Rvt.Control.EnumerateColumnsCheckBox = false;
 			// DrawPreview(); TO DO!
 		}
 

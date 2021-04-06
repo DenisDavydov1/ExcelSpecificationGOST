@@ -68,6 +68,8 @@ namespace RevitToGOST
 		public List<int[]> Borders { get; set; }
 		public Standarts Standart { get; set; }
 
+		public bool IsFull { get { return ElemCol.Count >= ConfFile.Lines[(int)Standart]; } }
+
 		public enum Types
 		{
 			None,
@@ -118,6 +120,7 @@ namespace RevitToGOST
 				Data.Add(new List<string>(line));
 		}
 
+
 		public void AddElement(ElementCollection elemCol)
 		{
 			if (ElemCol == null)
@@ -141,21 +144,21 @@ namespace RevitToGOST
 			ElemCol.Add(element);
 		}
 
-		public void ApplyGostData()
-		{
-			if (Standart == Standarts.GOST_21_110_2013_Table1)
-			{
-				GostData = new GOST_21_110_2013(ElemCol);
-				GostData.FillLines();	
-				Data = GostData.FillList();
-			}
-			if (Standart == Standarts.GOST_P_21_101_2020_Title_12)
-			{
-				GostData = new GOST_P_21_101_2020_Title_12();
-				GostData.FillLines();
-				Data = GostData.FillList();
-			}
-		}
+		//public void ApplyGostData()
+		//{
+		//	if (Standart == Standarts.GOST_21_110_2013_Table1)
+		//	{
+		//		GostData = new GOST_21_110_2013(ElemCol);
+		//		GostData.FillLines();	
+		//		Data = GostData.FillList();
+		//	}
+		//	if (Standart == Standarts.GOST_P_21_101_2020_Title_12)
+		//	{
+		//		GostData = new GOST_P_21_101_2020_Title_12();
+		//		GostData.FillLines();
+		//		Data = GostData.FillList();
+		//	}
+		//}
 
 	} // class GOST
 
