@@ -32,10 +32,9 @@ namespace RevitToGOST
 		// | 3 4 |
 		//  ‾‾‾‾‾
 		public int Position { get; set; }
-		public List<int[]> Columns;
-		public List<int[]> Rows;
-		public List<List<int[]>> Fields;
-		public string[] HeaderList { get; set; }
+		public List<int[]> Columns { get; set; }
+		public List<int[]> Rows { get; set; }
+		public List<List<int[]>> Fields { get; set; }
 		public string Font { get; set; }
 		public int FontSize { get; set; }
 		public List<int[]> FontSizes { get; set; }
@@ -142,6 +141,18 @@ namespace RevitToGOST
 			if (ElemCol == null)
 				ElemCol = new ElementCollection();
 			ElemCol.Add(element);
+		}
+
+		public void ElemColToData()
+		{
+			if (Type == Types.Table)
+			{
+				Data = new List<List<string>>();
+				foreach (ElementContainer elemCont in ElemCol)
+				{
+					Data.Add(elemCont.Line);
+				}
+			}
 		}
 
 		//public void ApplyGostData()

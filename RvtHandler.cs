@@ -104,7 +104,7 @@ namespace RevitToGOST
 					if (param.Definition.Name == ((Parameter)it.Current).Definition.Name)
 						return true;
 				}
-				catch (Exception e) { continue; }
+				catch { continue; }
 			}
 			return false;
 		}
@@ -119,7 +119,7 @@ namespace RevitToGOST
 				{
 					list = collection.OfCategory(category).ToElements();
 				}
-				catch (Exception e) { continue; }
+				catch { continue; }
 				if (list.Count == 0)
 					continue;
 				Log.WriteLine("\n\nNEW CATEGORY: {0}\n\n", Enum.GetName(typeof(BuiltInCategory), category));
@@ -137,7 +137,7 @@ namespace RevitToGOST
 							Log.WriteLine("[Name] {4, 40} [Val] {5, 7} [Descr] {0, 40} [String] {1, 40} [ValueStr] {2, 40} [Double] {3, 10}",
 							prm.Definition.Name, prm.AsString(), prm.AsValueString(), prm.AsDouble(), Enum.GetName(typeof(BuiltInParameter), param), (int)param);
 						}
-						catch (Exception e) { continue; }
+						catch { continue; }
 						//Log.WriteLine("\n\nNEW CATEGORY: {0}\n\n", Enum.GetName(typeof(BuiltInCategory), category));
 					}
 					//ParameterSetIterator it = prms.ForwardIterator();
@@ -165,5 +165,6 @@ namespace RevitToGOST
 			//	}
 			//}
 		}
+
 	} // class RvtHandler
 } // namespace RevitToGOST

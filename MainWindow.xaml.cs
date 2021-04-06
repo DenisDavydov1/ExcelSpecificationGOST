@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,8 @@ namespace RevitToGOST
 		private CollectionView PickedElementsView { get; set; }
 		private CollectionView AvailableElementsView { get; set; }
 
+		private BackgroundWorker ExportWorker;
+
 		/*
 		** Member methods
 		*/
@@ -41,6 +44,11 @@ namespace RevitToGOST
 			PickedElements.ItemsSource = Rvt.Data.PickedElements;
 			MakeAllComboBoxUpdate();
 			// DrawPreview(); TO DO!
+		}
+
+		public void SetProgressValue(double value)
+		{
+			ExportProgressBar.Value = value;
 		}
 
 		private void Export_Click(object sender, RoutedEventArgs e)
@@ -145,6 +153,16 @@ namespace RevitToGOST
 		{
 			Rvt.Control.EnumerateColumnsCheckBox = false;
 			// DrawPreview(); TO DO!
+		}
+
+		private void huy_Click(object sender, RoutedEventArgs e)
+		{
+			ExportProgressBar.Value += 5.0;
+			//Rvt.Control.Progress.Value += 5.0;
+			//if (ExportProgressBar.Value == 0.0)
+			//	ExportProgressBar.Value = 100.0;
+			//else
+			//	ExportProgressBar.Value = 0.0;
 		}
 
 	} // class MainWindow

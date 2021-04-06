@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,13 @@ namespace RevitToGOST
 	{
 		public static RvtControl Control;
 	}
+
+	public class Progress : INotifyPropertyChanged
+	{
+		public double Value { get; set; } = 0.0;
+		public event PropertyChangedEventHandler PropertyChanged;
+	}
+
 	class RvtControl
 	{
 		/*
@@ -21,6 +29,8 @@ namespace RevitToGOST
 
 		public bool GroupElemsCheckBox { get; set; } = false;
 		public bool EnumerateColumnsCheckBox { get; set; } = false;
+		public double ExportProgressBarValue { get; set; } = 0.0;
+		public Progress Progress { get; set; } = new Progress();
 
 		/*
 		** Member methods
@@ -28,28 +38,54 @@ namespace RevitToGOST
 
 		public void ExportButton()
 		{
+			//Rvt.Progress = new ExportProgress();
+			//ExportProgress progress = new ExportProgress();
+			//MainWindow.SetProgressValue(0.0);
+
 			// Pick data and assign it to Rvt.Data.ExportElements
 			Rvt.Data.SetExportElements();
 
+			//Rvt.Progress.Value = 10.0;
+
 			// Enumerate columns - add lines to Rvt.Data.ExportElements (if a box checked)
 			Rvt.Data.InsertColumnsEnumerationLines();
+
+			//Rvt.Progress.Value = 20.0;
 
 			// Load needed configuration files and add worksheets
 			// and assign worksheets with GOSTs
 			Work.Book.LoadConfigs();
 
-			// Add element collection to GOSTs
-			Rvt.Data.CreateLines();
+			//Rvt.Progress.Value = 30.0;
+
+			// Fill tables with element collection
+			Rvt.Data.FillLines();
 			Work.Book.AddExportElements();
+			Work.Book.ConvertElementCollectionsToLists();
+
+			//Rvt.Progress.Value = 40.0;
+
+			// Fill stamps
+			// Fill dops
+			// Fill title page
+			Work.Book.FillTitlePage();
+
+			//Rvt.Progress.Value = 60.0;
 
 			// Build tables and fill it with data lines
 			Work.Book.BuildWorkSheets();
 
+			//Rvt.Progress.Value = 80.0;
+
 			// Move title page to front of workbook
 			Work.Book.MovePagesToRightPlaces();
 
+			//Rvt.Progress.Value = 90.0;
+
 			// Set author parameters to workbook
 			Work.Book.SetWorkbookAuthor();
+
+			//Rvt.Progress.Value = 100.0;
 
 			// Save file
 			SaveProcedure();

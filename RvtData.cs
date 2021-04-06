@@ -139,13 +139,17 @@ namespace RevitToGOST
 			ExportElements.Enumerate();
 		}
 
-		public void CreateLines()
+		public void FillLines()
 		{
-			if (ConfFile.FillLine[(int)Work.Book.Table] == null)
-				return;
-			foreach (ElementContainer elemCont in ExportElements)
+			// Fill table
+			if (Work.Book.Table != GOST.Standarts.None &&
+				ConfFile.FillLine[(int)Work.Book.Table] != null)
 			{
-				ConfFile.FillLine[(int)Work.Book.Table](elemCont);
+				foreach (ElementContainer elemCont in ExportElements)
+				{
+					ConfFile.FillLine[(int)Work.Book.Table](elemCont);
+				}
+				Work.Book.ConvertElementCollectionsToLists();
 			}
 		}
 

@@ -43,7 +43,6 @@ namespace RevitToGOST
 		public ContType LineType { get; set; } = ContType.Element;
 		public List<string> Line { get; set; }
 
-
 		public enum ContType
 		{
 			Element,

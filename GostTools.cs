@@ -79,7 +79,7 @@ namespace RevitToGOST
 			GOST_21_110_2013.FillLine,
 			null,
 			null,
-			null
+			GOST_P_21_101_2020_Title_12.FillLine
 		};
 	}
 

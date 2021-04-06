@@ -19,38 +19,38 @@ namespace RevitToGOST
 		**	Member properties
 		*/
 
-		public class Line
-		{
-			// "Поз."
-			public int Position;
+		//public class Line
+		//{
+		//	// "Поз."
+		//	public int Position;
 
-			// "Наименование и техническая характеристика"
-			public string Name;
+		//	// "Наименование и техническая характеристика"
+		//	public string Name;
 
-			// "Тип, марка, обозначение документа, опросного листа"
-			public string Type;
+		//	// "Тип, марка, обозначение документа, опросного листа"
+		//	public string Type;
 
-			// "Код продукции"
-			public string ProdCode; //int ProdCode;
+		//	// "Код продукции"
+		//	public string ProdCode; //int ProdCode;
 
-			// "Поставщик"
-			public string Provider;
+		//	// "Поставщик"
+		//	public string Provider;
 
-			// "Ед. измерения"
-			public string Unit;
+		//	// "Ед. измерения"
+		//	public string Unit;
 
-			// "Количество"
-			public double Amount;
+		//	// "Количество"
+		//	public double Amount;
 
-			// "Масса 1 ед., кг"
-			public double Weight;
+		//	// "Масса 1 ед., кг"
+		//	public double Weight;
 
-			// "Примечание"
-			public string Note;
-		}
+		//	// "Примечание"
+		//	public string Note;
+		//}
 
 		public ElementCollection ElemCol { get; set; }
-		public List<Line> Lines { get; set; }
+		//public List<Line> Lines { get; set; }
 
 		/*
 		**	Member methods

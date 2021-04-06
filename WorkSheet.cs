@@ -289,16 +289,16 @@ namespace RevitToGOST
 			foreach (GOST table in Tables)
 			{
 				for (int dataLine = 0;
-					dataLine < table.LinesCount && dataLine < table.ElemCol.Count;
+					dataLine < table.LinesCount && dataLine < table.Data.Count;
 					table.Line++, dataLine++)
 				{
 					for (int field = 0;
-						field < table.Fields[table.Line].Count && field < table.ElemCol[dataLine].Line.Count;
+						field < table.Fields[table.Line].Count && field < table.Data[dataLine].Count;
 						field++)
 					{
 						(int y1, int x1) = (table.Fields[table.Line][field][0], table.Fields[table.Line][field][1]);
 						(y1, x1) = XMLTools.GetCellIndexesBySize(Rows, Columns, y1, x1);
-						WS.Cell(y1, x1).Value = table.ElemCol[dataLine].Line[field];
+						WS.Cell(y1, x1).Value = table.Data[dataLine][field];
 						if (table.Type == GOST.Types.Table)
 						{
 							(int y2, int x2) = (table.Fields[table.Line][field][2], table.Fields[table.Line][field][3]);
@@ -353,6 +353,12 @@ namespace RevitToGOST
 				Log.WriteLine("cell {0} {1}. Text: {2}", y, x, WS.Cell(y, x).Value);
 				WS.Cell(y, x).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 			}
+		}
+
+		public void TablesElemColsToData()
+		{
+			foreach (GOST table in Tables)
+				table.ElemColToData();
 		}
 
 	} // class WorkSheet

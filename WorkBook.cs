@@ -152,10 +152,25 @@ namespace RevitToGOST
 			}
 		}
 
+		public void ConvertElementCollectionsToLists()
+		{
+			foreach (WorkSheet ws in WSs)
+				ws.TablesElemColsToData();
+		}
+
 		public void MovePagesToRightPlaces()
 		{
 			if (Title != GOST.Standarts.None)
 				WB.Worksheet(WB.Worksheets.Count()).Position = 1;
+		}
+
+		public void FillTitlePage()
+		{
+			if (Title == GOST.Standarts.None)
+				return;
+			if (ConfFile.FillLine[(int)Title] == null)
+				return;
+			ConfFile.FillLine[(int)Title](null);
 		}
 
 	} // class WorkBook

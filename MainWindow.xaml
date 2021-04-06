@@ -15,6 +15,8 @@
 
 	<Grid>
 
+
+
 		<Button
 			x:Name="Export"
 			Content="Экспорт"
@@ -220,6 +222,19 @@
 				  Unchecked="GroupElemsCheckBox_Unchecked"
 				  HorizontalAlignment="Left" VerticalAlignment="Top"
 				  Margin="128,490,0,0"/>
+
+		<ProgressBar x:Name="ExportProgressBar"
+					 HorizontalAlignment="Left" VerticalAlignment="Top"
+					 Height="15" Width="202"
+					 Margin="354,490,0,0"
+					 IsIndeterminate="False"
+					 Minimum="0"
+					 Maximum="100"
+					 Value="{Binding Rvt.Control.Progress.Value}"
+					 Foreground="DarkSeaGreen"
+					 Background="AliceBlue"/>
+		
+		<Button x:Name="huy" Click="huy_Click" Content="Button" HorizontalAlignment="Left" Margin="619,522,0,0" VerticalAlignment="Top" Width="75"/>
 
 	</Grid>
 
