@@ -57,9 +57,8 @@
 							   Margin="40,51,505,389" Height="25"/>
 					<ComboBox x:Name="TableComboBox"
 							  Margin="153,51,272,394"
-							  SelectedIndex="1"
+							  SelectedIndex="0"
 							  SelectionChanged="TableComboBox_SelectionChanged">
-						<TextBlock>Нет</TextBlock>
 						<TextBlock>ГОСТ 21.110-2013 (Форма 1)</TextBlock>
 					</ComboBox>
 
@@ -117,14 +116,18 @@
 							  dd:DragDrop.IsDropTarget="True">
 						<ListView.View>
 							<GridView>
-								<GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Категория"/>
-								<GridViewColumn DisplayMemberBinding="{Binding Count}" Header="Элем."/>
+								<GridViewColumn DisplayMemberBinding="{Binding Name}">
+									<GridViewColumnHeader Content="Категория" Click="AvailableCategoriesNameColumnHeader_Click"/>
+								</GridViewColumn>
+								<GridViewColumn DisplayMemberBinding="{Binding Count}">
+									<GridViewColumnHeader Content="Элем." Click="AvailableCategoriesCountColumnHeader_Click"/>
+								</GridViewColumn>
 							</GridView>
 						</ListView.View>
 					</ListView>
 
 					<TextBlock Text="Выбранные категории"
-							   VerticalAlignment="Center" 
+							   VerticalAlignment="Center"
 							   Margin="361,14,53,426" Height="25"/>
 					<ListView x:Name="PickedCategories"
 							  Margin="361,44,53,22"
@@ -228,9 +231,9 @@
 					 Height="15" Width="202"
 					 Margin="354,490,0,0"
 					 IsIndeterminate="False"
-					 Minimum="0"
-					 Maximum="100"
-					 Value="{Binding Rvt.Control.Progress.Value}"
+					 Minimum="{Binding Minimum}"
+					 Maximum="{Binding Maximum}"
+					 Value="{Binding Value}"
 					 Foreground="DarkSeaGreen"
 					 Background="AliceBlue"/>
 		

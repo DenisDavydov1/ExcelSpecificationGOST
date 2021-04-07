@@ -19,15 +19,19 @@ namespace RevitToGOST
 	{
 		public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
 		{
-			Log.ClearLog();
-			Work.Book = new WorkBook();
+			try
+			{
+				Log.ClearLog();
+				Work.Book = new WorkBook();
 
-			Rvt.Handler = new RvtHandler(commandData, elements);
-			Rvt.Data = new RvtData();
-			Rvt.Control = new RvtControl();
+				Rvt.Handler = new RvtHandler(commandData, elements);
+				Rvt.Data = new RvtData();
+				Rvt.Control = new RvtControl();
 
-			MainWindow mainWin = new MainWindow();
-			mainWin.Show();
+				MainWindow mainWin = new MainWindow();
+				mainWin.ShowDialog();
+			}
+			catch (Exception e) { Log.WriteLine("Caught exception from mainclass:\n{0}\n{1}", e.Message, e.StackTrace); }
 
 			return Result.Succeeded;
 		}

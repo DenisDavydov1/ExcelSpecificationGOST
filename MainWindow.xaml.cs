@@ -29,8 +29,6 @@ namespace RevitToGOST
 		private CollectionView PickedElementsView { get; set; }
 		private CollectionView AvailableElementsView { get; set; }
 
-		private BackgroundWorker ExportWorker;
-
 		/*
 		** Member methods
 		*/
@@ -38,41 +36,122 @@ namespace RevitToGOST
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			Rvt.Control.Condition = RvtControl.Status.Idle;
+			Rvt.Control.ConditionChanged += new PropertyChangedEventHandler(ConditionChangeHandler);
+
 			AvailableCategories.ItemsSource = Rvt.Data.AvailableCategories;
 			PickedCategories.ItemsSource = Rvt.Data.PickedCategories;
 			AvailableElements.ItemsSource = Rvt.Data.AvailableElements;
 			PickedElements.ItemsSource = Rvt.Data.PickedElements;
+
 			MakeAllComboBoxUpdate();
 			// DrawPreview(); TO DO!
 		}
 
-		public void SetProgressValue(double value)
+		private void ConditionChangeHandler(object sender, PropertyChangedEventArgs e)
 		{
-			ExportProgressBar.Value = value;
+			if (Rvt.Control.Condition == RvtControl.Status.Idle)
+			{
+				EnableControls(true);
+				AvailableCategories.Items.Refresh();
+				PickedCategories.Items.Refresh();
+				AvailableElements.Items.Refresh();
+				PickedElements.Items.Refresh();
+			}
+			else if (Rvt.Control.Condition == RvtControl.Status.Export)
+				EnableControls(false);
+			else if (Rvt.Control.Condition == RvtControl.Status.Error)
+			{
+				MessageBox.Show(String.Format("{0}\n\nStack trace:\n{1}",
+					Rvt.Control.LastException.Message, Rvt.Control.LastException.StackTrace),
+						"Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+			else if (Rvt.Control.Condition == RvtControl.Status.Sort)
+				EnableControls(false);
 		}
+
+		private void EnableControls(bool state = true)
+		{
+			// No tab
+			Export.IsEnabled = state;
+			GroupElemsCheckBox.IsEnabled = state;
+
+			// Tab 1
+			TitleComboBox.IsEnabled = state;
+			TableComboBox.IsEnabled = state;
+			StampComboBox.IsEnabled = state;
+			DopComboBox.IsEnabled = state;
+			EnumerateColumnsCheckBox.IsEnabled = state;
+
+			// Tab 2
+			AvailableCategories.IsEnabled = state;
+			PickedCategories.IsEnabled = state;
+
+			// Tab 3
+			AvailableElements.IsEnabled = state;
+			PickedElements.IsEnabled = state;
+		}
+
+
+		/////// Export button and worker methods ///////
 
 		private void Export_Click(object sender, RoutedEventArgs e)
 		{
+			Rvt.Control.Condition = RvtControl.Status.Export;
+
+			BackgroundWorker exportWorker = new BackgroundWorker();
+			exportWorker.WorkerReportsProgress = true;
+			exportWorker.DoWork += ExportWorker_DoWork;
+			exportWorker.ProgressChanged += ExportWorker_ProgressChanged;
+			exportWorker.RunWorkerCompleted += ExportWorker_RunWorkerCompleted;
+			exportWorker.RunWorkerAsync();
+		}
+
+		private void ExportWorker_DoWork(object sender, DoWorkEventArgs e)
+		{
 			try
 			{
-				Rvt.Control.ExportButton();
-				//Rvt.Control.LogSortedByCategory();
+				Rvt.Control.ExportProcedure(sender);
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(String.Format("{0}\n\nStack trace:\n{1}", ex.Message, ex.StackTrace),
-					"Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+				Rvt.Control.LastException = ex;
+				Rvt.Control.Condition = RvtControl.Status.Error;
 			}
-			AvailableCategories.Items.Refresh();
-			PickedCategories.Items.Refresh();
-			AvailableElements.Items.Refresh();
-			PickedElements.Items.Refresh();
 		}
 
-		/*
-		** Группировать элементы (CheckBox)
-		*/
+		private void ExportWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+		{
+			ExportProgressBar.Value = e.ProgressPercentage;
+		}
 
+		private void ExportWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+		{
+			if (e.Error != null || Rvt.Control.Condition == RvtControl.Status.Error)
+			{
+				Rvt.Control.Condition = RvtControl.Status.Error;
+			}
+			else
+			{
+				Rvt.Control.SaveProcedure();    // Save file
+				Rvt.Data.InitExportElements();	// Unset Rvt.Data.ExportElements
+			}
+			ExportProgressBar.Value = 0.0;
+			Rvt.Control.Condition = RvtControl.Status.Idle;
+		}
+
+		/////// /////// /////// /////// /////// ///////
+
+
+		private void huy_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+
+		/////// Группировать элементы (CheckBox) ///////
+		///
 		private void GroupElemsCheckBox_Checked(object sender, RoutedEventArgs e)
 		{
 			PickedElementsView = (CollectionView)CollectionViewSource.GetDefaultView(PickedElements.ItemsSource);
@@ -88,6 +167,9 @@ namespace RevitToGOST
 			AvailableElementsView.GroupDescriptions.Remove(AvailableElementsView.GroupDescriptions.Last());
 			Rvt.Control.GroupElemsCheckBox = false;
 		}
+		
+		/////// /////// /////// /////// /////// ///////
+		
 
 		////////////////////////////////////// TAB 1 //////////////////////////////////////
 
@@ -115,8 +197,6 @@ namespace RevitToGOST
 		private void TableComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			if (TableComboBox.SelectedIndex == 0)
-				Work.Book.Table = GOST.Standarts.None;
-			else if (TableComboBox.SelectedIndex == 1)
 				Work.Book.Table = GOST.Standarts.GOST_21_110_2013_Table1;
 			// DrawPreview(); TO DO!
 		}
@@ -155,16 +235,16 @@ namespace RevitToGOST
 			// DrawPreview(); TO DO!
 		}
 
-		private void huy_Click(object sender, RoutedEventArgs e)
+		private void AvailableCategoriesNameColumnHeader_Click(object sender, RoutedEventArgs e)
 		{
-			ExportProgressBar.Value += 5.0;
-			//Rvt.Control.Progress.Value += 5.0;
-			//if (ExportProgressBar.Value == 0.0)
-			//	ExportProgressBar.Value = 100.0;
-			//else
-			//	ExportProgressBar.Value = 0.0;
+			Rvt.Data.AvailableCategories.Sort(true);
+			//Rvt.Control.Condition = RvtControl.Status.Sort;
 		}
 
+		private void AvailableCategoriesCountColumnHeader_Click(object sender, RoutedEventArgs e)
+		{
+			Rvt.Data.AvailableCategories.Sort(false);
+		}
 	} // class MainWindow
 
 } // namespace RevitToGOST

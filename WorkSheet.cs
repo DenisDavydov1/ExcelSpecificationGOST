@@ -350,7 +350,7 @@ namespace RevitToGOST
 			{
 				(int y, int x) = (Tables[0].Fields[1][1][0], Tables[0].Fields[1][1][1]);
 				(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
-				Log.WriteLine("cell {0} {1}. Text: {2}", y, x, WS.Cell(y, x).Value);
+				//Log.WriteLine("cell {0} {1}. Text: {2}", y, x, WS.Cell(y, x).Value);
 				WS.Cell(y, x).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 			}
 		}
