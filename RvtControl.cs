@@ -25,6 +25,7 @@ namespace RevitToGOST
 		///// Control elements values /////
 		public bool GroupElemsCheckBox { get; set; } = false;
 		public bool EnumerateColumnsCheckBox { get; set; } = false;
+		public int PreviewPageNumber { get; set; } = 1;
 
 		///// Application exception container /////
 		public Exception LastException { get; set; } = new Exception();

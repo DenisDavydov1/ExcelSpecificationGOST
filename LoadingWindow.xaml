@@ -11,8 +11,7 @@
 	Height="300" Width="400"
 	ResizeMode="NoResize"
 	WindowStyle="None"
-	WindowStartupLocation="CenterScreen"
-	Topmost="{Binding Source={x:Static Application.Current},Path=MainWindow.IsActive,Mode=OneWay}">
+	WindowStartupLocation="CenterScreen">
 
 	<Grid>
 

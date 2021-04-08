@@ -11,6 +11,7 @@ using Autodesk.Revit.UI.Selection;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using System.ComponentModel;
+using System.Threading;
 
 namespace RevitToGOST
 {

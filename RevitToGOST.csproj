@@ -111,6 +111,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Previews\GOST_21_101_2020_Stamp3.drawio" />
+    <None Include="Previews\GOST_21_110_2013_Table1.drawio" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="LoadingWindow.xaml">
@@ -121,6 +123,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Previews\Empty.png" />
+    <Content Include="Previews\GOST_21_101_2020_Stamp3.png" />
+    <Content Include="Previews\GOST_21_110_2013_Table1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

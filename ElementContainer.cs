@@ -104,38 +104,15 @@ namespace RevitToGOST
 			}
 		}
 
-		///*
-		//** Insert Element(s)
-		//*/
-
-		//protected void InsertItem(int index, Element element)
-		//{
-		//	base.InsertItem(index, new ElementContainer(element));
-		//}
-
-		//public void InsertElementCollection(int index, List<Element> elemL)
-		//{
-		//	foreach (Element elem in elemL)
-		//	{
-		//		this.InsertItem(index++, elem);
-		//	}
-		//}
-
 		/*
 		** Insert ElementContainer(s)
 		*/
-
-		//protected override void InsertItem(int index, ElementContainer elementContainer)
-		//{
-		//	base.InsertItem(index, elementContainer);
-		//}
 
 		public void InsertElementCollection(int index, ElementCollection elemC)
 		{
 			foreach (ElementContainer elem in elemC)
 			{
 				base.InsertItem(index++, elem);
-				//this.InsertItem(index++, elem);
 			}
 		}
 
@@ -148,7 +125,7 @@ namespace RevitToGOST
 		}
 
 		/*
-		** Common methods
+		** Member methods
 		*/
 
 		protected override void RemoveItem(int index)

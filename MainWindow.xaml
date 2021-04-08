@@ -11,8 +11,7 @@
 	Title="RevitToGOST"
 	Height="600" Width="800"
 	ResizeMode="CanMinimize" 
-	WindowStartupLocation="CenterScreen"
-	Topmost="{Binding Source={x:Static Application.Current},Path=MainWindow.IsActive,Mode=OneWay}">
+	WindowStartupLocation="CenterScreen">
 
 	<Grid>
 
@@ -37,15 +36,19 @@
 					 Height="24"
 					 VerticalAlignment="Top">
 				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="317*"/>
+						<ColumnDefinition Width="325*"/>
+					</Grid.ColumnDefinitions>
 
 					<!--Титульный лист-->
 					<TextBlock Text="Титульный лист"
 							   VerticalAlignment="Center"
-							   Margin="40,21,505,419" Height="25"/>
+							   Margin="40,21,180,419" Height="25"/>
 					<ComboBox x:Name="TitleComboBox"
 							  Margin="153,21,272,424"
 							  SelectedIndex="0"
-							  SelectionChanged="TitleComboBox_SelectionChanged">
+							  SelectionChanged="TitleComboBox_SelectionChanged" Grid.ColumnSpan="2">
 						<TextBlock>Нет</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 12)</TextBlock>
 					</ComboBox>
@@ -53,22 +56,22 @@
 					<!--Спецификация-->
 					<TextBlock Text="Спецификация"
 							   VerticalAlignment="Center"
-							   Margin="40,51,505,389" Height="25"/>
+							   Margin="40,51,180,389" Height="25"/>
 					<ComboBox x:Name="TableComboBox"
 							  Margin="153,51,272,394"
 							  SelectedIndex="0"
-							  SelectionChanged="TableComboBox_SelectionChanged">
+							  SelectionChanged="TableComboBox_SelectionChanged" Grid.ColumnSpan="2">
 						<TextBlock>ГОСТ 21.110-2013 (Форма 1)</TextBlock>
 					</ComboBox>
 
 					<!--Основная надпись-->
 					<TextBlock Text="Основная надпись"
 							   VerticalAlignment="Center"
-							   Margin="40,81,494,359" Height="25"/>
+							   Margin="40,81,169,359" Height="25"/>
 					<ComboBox x:Name="StampComboBox"
 							  Margin="153,81,272,364"
 							  SelectedIndex="1"
-							  SelectionChanged="StampComboBox_SelectionChanged">
+							  SelectionChanged="StampComboBox_SelectionChanged" Grid.ColumnSpan="2">
 						<TextBlock>Нет</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 3)</TextBlock>
 					</ComboBox>
@@ -76,11 +79,11 @@
 					<!--Дополнительные графы-->
 					<TextBlock Text="Доп. графы"
 							   VerticalAlignment="Center"
-							   Margin="40,111,494,328" Height="26"/>
+							   Margin="40,111,169,328" Height="26"/>
 					<ComboBox x:Name="DopComboBox"
 							  Margin="153,111,272,334"
 							  SelectedIndex="1"
-							  SelectionChanged="DopComboBox_SelectionChanged">
+							  SelectionChanged="DopComboBox_SelectionChanged" Grid.ColumnSpan="2">
 						<TextBlock>Нет</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 3)</TextBlock>
 					</ComboBox>
@@ -94,6 +97,21 @@
 							  HorizontalAlignment="Left" VerticalAlignment="Top"
 							  Margin="153,148,0,0"/>
 
+					<!--Дополнительные графы-->
+					<TextBlock Text="Предварительный"
+							   VerticalAlignment="Center"
+							   Margin="40,190,173,249" Height="26"/>
+							   
+					<Rectangle Margin="153,190,207,75"
+							   Grid.ColumnSpan="2"
+							   Stroke="LightGray"/>
+					
+					<Image x:Name="ImageTable"
+						   Height="200" Width="282"
+						   Margin="153,190,207,75"
+						   Grid.ColumnSpan="2"
+						   IsEnabled="True"/>
+					
 				</Grid>
 
 			</TabItem>
@@ -150,6 +168,11 @@
 							Click="PickAllCategoriesButton_Click"
 							Content="🠺" FontSize="30" Padding="-15"
 							Margin="310,183,307,251"/>
+
+					<Button x:Name="ReleaseAllCategoriesButton"
+							Click="ReleaseAllCategoriesButton_Click"
+							Content="🠸" FontSize="30" Padding="-15"
+							Margin="310,228,307,206"/>
 
 				</Grid>
 			</TabItem>
@@ -227,6 +250,16 @@
 							</GroupStyle>
 						</ListView.GroupStyle>
 					</ListView>
+
+					<Button x:Name="PickAllElementsButton"
+							Click="PickAllElementsButton_Click"
+							Content="🠺" FontSize="30" Padding="-15"
+							Margin="310,183,307,251"/>
+
+					<Button x:Name="ReleaseAllElementsButton"
+							Click="ReleaseAllElementsButton_Click"
+							Content="🠸" FontSize="30" Padding="-15"
+							Margin="310,228,307,206"/>
 
 				</Grid>
 			</TabItem>

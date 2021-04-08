@@ -17,7 +17,6 @@ namespace RevitToGOST
 	static class Work
 	{
 		public static WorkBook Book { get; set; }
-		public static GOST Gost { get; set; }
 	}
 
 	class WorkBook

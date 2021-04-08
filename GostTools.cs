@@ -10,6 +10,7 @@ using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
+using System.Windows.Media.Imaging;
 
 namespace RevitToGOST
 {
@@ -93,5 +94,17 @@ namespace RevitToGOST
 			return lines;
 		}
 	}
+
+	//static class PreviewImages
+	//{
+	//	public static readonly BitmapImage[] Images =
+	//	{
+	//		new BitmapImage(new Uri(@"/Previews/Empty.png")),
+	//		new BitmapImage(new Uri(@"/Previews/GOST_21_110_2013_Table1.png")),
+	//		null,
+	//		new BitmapImage(new Uri(@"/Previews/GOST_21_101_2020_Stamp3.png")),
+	//		null
+	//	};
+	//}
 
 } // namespace RevitToGOST

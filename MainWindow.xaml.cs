@@ -14,9 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
 using Autodesk.Revit.DB;
-using Microsoft.Win32;
 
 namespace RevitToGOST
 {
@@ -36,7 +34,7 @@ namespace RevitToGOST
 		public MainWindow()
 		{
 			InitializeComponent();
-
+			
 			Rvt.Windows.Condition = RvtWindows.Status.Idle;
 			Rvt.Windows.ConditionChanged += new PropertyChangedEventHandler(ConditionChangeHandler);
 
@@ -44,9 +42,14 @@ namespace RevitToGOST
 			PickedCategories.ItemsSource = Rvt.Data.PickedCategories;
 			AvailableElements.ItemsSource = Rvt.Data.AvailableElements;
 			PickedElements.ItemsSource = Rvt.Data.PickedElements;
-
 			MakeAllComboBoxUpdate();
-			// DrawPreview(); TO DO!
+			DrawPreview();
+		}
+
+		private void DrawPreview()
+		{
+			//ImageTable.Source = PreviewImages.Images[(int)Work.Book.Table];
+			ImageTable.Source = new BitmapImage(new Uri(@"pack://application:,,,/RevitToGOST;component/Previews/GOST_21_110_2013_Table1.png"));
 		}
 
 		private void ConditionChangeHandler(object sender, PropertyChangedEventArgs e)
@@ -200,7 +203,7 @@ namespace RevitToGOST
 		{
 			if (TableComboBox.SelectedIndex == 0)
 				Work.Book.Table = GOST.Standarts.GOST_21_110_2013_Table1;
-			// DrawPreview(); TO DO!
+			DrawPreview();
 		}
 
 		private void StampComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -230,6 +233,36 @@ namespace RevitToGOST
 				CategoryNode tmp = Rvt.Data.AvailableCategories[0];
 				Rvt.Data.AvailableCategories.RemoveAt(0);
 				Rvt.Data.PickedCategories.Insert(Rvt.Data.PickedCategories.Count, tmp);
+			}
+		}
+
+		private void ReleaseAllCategoriesButton_Click(object sender, RoutedEventArgs e)
+		{
+			while (Rvt.Data.PickedCategories.Count > 0)
+			{
+				CategoryNode tmp = Rvt.Data.PickedCategories[0];
+				Rvt.Data.PickedCategories.RemoveAt(0);
+				Rvt.Data.AvailableCategories.Insert(Rvt.Data.AvailableCategories.Count, tmp);
+			}
+		}
+
+		private void PickAllElementsButton_Click(object sender, RoutedEventArgs e)
+		{
+			while (Rvt.Data.AvailableElements.Count > 0)
+			{
+				ElementContainer tmp = Rvt.Data.AvailableElements[0];
+				Rvt.Data.AvailableElements.RemoveAt(0);
+				Rvt.Data.PickedElements.Add(tmp);
+			}
+		}
+
+		private void ReleaseAllElementsButton_Click(object sender, RoutedEventArgs e)
+		{
+			while (Rvt.Data.PickedElements.Count > 0)
+			{
+				ElementContainer tmp = Rvt.Data.PickedElements[0];
+				Rvt.Data.PickedElements.RemoveAt(0);
+				Rvt.Data.AvailableElements.Add(tmp);
 			}
 		}
 
