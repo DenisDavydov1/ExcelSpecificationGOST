@@ -21,21 +21,9 @@ namespace RevitToGOST
 		*/
 
 		public Element Element { get; set; }
+		public string InstanceName { get { return GOST_21_110_2013.ElementName(this); } }
+		public string Type { get { return Element.Name; } }
 		public int Amount { get; set; } = 0;
-		public string InstanceName
-		{
-			get
-			{
-				return GOST_21_110_2013.ElementName(this);
-			}
-		}
-		public string Type
-		{
-			get
-			{
-				return Element.Name;
-			}
-		}
 		public Category Category { get { return Element.Category; } }
 		public string CategoryName { get { return Category.Name; } }
 		public string CategoryLine { get; set; } = null;
@@ -80,12 +68,13 @@ namespace RevitToGOST
 				return true;
 			return false;
 		}
-	}
 
-	class ElementCollection : ObservableCollection<ElementContainer>
+	} // class ElementContainer
+
+	public class ElementCollection : ObservableCollection<ElementContainer>
 	{
 		/*
-		** Work with Element
+		** Insert Element(s)
 		*/
 
 		protected void InsertItem(int index, Element element)
@@ -102,7 +91,7 @@ namespace RevitToGOST
 		}
 
 		/*
-		** Work with ElementContainer
+		** Insert ElementContainer(s)
 		*/
 
 		protected override void InsertItem(int index, ElementContainer elementContainer)
@@ -130,7 +119,7 @@ namespace RevitToGOST
 		}
 
 		/*
-		** Common
+		** Common methods
 		*/
 
 		protected override void RemoveItem(int index)
@@ -195,6 +184,126 @@ namespace RevitToGOST
 				else if (elemCont.LineType == ElementContainer.ContType.Category)
 					pos = 1;
 			}
+		}
+
+		/*
+		** Sort items
+		*/
+
+		public enum SortBy
+		{
+			InstanceName,
+			Type,
+			Amount
+		}
+
+		public void Sort(SortBy byWhat)
+		{
+			if (IsAscendingOrdered(byWhat) == false)
+				Quicksort(this, 0, Count - 1, true, byWhat);
+			else if (IsDescendingOrdered(byWhat) == false)
+				Quicksort(this, 0, Count - 1, false, byWhat);
+		}
+
+		private void Quicksort(ElementCollection array, int start, int end, bool ascending, SortBy byWhat)
+		{
+			if (start >= end)
+				return;
+			int pivot = Partition(array, start, end, ascending, byWhat);
+			Quicksort(array, start, pivot - 1, ascending, byWhat);
+			Quicksort(array, pivot + 1, end, ascending, byWhat);
+		}
+
+		private int Partition(ElementCollection array, int start, int end, bool ascending, SortBy byWhat)
+		{
+			int marker = start; //divides left and right subarrays
+			for (int i = start; i < end; i++)
+			{
+				//array[end] is pivot
+				if (byWhat == SortBy.InstanceName)
+				{
+					if ((ascending == true && array[i].InstanceName.CompareTo(array[end].InstanceName) < 0) ||
+						(ascending == false && array[i].InstanceName.CompareTo(array[end].InstanceName) > 0))
+					{
+						Swap(marker, i);
+						marker += 1;
+					}
+				}
+				else if (byWhat == SortBy.Type)
+				{
+					if ((ascending == true && array[i].Type.CompareTo(array[end].Type) < 0) ||
+						(ascending == false && array[i].Type.CompareTo(array[end].Type) > 0))
+					{
+						Swap(marker, i);
+						marker += 1;
+					}
+				}
+				else // if sort by elements amount
+				{
+					if ((ascending == true && array[i].Amount < array[end].Amount) ||
+						(ascending == false && array[i].Amount > array[end].Amount))
+					{
+						Swap(marker, i);
+						marker += 1;
+					}
+				}
+			}
+			// put pivot(array[end]) between left and right subarrays
+			Swap(marker, end);
+			return marker;
+		}
+
+		private void Swap(int index1, int index2)
+		{
+			ElementContainer tmp = this[index1];
+			this[index1] = this[index2];
+			this[index2] = tmp;
+		}
+
+		private bool IsAscendingOrdered(SortBy byWhat)
+		{
+			if (byWhat == SortBy.InstanceName)
+			{
+				for (int i = 0; i < Count - 1; ++i)
+					if (this[i].InstanceName.CompareTo(this[i + 1].InstanceName) > 0)
+						return false;
+			}
+			else if (byWhat == SortBy.Type)
+			{
+				for (int i = 0; i < Count - 1; ++i)
+					if (this[i].Type.CompareTo(this[i + 1].Type) > 0)
+						return false;
+			}
+			else
+			{
+				for (int i = 0; i < Count - 1; ++i)
+					if (this[i].Amount > this[i + 1].Amount)
+						return false;
+			}
+			return true;
+		}
+
+		private bool IsDescendingOrdered(SortBy byWhat)
+		{
+			if (byWhat == SortBy.InstanceName)
+			{
+				for (int i = 0; i < Count - 1; ++i)
+					if (this[i].InstanceName.CompareTo(this[i + 1].InstanceName) < 0)
+						return false;
+			}
+			else if (byWhat == SortBy.Type)
+			{
+				for (int i = 0; i < Count - 1; ++i)
+					if (this[i].Type.CompareTo(this[i + 1].Type) < 0)
+						return false;
+			}
+			else
+			{
+				for (int i = 0; i < Count - 1; ++i)
+					if (this[i].Amount < this[i + 1].Amount)
+						return false;
+			}
+			return true;
 		}
 
 	} // class ElementCollection

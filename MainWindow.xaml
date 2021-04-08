@@ -117,10 +117,10 @@
 						<ListView.View>
 							<GridView>
 								<GridViewColumn DisplayMemberBinding="{Binding Name}">
-									<GridViewColumnHeader Content="Категория" Click="AvailableCategoriesNameColumnHeader_Click"/>
+									<GridViewColumnHeader x:Name="AvailableCategoriesNameHeader" Content="Категория" Click="CommonColumnHeader_Click"/>
 								</GridViewColumn>
 								<GridViewColumn DisplayMemberBinding="{Binding Count}">
-									<GridViewColumnHeader Content="Элем." Click="AvailableCategoriesCountColumnHeader_Click"/>
+									<GridViewColumnHeader x:Name="AvailableCategoriesCountHeader" Content="Кол-во элем." Click="CommonColumnHeader_Click"/>
 								</GridViewColumn>
 							</GridView>
 						</ListView.View>
@@ -137,11 +137,20 @@
 							  dd:DragDrop.IsDropTarget="True">
 						<ListView.View>
 							<GridView>
-								<GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Категория"/>
-								<GridViewColumn DisplayMemberBinding="{Binding Count}" Header="Элем."/>
+								<GridViewColumn DisplayMemberBinding="{Binding Name}">
+									<GridViewColumnHeader x:Name="PickedCategoriesNameHeader" Content="Категория" Click="CommonColumnHeader_Click"/>
+								</GridViewColumn>
+								<GridViewColumn DisplayMemberBinding="{Binding Count}">
+									<GridViewColumnHeader x:Name="PickedCategoriesCountHeader" Content="Кол-во элем." Click="CommonColumnHeader_Click"/>
+								</GridViewColumn>
 							</GridView>
 						</ListView.View>
 					</ListView>
+
+					<Button x:Name="PickAllCategoriesButton"
+							Click="PickAllCategoriesButton_Click"
+							Content="🠺" FontSize="30" Padding="-15"
+							Margin="310,183,307,251"/>
 
 				</Grid>
 			</TabItem>
@@ -162,9 +171,15 @@
 						<ListView.View>
 							<!-- Table -->
 							<GridView>
-								<GridViewColumn DisplayMemberBinding="{Binding InstanceName }" Header="Имя" Width="50px"/>
-								<GridViewColumn DisplayMemberBinding="{Binding Type }" Header="Тип" Width="50px"/>
-								<GridViewColumn DisplayMemberBinding="{Binding Amount }" Header="Кол-во" Width="50px"/>
+								<GridViewColumn DisplayMemberBinding="{Binding InstanceName}">
+									<GridViewColumnHeader x:Name="AvailableElementsInstanceNameHeader" Content="Имя" Click="CommonColumnHeader_Click"/>
+								</GridViewColumn>
+								<GridViewColumn DisplayMemberBinding="{Binding Type}">
+									<GridViewColumnHeader x:Name="AvailableElementsTypeHeader" Content="Тип" Click="CommonColumnHeader_Click"/>
+								</GridViewColumn>
+								<GridViewColumn DisplayMemberBinding="{Binding Amount}">
+									<GridViewColumnHeader x:Name="AvailableElementsAmountHeader" Content="Кол-во" Click="CommonColumnHeader_Click"/>
+								</GridViewColumn>
 							</GridView>
 						</ListView.View>
 						<ListView.GroupStyle>
@@ -191,9 +206,15 @@
 						<ListView.View >
 							<!-- Table -->
 							<GridView>
-								<GridViewColumn DisplayMemberBinding="{Binding InstanceName }" Header="Имя" Width="50px"/>
-								<GridViewColumn DisplayMemberBinding="{Binding Type }" Header="Тип" Width="50px"/>
-								<GridViewColumn DisplayMemberBinding="{Binding Amount }" Header="Кол-во" Width="50px"/>
+								<GridViewColumn DisplayMemberBinding="{Binding InstanceName}">
+									<GridViewColumnHeader x:Name="PickedElementsInstanceNameHeader" Content="Имя" Click="CommonColumnHeader_Click"/>
+								</GridViewColumn>
+								<GridViewColumn DisplayMemberBinding="{Binding Type}">
+									<GridViewColumnHeader x:Name="PickedElementsTypeHeader" Content="Тип" Click="CommonColumnHeader_Click"/>
+								</GridViewColumn>
+								<GridViewColumn DisplayMemberBinding="{Binding Amount}">
+									<GridViewColumnHeader x:Name="PickedElementsAmountHeader" Content="Кол-во" Click="CommonColumnHeader_Click"/>
+								</GridViewColumn>
 							</GridView>
 						</ListView.View>
 						<ListView.GroupStyle>
@@ -236,7 +257,7 @@
 					 Value="{Binding Value}"
 					 Foreground="DarkSeaGreen"
 					 Background="AliceBlue"/>
-		
+
 		<Button x:Name="huy" Click="huy_Click" Content="Button" HorizontalAlignment="Left" Margin="619,522,0,0" VerticalAlignment="Top" Width="75"/>
 
 	</Grid>

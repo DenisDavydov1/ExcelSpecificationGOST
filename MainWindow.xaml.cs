@@ -53,6 +53,7 @@ namespace RevitToGOST
 		{
 			if (Rvt.Control.Condition == RvtControl.Status.Idle)
 			{
+				ExportProgressBar.Value = 0.0;
 				EnableControls(true);
 				AvailableCategories.Items.Refresh();
 				PickedCategories.Items.Refresh();
@@ -68,7 +69,9 @@ namespace RevitToGOST
 						"Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 			else if (Rvt.Control.Condition == RvtControl.Status.Sort)
+			{
 				EnableControls(false);
+			}
 		}
 
 		private void EnableControls(bool state = true)
@@ -137,7 +140,6 @@ namespace RevitToGOST
 				Rvt.Control.SaveProcedure();    // Save file
 				Rvt.Data.InitExportElements();	// Unset Rvt.Data.ExportElements
 			}
-			ExportProgressBar.Value = 0.0;
 			Rvt.Control.Condition = RvtControl.Status.Idle;
 		}
 
@@ -219,6 +221,20 @@ namespace RevitToGOST
 			// DrawPreview(); TO DO!
 		}
 
+		////////////////////////////////////// TAB 2 //////////////////////////////////////
+
+		private void PickAllCategoriesButton_Click(object sender, RoutedEventArgs e)
+		{
+			while (Rvt.Data.AvailableCategories.Count > 0)
+			{
+				Rvt.Data.PickedCategories.Insert(0, Rvt.Data.AvailableCategories.ElementAt(0)); // Rvt.Data.PickedCategories.Count
+				//Rvt.Data.AvailableCategories.RemoveAt(0);
+			}
+		}
+
+		////////////////////////////////////// TAB 3 //////////////////////////////////////
+		////////////////////////////////////// TAB 4 //////////////////////////////////////
+
 		/*
 		** Нумерация столбцов (CheckBox)
 		*/
@@ -235,16 +251,53 @@ namespace RevitToGOST
 			// DrawPreview(); TO DO!
 		}
 
-		private void AvailableCategoriesNameColumnHeader_Click(object sender, RoutedEventArgs e)
+		/*
+		** All tabs gridview sort function
+		*/
+
+		private void CommonColumnHeader_Click(object sender, RoutedEventArgs e)
 		{
-			Rvt.Data.AvailableCategories.Sort(true);
-			//Rvt.Control.Condition = RvtControl.Status.Sort;
+			Rvt.Control.Condition = RvtControl.Status.Sort;
+			try
+			{
+				string name = ((GridViewColumnHeader)sender).Name;
+				// Tab 1 available
+				if (name == "AvailableCategoriesNameHeader")
+					Rvt.Data.AvailableCategories.Sort(true);
+				else if (name == "AvailableCategoriesCountHeader")
+					Rvt.Data.AvailableCategories.Sort(false);
+
+				// Tab 1 picked
+				else if (name == "PickedCategoriesNameHeader")
+					Rvt.Data.PickedCategories.Sort(true);
+				else if (name == "PickedCategoriesCountHeader")
+					Rvt.Data.PickedCategories.Sort(false);
+
+				// Tab 2 available
+				else if (name == "AvailableElementsInstanceNameHeader")
+					Rvt.Data.AvailableElements.Sort(ElementCollection.SortBy.InstanceName);
+				else if (name == "AvailableElementsTypeHeader")
+					Rvt.Data.AvailableElements.Sort(ElementCollection.SortBy.Type);
+				else if (name == "AvailableElementsAmountHeader")
+					Rvt.Data.AvailableElements.Sort(ElementCollection.SortBy.Amount);
+
+				// Tab 2 picked
+				else if (name == "PickedElementsInstanceNameHeader")
+					Rvt.Data.PickedElements.Sort(ElementCollection.SortBy.InstanceName);
+				else if (name == "PickedElementsTypeHeader")
+					Rvt.Data.PickedElements.Sort(ElementCollection.SortBy.Type);
+				else if (name == "PickedElementsAmountHeader")
+					Rvt.Data.PickedElements.Sort(ElementCollection.SortBy.Amount);
+				Rvt.Control.Condition = RvtControl.Status.Idle;
+			}
+			catch (Exception ex)
+			{
+				Rvt.Control.LastException = ex;
+				Rvt.Control.Condition = RvtControl.Status.Error;
+			}
+			Rvt.Control.Condition = RvtControl.Status.Idle;
 		}
 
-		private void AvailableCategoriesCountColumnHeader_Click(object sender, RoutedEventArgs e)
-		{
-			Rvt.Data.AvailableCategories.Sort(false);
-		}
 	} // class MainWindow
 
 } // namespace RevitToGOST

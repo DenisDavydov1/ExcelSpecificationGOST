@@ -85,6 +85,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryNode.cs" />
     <Compile Include="ElementContainer.cs" />
     <Compile Include="GOST.cs" />
     <Compile Include="GostTools.cs" />
