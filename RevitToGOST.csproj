@@ -92,6 +92,9 @@
     <Compile Include="GOST_21_110_2013.cs" />
     <Compile Include="GOST_P_21_101_2020.cs" />
     <Compile Include="IGostData.cs" />
+    <Compile Include="LoadingWindow.xaml.cs">
+      <DependentUpon>LoadingWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Log.cs" />
     <Compile Include="MainClass.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -101,6 +104,7 @@
     <Compile Include="RvtControl.cs" />
     <Compile Include="RvtData.cs" />
     <Compile Include="RvtHandler.cs" />
+    <Compile Include="RvtWindows.cs" />
     <Compile Include="WorkBook.cs" />
     <Compile Include="WorkSheet.cs" />
     <Compile Include="XMLTools.cs" />
@@ -109,6 +113,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="LoadingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -1,0 +1,25 @@
+﻿<Window
+	x:Class="RevitToGOST.LoadingWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:RevitToGOST"
+	xmlns:rvt="clr-namespace:Autodesk.Revit.DB;assembly=RevitAPI"
+	mc:Ignorable="d"
+	Title="RevitToGOST"
+	Height="300" Width="400"
+	ResizeMode="NoResize"
+	WindowStyle="None"
+	WindowStartupLocation="CenterScreen"
+	Topmost="{Binding Source={x:Static Application.Current},Path=MainWindow.IsActive,Mode=OneWay}">
+
+	<Grid>
+
+		<TextBlock Text="Loading..."
+				   VerticalAlignment="Center"
+				   Margin="174,123,163,115" Height="33"/>
+
+	</Grid>
+
+</Window>

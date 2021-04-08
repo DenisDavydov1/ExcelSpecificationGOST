@@ -25,7 +25,7 @@ namespace RevitToGOST
 
 		public string Name { get { return Category.Name; } }
 		public int Id { get { return Category.Id.IntegerValue; } }
-		public int Count { get { return Elements.Count; } }
+		public int Count { get { return Elements.ElementCount; } }
 
 		/*
 		** Member methods
@@ -60,14 +60,16 @@ namespace RevitToGOST
 
 		protected override void InsertItem(int index, CategoryNode categoryNode)
 		{
+			Log.WriteLine("InsertItem");
 			base.InsertItem(index, categoryNode);
 
 			if (this == Rvt.Data.PickedCategories)
-				Rvt.Data.PickedElements.InsertElementCollection(0, categoryNode.Elements); // index to do
+				Rvt.Data.PickedElements.InsertElementCollection(0, this[index].Elements); // index to do
 		}
 
 		public new void Insert(int index, CategoryNode categoryNode)
 		{
+			Log.WriteLine("Insert");
 			InsertItem(index, categoryNode);
 		}
 
@@ -78,10 +80,17 @@ namespace RevitToGOST
 
 		protected override void RemoveItem(int index)
 		{
+			Log.WriteLine("RemoveItem");
 			Category catToDel = this[index].Category;
 			base.RemoveItem(index);
 			Rvt.Data.PickedElements.RemoveCategory(catToDel);
 			Rvt.Data.AvailableElements.RemoveCategory(catToDel);
+		}
+
+		public new void RemoveAt(int index)
+		{
+			Log.WriteLine("RemoveAt");
+			base.RemoveAt(index);
 		}
 
 		/*

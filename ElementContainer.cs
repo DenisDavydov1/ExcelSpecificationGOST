@@ -74,38 +74,68 @@ namespace RevitToGOST
 	public class ElementCollection : ObservableCollection<ElementContainer>
 	{
 		/*
-		** Insert Element(s)
+		** Member properties
 		*/
 
-		protected void InsertItem(int index, Element element)
+		public int ElementCount
 		{
-			base.InsertItem(index, new ElementContainer(element));
-		}
-
-		public void InsertElementCollection(int index, List<Element> elemL)
-		{
-			foreach (Element elem in elemL)
+			get
 			{
-				this.InsertItem(index++, elem);
+				int count = 0;
+				foreach (ElementContainer elemCont in this)
+					count += elemCont.Amount;
+				return count;
 			}
 		}
+
+		/*
+		** Constructors
+		*/
+
+		public ElementCollection() { }
+
+		public ElementCollection(List<Element> elemList)
+		{
+			foreach (Element elem in elemList)
+			{
+				ElementContainer elemCont = new ElementContainer(elem);
+				if (HasDuplicate(elemCont) == false)
+					base.Add(elemCont);
+			}
+		}
+
+		///*
+		//** Insert Element(s)
+		//*/
+
+		//protected void InsertItem(int index, Element element)
+		//{
+		//	base.InsertItem(index, new ElementContainer(element));
+		//}
+
+		//public void InsertElementCollection(int index, List<Element> elemL)
+		//{
+		//	foreach (Element elem in elemL)
+		//	{
+		//		this.InsertItem(index++, elem);
+		//	}
+		//}
 
 		/*
 		** Insert ElementContainer(s)
 		*/
 
-		protected override void InsertItem(int index, ElementContainer elementContainer)
-		{
-			if (HasDuplicate(elementContainer) == false)
-				base.InsertItem(index, elementContainer);
-		}
+		//protected override void InsertItem(int index, ElementContainer elementContainer)
+		//{
+		//	base.InsertItem(index, elementContainer);
+		//}
 
 		public void InsertElementCollection(int index, ElementCollection elemC)
 		{
 			foreach (ElementContainer elem in elemC)
 			{
-				if (HasDuplicate(elem) == false)
-					this.InsertItem(index++, elem);
+				base.InsertItem(index++, elem);
+				//this.InsertItem(index++, elem);
 			}
 		}
 
@@ -113,8 +143,7 @@ namespace RevitToGOST
 		{
 			foreach (ElementContainer elemCont in elemCol)
 			{
-				if (HasDuplicate(elemCont) == false)
-					this.Add(elemCont);
+				this.Add(elemCont);
 			}
 		}
 

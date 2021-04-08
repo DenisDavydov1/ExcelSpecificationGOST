@@ -16,7 +16,7 @@ namespace RevitToGOST
 		public static RvtControl Control;
 	}
 
-	class RvtControl : INotifyPropertyChanged
+	class RvtControl
 	{
 		/*
 		** Member properties
@@ -25,37 +25,6 @@ namespace RevitToGOST
 		///// Control elements values /////
 		public bool GroupElemsCheckBox { get; set; } = false;
 		public bool EnumerateColumnsCheckBox { get; set; } = false;
-
-		///// Application status /////
-		private Status _Condition;
-		public Status Condition
-		{
-			get { return _Condition; }
-			set
-			{
-				if (value != _Condition)
-				{
-					_Condition = value;
-					OnConditionChanged();
-				}
-			}
-		}
-
-		public enum Status
-		{
-			Idle,
-			Export,
-			Error,
-			Sort
-		}
-
-		public event PropertyChangedEventHandler PropertyChanged;
-		public event PropertyChangedEventHandler ConditionChanged;
-
-		protected void OnConditionChanged(string propertyName = null)
-		{
-			ConditionChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-		}
 
 		///// Application exception container /////
 		public Exception LastException { get; set; } = new Exception();
@@ -168,4 +137,5 @@ namespace RevitToGOST
 		}
 
 	} // class RvtControl
+
 } // namespace RevitToGOST

@@ -25,6 +25,7 @@ namespace RevitToGOST
 		** Member properties
 		*/
 
+		public CategoryNodeCollection AllCategories { get; set; }
 		public CategoryNodeCollection AvailableCategories { get; set; }
 		public CategoryNodeCollection PickedCategories { get; set; }
 		public ElementCollection AvailableElements { get; set; }
@@ -39,34 +40,39 @@ namespace RevitToGOST
 
 		public RvtData()
 		{
+			AllCategories = new CategoryNodeCollection();
 			AvailableCategories = new CategoryNodeCollection();
 			PickedCategories = new CategoryNodeCollection();
 			AvailableElements = new ElementCollection();
 			PickedElements = new ElementCollection();
 			ExportElements = new ElementCollection();
 			InitData();
+			InitAvailableCategories();
 		}
 
-		public CategoryNodeCollection InitData()
+		private void InitData()
 		{
-			AvailableCategories = new CategoryNodeCollection();
 			foreach (BuiltInCategory enumCat in Enum.GetValues(typeof(BuiltInCategory)))
 			{
 				try
 				{
 					FilteredElementCollector collector = new FilteredElementCollector(Rvt.Handler.Doc);
-					ElementCollection elemC = new ElementCollection();
-					elemC.InsertElementCollection(0, collector.OfCategory(enumCat).ToList());
+					ElementCollection elemC = new ElementCollection(collector.OfCategory(enumCat).ToList());
 					Category category = Category.GetCategory(Rvt.Handler.Doc, enumCat);
 					if (elemC != null && elemC.Count > 0 &&
 						category != null && category.CategoryType == CategoryType.Model)
 					{
-						AvailableCategories.Add(new CategoryNode(category, elemC));
+						AllCategories.Add(new CategoryNode(category, elemC));
 					}
 				}
 				catch { continue; }
 			}
-			return AvailableCategories;
+		}
+
+		private void InitAvailableCategories()
+		{
+			foreach (CategoryNode node in AllCategories)
+				AvailableCategories.Add(node);
 		}
 
 		public CategoryNode RemoveCategoryNodeFromList(CategoryNodeCollection list, CategoryNode categoryNode)

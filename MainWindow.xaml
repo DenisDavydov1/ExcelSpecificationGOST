@@ -11,11 +11,10 @@
 	Title="RevitToGOST"
 	Height="600" Width="800"
 	ResizeMode="CanMinimize" 
-	WindowStartupLocation="CenterOwner">
+	WindowStartupLocation="CenterScreen"
+	Topmost="{Binding Source={x:Static Application.Current},Path=MainWindow.IsActive,Mode=OneWay}">
 
 	<Grid>
-
-
 
 		<Button
 			x:Name="Export"

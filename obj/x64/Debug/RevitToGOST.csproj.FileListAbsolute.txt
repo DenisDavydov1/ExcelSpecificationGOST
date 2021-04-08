@@ -23,3 +23,5 @@ F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\x64\Debug\RevitToGOST.csproj.CoreCompi
 F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\x64\Debug\RevitToGOST.csproj.CopyComplete
 F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\x64\Debug\RevitToGOST.dll
 F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\x64\Debug\RevitToGOST.pdb
+F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\x64\Debug\LoadingWindow.g.cs
+F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\x64\Debug\LoadingWindow.baml

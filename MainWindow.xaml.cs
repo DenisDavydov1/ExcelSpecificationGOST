@@ -37,8 +37,8 @@ namespace RevitToGOST
 		{
 			InitializeComponent();
 
-			Rvt.Control.Condition = RvtControl.Status.Idle;
-			Rvt.Control.ConditionChanged += new PropertyChangedEventHandler(ConditionChangeHandler);
+			Rvt.Windows.Condition = RvtWindows.Status.Idle;
+			Rvt.Windows.ConditionChanged += new PropertyChangedEventHandler(ConditionChangeHandler);
 
 			AvailableCategories.ItemsSource = Rvt.Data.AvailableCategories;
 			PickedCategories.ItemsSource = Rvt.Data.PickedCategories;
@@ -51,7 +51,7 @@ namespace RevitToGOST
 
 		private void ConditionChangeHandler(object sender, PropertyChangedEventArgs e)
 		{
-			if (Rvt.Control.Condition == RvtControl.Status.Idle)
+			if (Rvt.Windows.Condition == RvtWindows.Status.Idle)
 			{
 				ExportProgressBar.Value = 0.0;
 				EnableControls(true);
@@ -60,15 +60,15 @@ namespace RevitToGOST
 				AvailableElements.Items.Refresh();
 				PickedElements.Items.Refresh();
 			}
-			else if (Rvt.Control.Condition == RvtControl.Status.Export)
+			else if (Rvt.Windows.Condition == RvtWindows.Status.Export)
 				EnableControls(false);
-			else if (Rvt.Control.Condition == RvtControl.Status.Error)
+			else if (Rvt.Windows.Condition == RvtWindows.Status.Error)
 			{
 				MessageBox.Show(String.Format("{0}\n\nStack trace:\n{1}",
 					Rvt.Control.LastException.Message, Rvt.Control.LastException.StackTrace),
 						"Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
-			else if (Rvt.Control.Condition == RvtControl.Status.Sort)
+			else if (Rvt.Windows.Condition == RvtWindows.Status.Sort)
 			{
 				EnableControls(false);
 			}
@@ -101,7 +101,7 @@ namespace RevitToGOST
 
 		private void Export_Click(object sender, RoutedEventArgs e)
 		{
-			Rvt.Control.Condition = RvtControl.Status.Export;
+			Rvt.Windows.Condition = RvtWindows.Status.Export;
 
 			BackgroundWorker exportWorker = new BackgroundWorker();
 			exportWorker.WorkerReportsProgress = true;
@@ -120,7 +120,7 @@ namespace RevitToGOST
 			catch (Exception ex)
 			{
 				Rvt.Control.LastException = ex;
-				Rvt.Control.Condition = RvtControl.Status.Error;
+				Rvt.Windows.Condition = RvtWindows.Status.Error;
 			}
 		}
 
@@ -131,16 +131,16 @@ namespace RevitToGOST
 
 		private void ExportWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
 		{
-			if (e.Error != null || Rvt.Control.Condition == RvtControl.Status.Error)
+			if (e.Error != null || Rvt.Windows.Condition == RvtWindows.Status.Error)
 			{
-				Rvt.Control.Condition = RvtControl.Status.Error;
+				Rvt.Windows.Condition = RvtWindows.Status.Error;
 			}
 			else
 			{
 				Rvt.Control.SaveProcedure();    // Save file
 				Rvt.Data.InitExportElements();	// Unset Rvt.Data.ExportElements
 			}
-			Rvt.Control.Condition = RvtControl.Status.Idle;
+			Rvt.Windows.Condition = RvtWindows.Status.Idle;
 		}
 
 		/////// /////// /////// /////// /////// ///////
@@ -227,8 +227,9 @@ namespace RevitToGOST
 		{
 			while (Rvt.Data.AvailableCategories.Count > 0)
 			{
-				Rvt.Data.PickedCategories.Insert(0, Rvt.Data.AvailableCategories.ElementAt(0)); // Rvt.Data.PickedCategories.Count
-				//Rvt.Data.AvailableCategories.RemoveAt(0);
+				CategoryNode tmp = Rvt.Data.AvailableCategories[0];
+				Rvt.Data.AvailableCategories.RemoveAt(0);
+				Rvt.Data.PickedCategories.Insert(Rvt.Data.PickedCategories.Count, tmp);
 			}
 		}
 
@@ -257,7 +258,7 @@ namespace RevitToGOST
 
 		private void CommonColumnHeader_Click(object sender, RoutedEventArgs e)
 		{
-			Rvt.Control.Condition = RvtControl.Status.Sort;
+			Rvt.Windows.Condition = RvtWindows.Status.Sort;
 			try
 			{
 				string name = ((GridViewColumnHeader)sender).Name;
@@ -288,14 +289,14 @@ namespace RevitToGOST
 					Rvt.Data.PickedElements.Sort(ElementCollection.SortBy.Type);
 				else if (name == "PickedElementsAmountHeader")
 					Rvt.Data.PickedElements.Sort(ElementCollection.SortBy.Amount);
-				Rvt.Control.Condition = RvtControl.Status.Idle;
+				Rvt.Windows.Condition = RvtWindows.Status.Idle;
 			}
 			catch (Exception ex)
 			{
 				Rvt.Control.LastException = ex;
-				Rvt.Control.Condition = RvtControl.Status.Error;
+				Rvt.Windows.Condition = RvtWindows.Status.Error;
 			}
-			Rvt.Control.Condition = RvtControl.Status.Idle;
+			Rvt.Windows.Condition = RvtWindows.Status.Idle;
 		}
 
 	} // class MainWindow

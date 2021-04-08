@@ -10,6 +10,7 @@ using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
+using System.ComponentModel;
 
 namespace RevitToGOST
 {
@@ -22,19 +23,23 @@ namespace RevitToGOST
 			try
 			{
 				Log.ClearLog();
+
+				Rvt.Windows = new RvtWindows();
+				Rvt.Windows.RunLoadingWindow();
+
 				Work.Book = new WorkBook();
-
 				Rvt.Handler = new RvtHandler(commandData, elements);
-				Rvt.Data = new RvtData();
 				Rvt.Control = new RvtControl();
+				Rvt.Data = new RvtData();
 
-				MainWindow mainWin = new MainWindow();
-				mainWin.ShowDialog();
+				Rvt.Windows.CloseLoadingWindow();
+				Rvt.Windows.RunMainWindow();
 			}
 			catch (Exception e) { Log.WriteLine("Caught exception from mainclass:\n{0}\n{1}", e.Message, e.StackTrace); }
 
 			return Result.Succeeded;
 		}
+
 	} // class MainClass
 
 } // namespace RevitToGOST
