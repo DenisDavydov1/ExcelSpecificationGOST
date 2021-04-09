@@ -14,7 +14,7 @@ using Autodesk.Revit.Attributes;
 
 namespace RevitToGOST
 {
-	class WorkSheet
+	public class WorkSheet
 	{
 		/*
 		**	Member fields

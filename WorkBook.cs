@@ -14,12 +14,12 @@ using Autodesk.Revit.Attributes;
 
 namespace RevitToGOST
 {
-	static class Work
+	static partial class Work
 	{
 		public static WorkBook Book { get; set; }
 	}
 
-	class WorkBook
+	public class WorkBook
 	{
 		/*
 		**	Member fields
@@ -114,20 +114,20 @@ namespace RevitToGOST
 				for (int i = 0; i < GetTablePagesCount(Rvt.Data.ExportElements.Count, ConfFile.Lines[(int)Table]); ++i)
 				{
 					WorkSheet newWS = AddWorkSheet(String.Format("Лист {0}",  i + 1));
-					newWS.AddTable(GOST.LoadConfFile(ConfFile.Paths[(int)Table]));
+					newWS.AddTable(GOST.LoadConfFile(ConfFile.Conf[(int)Table]));
 						
 					// Add stamp to page
 					if (Stamp != GOST.Standarts.None)
 					{
 						// TO DO HERE! Проверка, если это второй лист, надо добавить другую основную надпись и доп графу
-						newWS.AddTable(GOST.LoadConfFile(ConfFile.Paths[(int)Stamp]));
+						newWS.AddTable(GOST.LoadConfFile(ConfFile.Conf[(int)Stamp]));
 					}
 
 					// Add dop to page
 					if (Dop != GOST.Standarts.None)
 					{
 						// HERE TOO!
-						newWS.AddTable(GOST.LoadConfFile(ConfFile.Paths[(int)Dop]));
+						newWS.AddTable(GOST.LoadConfFile(ConfFile.Conf[(int)Dop]));
 					}
 				}
 			}
@@ -136,7 +136,7 @@ namespace RevitToGOST
 			if (Title != GOST.Standarts.None)
 			{
 				WorkSheet newWS = AddWorkSheet("Титульный лист");
-				newWS.AddTable(GOST.LoadConfFile(ConfFile.Paths[(int)Title]));
+				newWS.AddTable(GOST.LoadConfFile(ConfFile.Conf[(int)Title]));
 			}
 		}
 

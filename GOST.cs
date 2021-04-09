@@ -15,7 +15,7 @@ using Newtonsoft.Json;
 
 namespace RevitToGOST
 {
-	class GOST
+	public class GOST
 	{
 		/*
 		** Member fields:
@@ -91,11 +91,8 @@ namespace RevitToGOST
 		**	Member methods
 		*/
 
-		public static GOST LoadConfFile(string ConfFilePath)
+		public static GOST LoadConfFile(string config)
 		{
-			if (!File.Exists(ConfFilePath))
-				throw new Exception();
-			string config = File.ReadAllText(ConfFilePath);
 			GOST newGOST = JsonConvert.DeserializeObject<GOST>(config);
 			newGOST.Data = new List<List<string>>();
 			newGOST.ElemCol = new ElementCollection();

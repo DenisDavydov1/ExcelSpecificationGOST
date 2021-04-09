@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Autodesk.Revit.DB;
 
 namespace RevitToGOST
@@ -43,14 +43,46 @@ namespace RevitToGOST
 			AvailableElements.ItemsSource = Rvt.Data.AvailableElements;
 			PickedElements.ItemsSource = Rvt.Data.PickedElements;
 			MakeAllComboBoxUpdate();
+
+			//Bitmaps = new Bitmaps();
 			DrawPreview();
 		}
 
 		private void DrawPreview()
 		{
-			//ImageTable.Source = PreviewImages.Images[(int)Work.Book.Table];
-			ImageTable.Source = new BitmapImage(new Uri(@"pack://application:,,,/RevitToGOST;component/Previews/GOST_21_110_2013_Table1.png"));
+			ImageTable.Source = new BitmapImage(new Uri("Previews/Preview_GOST_21_110_2013_Table1.png", UriKind.Relative));
+			//ImageTable.Source = BitmapToImageSource(PreviewImages.Images[(int)Work.Book.Table]);
+			
+			//ImageTable.Source = new BitmapImage(new Uri(@"pack://application:,,,/RevitToGOST;component/Previews/GOST_21_110_2013_Table1.png"));
 		}
+
+		//public BitmapImage ConvertBitmap(System.Drawing.Bitmap value)
+		//{
+		//	MemoryStream ms = new MemoryStream();
+		//	((System.Drawing.Bitmap)value).Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+		//	BitmapImage image = new BitmapImage();
+		//	image.BeginInit();
+		//	ms.Seek(0, SeekOrigin.Begin);
+		//	image.StreamSource = ms;
+		//	image.EndInit();
+
+		//	return image;
+		//}
+
+		//private BitmapImage BitmapToImageSource(System.Drawing.Bitmap bitmap)
+		//{
+		//	using (MemoryStream memory = new MemoryStream())
+		//	{
+		//		bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
+		//		memory.Position = 0;
+		//		BitmapImage bitmapimage = new BitmapImage();
+		//		bitmapimage.BeginInit();
+		//		bitmapimage.StreamSource = memory;
+		//		bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
+		//		bitmapimage.EndInit();
+		//		return bitmapimage;
+		//	}
+		//}
 
 		private void ConditionChangeHandler(object sender, PropertyChangedEventArgs e)
 		{
@@ -203,7 +235,7 @@ namespace RevitToGOST
 		{
 			if (TableComboBox.SelectedIndex == 0)
 				Work.Book.Table = GOST.Standarts.GOST_21_110_2013_Table1;
-			DrawPreview();
+			//DrawPreview();
 		}
 
 		private void StampComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

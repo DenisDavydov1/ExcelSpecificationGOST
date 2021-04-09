@@ -105,13 +105,13 @@
 					<Rectangle Margin="153,190,207,75"
 							   Grid.ColumnSpan="2"
 							   Stroke="LightGray"/>
-					
+
 					<Image x:Name="ImageTable"
 						   Height="200" Width="282"
 						   Margin="153,190,207,75"
 						   Grid.ColumnSpan="2"
 						   IsEnabled="True"/>
-					
+
 				</Grid>
 
 			</TabItem>

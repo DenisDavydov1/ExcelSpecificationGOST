@@ -12,6 +12,11 @@ using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using System.Windows.Media.Imaging;
 
+using RevitToGOST.Properties;
+using System.Drawing;
+using System.Windows.Data;
+using System.IO;
+
 namespace RevitToGOST
 {
 	static class GostTools
@@ -66,6 +71,15 @@ namespace RevitToGOST
 			@"F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\Templates\GOST_21_101_2020_Title12.json"	// GOST_P_21_101_2020_Title_12
 		};
 
+		public static readonly string[] Conf =
+		{
+			String.Empty,
+			Encoding.UTF8.GetString(Resources.GOST_21_110_2013_Table1),
+			Encoding.UTF8.GetString(Resources.GOST_21_101_2020_Dop3),
+			Encoding.UTF8.GetString(Resources.GOST_21_101_2020_Stamp3),
+			Encoding.UTF8.GetString(Resources.GOST_21_101_2020_Title12)
+		};
+
 		public static readonly int[] Lines = {
 			0,	// None,
 			24,	// GOST_21_110_2013_Table1
@@ -94,17 +108,5 @@ namespace RevitToGOST
 			return lines;
 		}
 	}
-
-	//static class PreviewImages
-	//{
-	//	public static readonly BitmapImage[] Images =
-	//	{
-	//		new BitmapImage(new Uri(@"/Previews/Empty.png")),
-	//		new BitmapImage(new Uri(@"/Previews/GOST_21_110_2013_Table1.png")),
-	//		null,
-	//		new BitmapImage(new Uri(@"/Previews/GOST_21_101_2020_Stamp3.png")),
-	//		null
-	//	};
-	//}
 
 } // namespace RevitToGOST
