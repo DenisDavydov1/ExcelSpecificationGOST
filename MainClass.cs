@@ -32,7 +32,7 @@ namespace RevitToGOST
 				Rvt.Handler = new RvtHandler(commandData, elements);
 				Rvt.Control = new RvtControl();
 				Rvt.Data = new RvtData();
-				Work.Previews = new Previews();
+				Work.Bitmaps = new Bitmaps();
 
 				Rvt.Windows.CloseLoadingWindow();
 				Rvt.Windows.RunMainWindow();

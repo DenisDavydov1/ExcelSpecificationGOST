@@ -58,10 +58,7 @@ namespace RevitToGOST
 		public int Line { get; set; }
 		public int LinesCount { get; set; }
 		public List<List<string>> Data { get; set; }
-		//public ElementSet ElemSet { get; set; }
 		public ElementCollection ElemCol { get; set; }
-
-		public IGostData GostData { get; set; }
 
 		public int[] Frame { get; set; }
 		public List<int[]> Borders { get; set; }
@@ -75,16 +72,31 @@ namespace RevitToGOST
 			Title,
 			Table,
 			Stamp,
-			Dop
+			Dop,
+			Misc
 		}
 
 		public enum Standarts
 		{
 			None,
-			GOST_21_110_2013_Table1,
-			GOST_P_21_101_2020_Dop3,
-			GOST_P_21_101_2020_Stamp3,
-			GOST_P_21_101_2020_Title_12
+			GOST_21_110_2013_Table_1,
+			GOST_P_21_101_2020_Stamp_3,
+			GOST_P_21_101_2020_Dop_3,
+			GOST_P_21_101_2020_Stamp_4,
+			GOST_P_21_101_2020_Dop_4,
+			GOST_P_21_101_2020_Stamp_5,
+			GOST_P_21_101_2020_Dop_5,
+			GOST_P_21_101_2020_Stamp_6,
+			GOST_P_21_101_2020_Dop_6,
+			table7,
+			table8,
+			misc9,
+			misc9a,
+			misc10,
+			misc11,
+			GOST_P_21_101_2020_Title_12,
+			misc13,
+			title14
 		}
 
 		/*

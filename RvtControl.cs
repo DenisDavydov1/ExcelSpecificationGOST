@@ -25,7 +25,6 @@ namespace RevitToGOST
 		///// Control elements values /////
 		public bool GroupElemsCheckBox { get; set; } = false;
 		public bool EnumerateColumnsCheckBox { get; set; } = false;
-		public int PreviewPageNumber { get; set; } = 1;
 
 		///// Application exception container /////
 		public Exception LastException { get; set; } = new Exception();
@@ -38,41 +37,52 @@ namespace RevitToGOST
 		{
 			(sender as BackgroundWorker).ReportProgress(0);
 
+			//Log.WriteLine("1");
 			// Pick data and assign it to Rvt.Data.ExportElements
 			Rvt.Data.SetExportElements();
 
 			(sender as BackgroundWorker).ReportProgress(10);
 
+			//Log.WriteLine("1");
 			// Enumerate columns - add lines to Rvt.Data.ExportElements (if a box checked)
 			Rvt.Data.InsertColumnsEnumerationLines();
 
 			(sender as BackgroundWorker).ReportProgress(20);
 
+			//Log.WriteLine("3");
 			// Load needed configuration files and add worksheets
 			// and assign worksheets with GOSTs
 			Work.Book.LoadConfigs();
 
 			(sender as BackgroundWorker).ReportProgress(30);
 
+			//Log.WriteLine("4");
 			// Fill tables with element collection
 			Rvt.Data.FillLines();
+			//Log.WriteLine("5");
 			Work.Book.AddExportElements();
+			//Log.WriteLine("6");
 			Work.Book.ConvertElementCollectionsToLists();
 
 			(sender as BackgroundWorker).ReportProgress(40);
 
+			//Log.WriteLine("7");
 			// Fill stamps
+			Work.Book.FillStamps();
 			// Fill dops
+			Work.Book.FillDops();
 			// Fill title page
 			Work.Book.FillTitlePage();
 
 			(sender as BackgroundWorker).ReportProgress(60);
 
+			//Log.WriteLine("8");
 			// Build tables and fill it with data lines
 			Work.Book.BuildWorkSheets();
 
 			(sender as BackgroundWorker).ReportProgress(80);
 
+			//Log.WriteLine("9");
 			// Move title page to front of workbook
 			Work.Book.MovePagesToRightPlaces();
 

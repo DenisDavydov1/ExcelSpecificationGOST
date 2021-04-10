@@ -34,6 +34,8 @@ namespace RevitToGOST
 		public GOST.Standarts Stamp { get; set; }
 		public GOST.Standarts Dop { get; set; }
 
+		public int Pages { get; set; } = 0;
+
 
 		/*
 		**	Member methods
@@ -115,7 +117,8 @@ namespace RevitToGOST
 				{
 					WorkSheet newWS = AddWorkSheet(String.Format("Лист {0}",  i + 1));
 					newWS.AddTable(GOST.LoadConfFile(ConfFile.Conf[(int)Table]));
-						
+					Pages++;
+
 					// Add stamp to page
 					if (Stamp != GOST.Standarts.None)
 					{
@@ -167,9 +170,35 @@ namespace RevitToGOST
 		{
 			if (Title == GOST.Standarts.None)
 				return;
-			if (ConfFile.FillLine[(int)Title] == null)
+			if (ConfFile.FillTitle[(int)Title] == null)
 				return;
-			ConfFile.FillLine[(int)Title](null);
+			ConfFile.FillTitle[(int)Title](0);
+		}
+
+		public void FillStamps()
+		{
+			if (Work.Book.Stamp == GOST.Standarts.None)
+				return;
+			if (ConfFile.FillStamp[(int)Stamp] == null)
+				return;
+			ConfFile.FillStamp[(int)Stamp](0);
+			if (ConfFile.FillStamp[(int)Stamp] == null) // change to second stamp
+				return;
+			for (int i = 1; i < Work.Book.Pages; ++i)
+				ConfFile.FillStamp[(int)Stamp](i); // change to second stamp
+		}
+
+		public void FillDops()
+		{
+			if (Work.Book.Dop == GOST.Standarts.None)
+				return;
+			if (ConfFile.FillDop[(int)Dop] == null)
+				return;
+			ConfFile.FillDop[(int)Dop](0);
+			if (ConfFile.FillDop[(int)Dop] == null) // change to second stamp
+				return;
+			for (int i = 1; i < Work.Book.Pages; ++i)
+				ConfFile.FillDop[(int)Dop](i); // change to second stamp
 		}
 
 	} // class WorkBook

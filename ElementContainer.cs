@@ -61,6 +61,16 @@ namespace RevitToGOST
 			LineType = ContType.Category;
 		}
 
+		public ElementContainer(ElementContainer other)
+		{
+			Element = other.Element;
+			Amount = other.Amount;
+			CategoryLine = other.CategoryLine;
+			Position = other.Position;
+			LineType = other.LineType;
+			Line = other.Line;
+		}
+
 		public bool Equals(ElementContainer other)
 		{
 			if (this.InstanceName == other.InstanceName &&
@@ -102,6 +112,13 @@ namespace RevitToGOST
 				if (HasDuplicate(elemCont) == false)
 					base.Add(elemCont);
 			}
+		}
+
+		public ElementCollection(ElementCollection other)
+		{
+			foreach (ElementContainer elem in other)
+				base.Add(elem);
+				//base.Add(new ElementContainer(elem));
 		}
 
 		/*

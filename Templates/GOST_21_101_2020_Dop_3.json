@@ -1,7 +1,7 @@
 {
 	"Name": "ГОСТ Р 21.101—2020",
 	"Type": 4,
-	"Standart": 2,
+	"Standart": 3,
 	"Format": "Any",
 	"Orientation": "Any",
 	"Position": 3,
@@ -52,9 +52,9 @@
 		"_11": [ 2, 0 ],
 		"_12": [ 1, 0 ],
 		"_13": [ 0, 0 ],
-		"_20": [ 6, 0 ],
-		"_21": [ 5, 0 ],
-		"_22": [ 4, 0 ],
+		"_20": [ 6, 1 ],
+		"_21": [ 5, 1 ],
+		"_22": [ 4, 1 ],
 	},
 	"Borders":
 	[
@@ -70,7 +70,7 @@
 		[ 13 ]
 	],
 	"Line": 0,
-	"LinesCount": 0,
+	"LinesCount": 8,
 	"HorizontalAlignment": 0,
 	"VerticalAlignment": 1,
 	"VerticalAlignments": 

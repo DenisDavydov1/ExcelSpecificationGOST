@@ -36,10 +36,6 @@
 					 Height="24"
 					 VerticalAlignment="Top">
 				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="317*"/>
-						<ColumnDefinition Width="325*"/>
-					</Grid.ColumnDefinitions>
 
 					<!--Титульный лист-->
 					<TextBlock Text="Титульный лист"
@@ -48,7 +44,7 @@
 					<ComboBox x:Name="TitleComboBox"
 							  Margin="153,21,272,424"
 							  SelectedIndex="0"
-							  SelectionChanged="TitleComboBox_SelectionChanged" Grid.ColumnSpan="2">
+							  SelectionChanged="TitleComboBox_SelectionChanged">
 						<TextBlock>Нет</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 12)</TextBlock>
 					</ComboBox>
@@ -60,7 +56,7 @@
 					<ComboBox x:Name="TableComboBox"
 							  Margin="153,51,272,394"
 							  SelectedIndex="0"
-							  SelectionChanged="TableComboBox_SelectionChanged" Grid.ColumnSpan="2">
+							  SelectionChanged="TableComboBox_SelectionChanged">
 						<TextBlock>ГОСТ 21.110-2013 (Форма 1)</TextBlock>
 					</ComboBox>
 
@@ -71,9 +67,12 @@
 					<ComboBox x:Name="StampComboBox"
 							  Margin="153,81,272,364"
 							  SelectedIndex="1"
-							  SelectionChanged="StampComboBox_SelectionChanged" Grid.ColumnSpan="2">
+							  SelectionChanged="StampComboBox_SelectionChanged">
 						<TextBlock>Нет</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 3)</TextBlock>
+						<TextBlock>ГОСТ Р 21.101-2020 (Форма 4)</TextBlock>
+						<TextBlock>ГОСТ Р 21.101-2020 (Форма 5)</TextBlock>
+						<TextBlock>ГОСТ Р 21.101-2020 (Форма 6)</TextBlock>
 					</ComboBox>
 
 					<!--Дополнительные графы-->
@@ -83,9 +82,12 @@
 					<ComboBox x:Name="DopComboBox"
 							  Margin="153,111,272,334"
 							  SelectedIndex="1"
-							  SelectionChanged="DopComboBox_SelectionChanged" Grid.ColumnSpan="2">
+							  SelectionChanged="DopComboBox_SelectionChanged">
 						<TextBlock>Нет</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 3)</TextBlock>
+						<TextBlock>ГОСТ Р 21.101-2020 (Форма 4)</TextBlock>
+						<TextBlock>ГОСТ Р 21.101-2020 (Форма 5)</TextBlock>
+						<TextBlock>ГОСТ Р 21.101-2020 (Форма 6)</TextBlock>
 					</ComboBox>
 
 					<CheckBox x:Name="EnumerateColumnsCheckBox"
@@ -97,20 +99,43 @@
 							  HorizontalAlignment="Left" VerticalAlignment="Top"
 							  Margin="153,148,0,0"/>
 
-					<!--Дополнительные графы-->
+					<!--Предварительный просмотр-->
 					<TextBlock Text="Предварительный"
 							   VerticalAlignment="Center"
 							   Margin="40,190,173,249" Height="26"/>
-							   
+						   
 					<Rectangle Margin="153,190,207,75"
-							   Grid.ColumnSpan="2"
 							   Stroke="LightGray"/>
-
+					
 					<Image x:Name="ImageTable"
 						   Height="200" Width="282"
 						   Margin="153,190,207,75"
-						   Grid.ColumnSpan="2"
 						   IsEnabled="True"/>
+
+					<Image x:Name="ImageStamp"
+						   Height="200" Width="282"
+						   Margin="153,190,207,75"
+						   IsEnabled="True"/>
+
+					<Image x:Name="ImageDop"
+						   Height="200" Width="282"
+						   Margin="153,190,207,75"
+						   IsEnabled="True"/>
+
+					<!--Управление номером страницы-->
+					<TextBox x:Name="PreviewPageNumberTextBox"
+							 Margin="269,401,352,45"
+							 VerticalContentAlignment="Center"
+							 HorizontalContentAlignment="Center"
+							 Text="1"/>
+					
+					<Button x:Name="PrevPageButton"
+							Margin="237,401,384,45"
+							Click="PrevPageButton_Click"/>
+
+					<Button x:Name="NextPageButton"
+							Margin="304,401,317,45"
+							Click="NextPageButton_Click"/>
 
 				</Grid>
 

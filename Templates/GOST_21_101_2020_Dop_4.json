@@ -1,0 +1,43 @@
+{
+	"Name": "ГОСТ Р 21.101—2020",
+	"Type": 4,
+	"Standart": 5,
+	"Format": "Any",
+	"Orientation": "Any",
+	"Position": 3,
+	"Font": "GOST A",
+	"FontSize": 10,
+	"Columns":
+	[
+		[ 0 ],
+		[ 8, 5, 7 ],
+		[ 8, 5, 7 ],
+		[ 8, 5, 7 ],
+		[ 0 ]
+	],
+	"Rows":
+	[
+		[ 0 ],
+		[ 25, 35, 25, 5 ],
+		[ 25, 35, 25, 5 ],
+		[ 25, 35, 25, 5 ],
+		[ 0 ]
+	],
+	"Fields":
+	[
+		[ [ 1, 9, 25, 13 ], [ 1, 14, 25, 20 ] ],
+		[ [ 26, 9, 60, 13 ], [ 26, 14, 60, 20 ] ],
+		[ [ 61, 9, 85, 13 ], [ 61, 14, 85, 20 ] ]
+	],
+	"Borders":
+	[
+		[ 13, 13 ],
+		[ 13, 13 ],
+		[ 13, 13 ]
+	],
+	"Line": 0,
+	"LinesCount": 3,
+	"HorizontalAlignment": 0,
+	"VerticalAlignment": 1,
+	"VerticalText": true
+}

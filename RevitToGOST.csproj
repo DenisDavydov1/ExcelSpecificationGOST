@@ -118,10 +118,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Templates\GOST_21_101_2020_Dop3.json" />
-    <None Include="Templates\GOST_21_101_2020_Stamp3.json" />
-    <None Include="Templates\GOST_21_101_2020_Title12.json" />
-    <None Include="Templates\GOST_21_110_2013_Table1.json" />
+    <Resource Include="Templates\GOST_21_101_2020_Dop_6.json" />
+    <Resource Include="Templates\GOST_21_101_2020_Stamp_6.json" />
+    <Resource Include="Templates\GOST_21_101_2020_Dop_5.json" />
+    <Resource Include="Templates\GOST_21_101_2020_Stamp_5.json" />
+    <Resource Include="Templates\GOST_21_101_2020_Stamp_4.json" />
+    <Resource Include="Templates\GOST_21_101_2020_Dop_4.json" />
+    <Resource Include="Templates\GOST_21_101_2020_Dop_3.json" />
+    <Resource Include="Templates\GOST_21_101_2020_Stamp_3.json" />
+    <Resource Include="Templates\GOST_21_101_2020_Title_12.json" />
+    <Resource Include="Templates\GOST_21_110_2013_Table_1.json" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="LoadingWindow.xaml">
@@ -134,9 +140,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Previews\Preview_GOST_21_110_2013_Table1.png" />
-    <None Include="Previews\Preview_GOST_21_101_2020_Stamp3.png" />
-    <None Include="Previews\Preview_Empty.png" />
+    <Resource Include="Previews\Preview_GOST_21_110_2013_Table1.png" />
+    <Resource Include="Previews\Preview_GOST_21_101_2020_Stamp3.png" />
+    <Resource Include="Previews\Preview_Empty.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -146,6 +152,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Previews\Preview_GOST_21_101_2020_Title12.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

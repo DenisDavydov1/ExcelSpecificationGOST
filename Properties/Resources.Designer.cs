@@ -63,9 +63,9 @@ namespace RevitToGOST.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        public static byte[] GOST_21_101_2020_Dop3 {
+        public static byte[] GOST_21_101_2020_Dop_3 {
             get {
-                object obj = ResourceManager.GetObject("GOST_21_101_2020_Dop3", resourceCulture);
+                object obj = ResourceManager.GetObject("GOST_21_101_2020_Dop_3", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace RevitToGOST.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        public static byte[] GOST_21_101_2020_Stamp3 {
+        public static byte[] GOST_21_101_2020_Dop_4 {
             get {
-                object obj = ResourceManager.GetObject("GOST_21_101_2020_Stamp3", resourceCulture);
+                object obj = ResourceManager.GetObject("GOST_21_101_2020_Dop_4", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace RevitToGOST.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        public static byte[] GOST_21_101_2020_Title12 {
+        public static byte[] GOST_21_101_2020_Dop_5 {
             get {
-                object obj = ResourceManager.GetObject("GOST_21_101_2020_Title12", resourceCulture);
+                object obj = ResourceManager.GetObject("GOST_21_101_2020_Dop_5", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -93,9 +93,69 @@ namespace RevitToGOST.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        public static byte[] GOST_21_110_2013_Table1 {
+        public static byte[] GOST_21_101_2020_Dop_6 {
             get {
-                object obj = ResourceManager.GetObject("GOST_21_110_2013_Table1", resourceCulture);
+                object obj = ResourceManager.GetObject("GOST_21_101_2020_Dop_6", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] GOST_21_101_2020_Stamp_3 {
+            get {
+                object obj = ResourceManager.GetObject("GOST_21_101_2020_Stamp_3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] GOST_21_101_2020_Stamp_4 {
+            get {
+                object obj = ResourceManager.GetObject("GOST_21_101_2020_Stamp_4", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] GOST_21_101_2020_Stamp_5 {
+            get {
+                object obj = ResourceManager.GetObject("GOST_21_101_2020_Stamp_5", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] GOST_21_101_2020_Stamp_6 {
+            get {
+                object obj = ResourceManager.GetObject("GOST_21_101_2020_Stamp_6", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] GOST_21_101_2020_Title_12 {
+            get {
+                object obj = ResourceManager.GetObject("GOST_21_101_2020_Title_12", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] GOST_21_110_2013_Table_1 {
+            get {
+                object obj = ResourceManager.GetObject("GOST_21_110_2013_Table_1", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -116,6 +176,16 @@ namespace RevitToGOST.Properties {
         public static System.Drawing.Bitmap Preview_GOST_21_101_2020_Stamp3 {
             get {
                 object obj = ResourceManager.GetObject("Preview_GOST_21_101_2020_Stamp3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Preview_GOST_21_101_2020_Title12 {
+            get {
+                object obj = ResourceManager.GetObject("Preview_GOST_21_101_2020_Title12", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -45,7 +45,7 @@ namespace RevitToGOST
 			PickedCategories = new CategoryNodeCollection();
 			AvailableElements = new ElementCollection();
 			PickedElements = new ElementCollection();
-			ExportElements = new ElementCollection();
+			//ExportElements = new ElementCollection();
 			InitData();
 			InitAvailableCategories();
 		}
@@ -97,7 +97,7 @@ namespace RevitToGOST
 			if (Rvt.Control.GroupElemsCheckBox == true)
 				ExportElements = PickedElements.GroupByCategory();
 			else
-				ExportElements = PickedElements;
+				ExportElements = new ElementCollection(PickedElements);
 			ExportElements.Enumerate();
 		}
 

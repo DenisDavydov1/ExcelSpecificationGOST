@@ -344,7 +344,7 @@ namespace RevitToGOST
 		private void Kostyl()
 		{
 			// Set horizontal alignment for columns enumeration row
-			if (Work.Book.Table == GOST.Standarts.GOST_21_110_2013_Table1 &&
+			if (Work.Book.Table == GOST.Standarts.GOST_21_110_2013_Table_1 &&
 				Tables[0].Standart == Work.Book.Table &&
 				Rvt.Control.EnumerateColumnsCheckBox == true)
 			{

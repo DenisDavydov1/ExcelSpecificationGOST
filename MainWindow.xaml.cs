@@ -34,9 +34,10 @@ namespace RevitToGOST
 		public MainWindow()
 		{
 			InitializeComponent();
-			
+
 			Rvt.Windows.Condition = RvtWindows.Status.Idle;
 			Rvt.Windows.ConditionChanged += new PropertyChangedEventHandler(ConditionChangeHandler);
+			Work.Bitmaps.PreviewPageChanged += new PropertyChangedEventHandler(PreviewPageChangeHandler);
 
 			AvailableCategories.ItemsSource = Rvt.Data.AvailableCategories;
 			PickedCategories.ItemsSource = Rvt.Data.PickedCategories;
@@ -44,45 +45,44 @@ namespace RevitToGOST
 			PickedElements.ItemsSource = Rvt.Data.PickedElements;
 			MakeAllComboBoxUpdate();
 
-			//Bitmaps = new Bitmaps();
 			DrawPreview();
 		}
 
+		/////// Preview controls and event ///////
+
 		private void DrawPreview()
 		{
-			ImageTable.Source = new BitmapImage(new Uri("Previews/Preview_GOST_21_110_2013_Table1.png", UriKind.Relative));
-			//ImageTable.Source = BitmapToImageSource(PreviewImages.Images[(int)Work.Book.Table]);
-			
-			//ImageTable.Source = new BitmapImage(new Uri(@"pack://application:,,,/RevitToGOST;component/Previews/GOST_21_110_2013_Table1.png"));
+			if (ImageTable == null || ImageStamp == null || ImageDop == null)
+				return;
+			PreviewPageNumberTextBox.Text = Work.Bitmaps.PreviewPageString();
+			Work.Bitmaps.UpdateImages();
+			ImageTable.Source = Work.Bitmaps.Table;
+			ImageStamp.Source = Work.Bitmaps.Stamp;
+			ImageDop.Source = Work.Bitmaps.Dop;
 		}
 
-		//public BitmapImage ConvertBitmap(System.Drawing.Bitmap value)
-		//{
-		//	MemoryStream ms = new MemoryStream();
-		//	((System.Drawing.Bitmap)value).Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
-		//	BitmapImage image = new BitmapImage();
-		//	image.BeginInit();
-		//	ms.Seek(0, SeekOrigin.Begin);
-		//	image.StreamSource = ms;
-		//	image.EndInit();
+		private void PreviewPageChangeHandler(object sender, PropertyChangedEventArgs e)
+		{
+			DrawPreview();
+		}
 
-		//	return image;
-		//}
+		private void PrevPageButton_Click(object sender, RoutedEventArgs e)
+		{
+			int newPage = Work.Bitmaps.PreviewPage - 1;
+			if (newPage < 1)
+				return;
+			Work.Bitmaps.PreviewPage = newPage;
+		}
 
-		//private BitmapImage BitmapToImageSource(System.Drawing.Bitmap bitmap)
-		//{
-		//	using (MemoryStream memory = new MemoryStream())
-		//	{
-		//		bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
-		//		memory.Position = 0;
-		//		BitmapImage bitmapimage = new BitmapImage();
-		//		bitmapimage.BeginInit();
-		//		bitmapimage.StreamSource = memory;
-		//		bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
-		//		bitmapimage.EndInit();
-		//		return bitmapimage;
-		//	}
-		//}
+		private void NextPageButton_Click(object sender, RoutedEventArgs e)
+		{
+			int newPage = Work.Bitmaps.PreviewPage + 1;
+			if (newPage > Work.Bitmaps.MaxPreviewPage)
+				return;
+			Work.Bitmaps.PreviewPage = newPage;
+		}
+
+		/////// Application states handler ///////
 
 		private void ConditionChangeHandler(object sender, PropertyChangedEventArgs e)
 		{
@@ -225,17 +225,21 @@ namespace RevitToGOST
 		private void TitleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			if (TitleComboBox.SelectedIndex == 0)
+			{
 				Work.Book.Title = GOST.Standarts.None;
+				if (Work.Bitmaps.PreviewPage > 1)
+					Work.Bitmaps.PreviewPage--;
+			}
 			else if (TitleComboBox.SelectedIndex == 1)
 				Work.Book.Title = GOST.Standarts.GOST_P_21_101_2020_Title_12;
-			// DrawPreview(); TO DO!
+			DrawPreview();
 		}
 
 		private void TableComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			if (TableComboBox.SelectedIndex == 0)
-				Work.Book.Table = GOST.Standarts.GOST_21_110_2013_Table1;
-			//DrawPreview();
+				Work.Book.Table = GOST.Standarts.GOST_21_110_2013_Table_1;
+			DrawPreview();
 		}
 
 		private void StampComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -243,8 +247,14 @@ namespace RevitToGOST
 			if (StampComboBox.SelectedIndex == 0)
 				Work.Book.Stamp = GOST.Standarts.None;
 			else if (StampComboBox.SelectedIndex == 1)
-				Work.Book.Stamp = GOST.Standarts.GOST_P_21_101_2020_Stamp3;
-			// DrawPreview(); TO DO!
+				Work.Book.Stamp = GOST.Standarts.GOST_P_21_101_2020_Stamp_3;
+			else if (StampComboBox.SelectedIndex == 2)
+				Work.Book.Stamp = GOST.Standarts.GOST_P_21_101_2020_Stamp_4;
+			else if (StampComboBox.SelectedIndex == 3)
+				Work.Book.Stamp = GOST.Standarts.GOST_P_21_101_2020_Stamp_5;
+			else if (StampComboBox.SelectedIndex == 4)
+				Work.Book.Stamp = GOST.Standarts.GOST_P_21_101_2020_Stamp_6;
+			DrawPreview();
 		}
 
 		private void DopComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -252,8 +262,14 @@ namespace RevitToGOST
 			if (DopComboBox.SelectedIndex == 0)
 				Work.Book.Dop = GOST.Standarts.None;
 			else if (DopComboBox.SelectedIndex == 1)
-				Work.Book.Dop = GOST.Standarts.GOST_P_21_101_2020_Dop3;
-			// DrawPreview(); TO DO!
+				Work.Book.Dop = GOST.Standarts.GOST_P_21_101_2020_Dop_3;
+			else if (DopComboBox.SelectedIndex == 2)
+				Work.Book.Dop = GOST.Standarts.GOST_P_21_101_2020_Dop_4;
+			else if (DopComboBox.SelectedIndex == 3)
+				Work.Book.Dop = GOST.Standarts.GOST_P_21_101_2020_Dop_5;
+			else if (DopComboBox.SelectedIndex == 4)
+				Work.Book.Dop = GOST.Standarts.GOST_P_21_101_2020_Dop_6;
+			DrawPreview();
 		}
 
 		////////////////////////////////////// TAB 2 //////////////////////////////////////
