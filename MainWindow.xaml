@@ -11,7 +11,8 @@
 	Title="RevitToGOST"
 	Height="600" Width="800"
 	ResizeMode="CanMinimize" 
-	WindowStartupLocation="CenterScreen">
+	WindowStartupLocation="CenterScreen"
+	MouseMove="Window_MouseMove">
 
 	<Grid>
 
@@ -32,7 +33,8 @@
 					HorizontalAlignment="Left">
 
 			<!--ВКЛАДКА 1-->
-			<TabItem Header="1. Настройка документа"
+			<TabItem x:Name="Tab1"
+					 Header="1. Настройка документа"
 					 Height="24"
 					 VerticalAlignment="Top">
 				<Grid>
@@ -41,6 +43,7 @@
 					<TextBlock Text="Титульный лист"
 							   VerticalAlignment="Center"
 							   Margin="40,21,180,419" Height="25"/>
+					
 					<ComboBox x:Name="TitleComboBox"
 							  Margin="153,21,272,424"
 							  SelectedIndex="0"
@@ -53,6 +56,7 @@
 					<TextBlock Text="Спецификация"
 							   VerticalAlignment="Center"
 							   Margin="40,51,180,389" Height="25"/>
+					
 					<ComboBox x:Name="TableComboBox"
 							  Margin="153,51,272,394"
 							  SelectedIndex="0"
@@ -60,14 +64,15 @@
 						<TextBlock>ГОСТ 21.110-2013 (Форма 1)</TextBlock>
 					</ComboBox>
 
-					<!--Основная надпись-->
+					<!--Основная надпись 1-->
 					<TextBlock Text="Основная надпись"
 							   VerticalAlignment="Center"
 							   Margin="40,81,169,359" Height="25"/>
-					<ComboBox x:Name="StampComboBox"
+					
+					<ComboBox x:Name="Stamp1ComboBox"
 							  Margin="153,81,272,364"
-							  SelectedIndex="1"
-							  SelectionChanged="StampComboBox_SelectionChanged">
+							  SelectedIndex="3"
+							  SelectionChanged="Stamp1ComboBox_SelectionChanged">
 						<TextBlock>Нет</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 3)</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 4)</TextBlock>
@@ -75,14 +80,15 @@
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 6)</TextBlock>
 					</ComboBox>
 
-					<!--Дополнительные графы-->
+					<!--Дополнительные графы 1-->
 					<TextBlock Text="Доп. графы"
 							   VerticalAlignment="Center"
 							   Margin="40,111,169,328" Height="26"/>
-					<ComboBox x:Name="DopComboBox"
+
+					<ComboBox x:Name="Dop1ComboBox"
 							  Margin="153,111,272,334"
-							  SelectedIndex="1"
-							  SelectionChanged="DopComboBox_SelectionChanged">
+							  SelectedIndex="3"
+							  SelectionChanged="Dop1ComboBox_SelectionChanged">
 						<TextBlock>Нет</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 3)</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 4)</TextBlock>
@@ -90,6 +96,46 @@
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 6)</TextBlock>
 					</ComboBox>
 
+					<!--Основная надпись 2-->
+					<TextBlock VerticalAlignment="Center"
+							   Margin="40,129,169,299"
+							   Height="37">
+						<Run Text="Основная надпись"/><LineBreak/>
+						<Run Text="(со 2-го листа)"/>
+					</TextBlock>
+					
+					<ComboBox x:Name="Stamp2ComboBox"
+							  Margin="153,138,272,307"
+							  SelectedIndex="4"
+							  SelectionChanged="Stamp2ComboBox_SelectionChanged">
+						<TextBlock><Run Text="Нет"/></TextBlock>
+						<TextBlock><Run Text="ГОСТ Р 21.101-2020 (Форма 3)"/></TextBlock>
+						<TextBlock><Run Text="ГОСТ Р 21.101-2020 (Форма 4)"/></TextBlock>
+						<TextBlock><Run Text="ГОСТ Р 21.101-2020 (Форма 5)"/></TextBlock>
+						<TextBlock><Run Text="ГОСТ Р 21.101-2020 (Форма 6)"/></TextBlock>
+					</ComboBox>
+
+					<!--Дополнительные графы 2-->
+					<TextBlock
+						VerticalAlignment="Center"
+						Margin="40,163,169,267"
+						Height="35">
+						<Run Text="Доп. графы"/><LineBreak/>
+						<Run Text="(со 2-го листа)"/>
+					</TextBlock>
+					
+					<ComboBox x:Name="Dop2ComboBox"
+							  Margin="153,166,272,279"
+							  SelectedIndex="4"
+							  SelectionChanged="Dop2ComboBox_SelectionChanged">
+						<TextBlock><Run Text="Нет"/></TextBlock>
+						<TextBlock><Run Text="ГОСТ Р 21.101-2020 (Форма 3)"/></TextBlock>
+						<TextBlock><Run Text="ГОСТ Р 21.101-2020 (Форма 4)"/></TextBlock>
+						<TextBlock><Run Text="ГОСТ Р 21.101-2020 (Форма 5)"/></TextBlock>
+						<TextBlock><Run Text="ГОСТ Р 21.101-2020 (Форма 6)"/></TextBlock>
+					</ComboBox>
+
+					<!--Вкл. нумерацию столбцов-->
 					<CheckBox x:Name="EnumerateColumnsCheckBox"
 							  Content="Нумерация столбцов"
 							  IsThreeState="False"
@@ -97,44 +143,46 @@
 							  Checked="EnumerateColumnsCheckBox_Checked"
 							  Unchecked="EnumerateColumnsCheckBox_Unchecked"
 							  HorizontalAlignment="Left" VerticalAlignment="Top"
-							  Margin="153,148,0,0"/>
+							  Margin="153,201,0,0"/>
 
 					<!--Предварительный просмотр-->
-					<TextBlock Text="Предварительный"
+					<TextBlock Text="Предпросмотр"
 							   VerticalAlignment="Center"
-							   Margin="40,190,173,249" Height="26"/>
-						   
-					<Rectangle Margin="153,190,207,75"
+							   Margin="40,229,173,210" Height="26"/>
+
+					<Rectangle Margin="153,229,207,36"
 							   Stroke="LightGray"/>
-					
+
 					<Image x:Name="ImageTable"
 						   Height="200" Width="282"
-						   Margin="153,190,207,75"
+						   Margin="153,229,207,36"
 						   IsEnabled="True"/>
 
 					<Image x:Name="ImageStamp"
 						   Height="200" Width="282"
-						   Margin="153,190,207,75"
+						   Margin="153,229,207,36"
 						   IsEnabled="True"/>
 
 					<Image x:Name="ImageDop"
 						   Height="200" Width="282"
-						   Margin="153,190,207,75"
+						   Margin="153,229,207,36"
 						   IsEnabled="True"/>
 
 					<!--Управление номером страницы-->
 					<TextBox x:Name="PreviewPageNumberTextBox"
-							 Margin="269,401,352,45"
+							 Margin="269,440,352,6"
 							 VerticalContentAlignment="Center"
 							 HorizontalContentAlignment="Center"
-							 Text="1"/>
-					
+							 Text="1"
+							 KeyDown="PreviewPageNumberTextBox_KeyDown">
+					</TextBox>
+
 					<Button x:Name="PrevPageButton"
-							Margin="237,401,384,45"
+							Margin="237,440,384,6"
 							Click="PrevPageButton_Click"/>
 
 					<Button x:Name="NextPageButton"
-							Margin="304,401,317,45"
+							Margin="304,440,317,6"
 							Click="NextPageButton_Click"/>
 
 				</Grid>
@@ -142,7 +190,8 @@
 			</TabItem>
 
 			<!--ВКЛАДКА 2-->
-			<TabItem Header="2. Выбор категорий"
+			<TabItem x:Name="Tab2"
+					 Header="2. Выбор категорий"
 					 Height="24"
 					 VerticalAlignment="Top">
 				<Grid>
@@ -203,7 +252,8 @@
 			</TabItem>
 
 			<!--ВКЛАДКА 3-->
-			<TabItem Header="3. Выбор элементов" >
+			<TabItem x:Name="Tab3"
+					 Header="3. Выбор элементов" >
 				<Grid>
 
 					<TextBlock Text="Доступные элементы"
@@ -290,7 +340,8 @@
 			</TabItem>
 
 			<!--ВКЛАДКА 4-->
-			<TabItem Header="4. Доп. параметры">
+			<TabItem x:Name="Tab4"
+					 Header="4. Доп. параметры">
 			</TabItem>
 
 		</TabControl>
@@ -312,10 +363,25 @@
 					 Minimum="{Binding Minimum}"
 					 Maximum="{Binding Maximum}"
 					 Value="{Binding Value}"
-					 Foreground="DarkSeaGreen"
-					 Background="AliceBlue"/>
+					 Background="AliceBlue">
+			<ProgressBar.Foreground>
+				<LinearGradientBrush>
+					<GradientStop Color="Aquamarine" Offset="0"/>
+					<GradientStop Color="SpringGreen" Offset="1"/>
+				</LinearGradientBrush>
+			</ProgressBar.Foreground>
+		</ProgressBar>
+
 
 		<Button x:Name="huy" Click="huy_Click" Content="Button" HorizontalAlignment="Left" Margin="619,522,0,0" VerticalAlignment="Top" Width="75"/>
+
+		<!--Трей с подсказками и прогрессбаром-->
+		<TextBlock x:Name="HintTrayTextBlock"
+				   HorizontalAlignment="Left" VerticalAlignment="Top"
+				   Margin="10,545,0,0"
+				   TextWrapping="Wrap"
+				   Text="Future hint tray"
+				   Width="774"/>
 
 	</Grid>
 

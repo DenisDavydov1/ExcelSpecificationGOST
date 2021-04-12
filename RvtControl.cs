@@ -29,44 +29,71 @@ namespace RevitToGOST
 		///// Application exception container /////
 		public Exception LastException { get; set; } = new Exception();
 
+		//// Progress bar value ////
+		private int _Progress;  // for Progress Bar
+		public int Progress
+		{
+			get { return _Progress; }
+			set
+			{
+				if (value != _Progress)
+				{
+					_Progress = value;
+					Log.WriteLine("Progress: {0}", value);
+					if (ExportWorker != null)
+						ExportWorker.ReportProgress(Progress);
+				}
+			}
+		}
+
+		//// Background export thread ////
+		public BackgroundWorker ExportWorker { get; set; } = null;
+
+
 		/*
 		** Member methods
 		*/
 
-		public void ExportProcedure(object sender)
-		{
-			(sender as BackgroundWorker).ReportProgress(0);
+		//public RvtControl()
+		//{
+		//	Progress
+		//}
 
-			//Log.WriteLine("1");
+		private bool CheckForCancellation(DoWorkEventArgs e)
+		{
+			if (ExportWorker.CancellationPending == true)
+			{
+				e.Cancel = true;
+				return true;
+			}
+			return false;
+		}
+
+		public void ExportProcedure(object sender, DoWorkEventArgs e)
+		{
+			ExportWorker = sender as BackgroundWorker;
+			Progress = 0; if (CheckForCancellation(e) == true) return;
+
+			Work.Book.InitWorkBook();
 			// Pick data and assign it to Rvt.Data.ExportElements
 			Rvt.Data.SetExportElements();
 
-			(sender as BackgroundWorker).ReportProgress(10);
-
-			//Log.WriteLine("1");
 			// Enumerate columns - add lines to Rvt.Data.ExportElements (if a box checked)
 			Rvt.Data.InsertColumnsEnumerationLines();
 
-			(sender as BackgroundWorker).ReportProgress(20);
-
-			//Log.WriteLine("3");
 			// Load needed configuration files and add worksheets
 			// and assign worksheets with GOSTs
 			Work.Book.LoadConfigs();
 
-			(sender as BackgroundWorker).ReportProgress(30);
+			Progress = 5; if (CheckForCancellation(e) == true) return;
 
-			//Log.WriteLine("4");
 			// Fill tables with element collection
 			Rvt.Data.FillLines();
-			//Log.WriteLine("5");
 			Work.Book.AddExportElements();
-			//Log.WriteLine("6");
 			Work.Book.ConvertElementCollectionsToLists();
 
-			(sender as BackgroundWorker).ReportProgress(40);
+			Progress = 10; if (CheckForCancellation(e) == true) return;
 
-			//Log.WriteLine("7");
 			// Fill stamps
 			Work.Book.FillStamps();
 			// Fill dops
@@ -74,24 +101,21 @@ namespace RevitToGOST
 			// Fill title page
 			Work.Book.FillTitlePage();
 
-			(sender as BackgroundWorker).ReportProgress(60);
+			Progress = 15; if (CheckForCancellation(e) == true) return;
 
-			//Log.WriteLine("8");
 			// Build tables and fill it with data lines
 			Work.Book.BuildWorkSheets();
 
-			(sender as BackgroundWorker).ReportProgress(80);
+			Progress = 95; if (CheckForCancellation(e) == true) return;
 
-			//Log.WriteLine("9");
 			// Move title page to front of workbook
 			Work.Book.MovePagesToRightPlaces();
-
-			(sender as BackgroundWorker).ReportProgress(90);
 
 			// Set author parameters to workbook
 			Work.Book.SetWorkbookAuthor();
 
-			(sender as BackgroundWorker).ReportProgress(100);
+			Progress = 100; if (CheckForCancellation(e) == true) return;
+			ExportWorker = null;
 		}
 
 		public void SaveProcedure()

@@ -31,11 +31,11 @@ namespace RevitToGOST
 			get { return _PreviewPage; }
 			set
 			{
-				if (value != _PreviewPage)
-				{
+				//if (value != _PreviewPage)
+				//{
 					_PreviewPage = value;
 					OnPreviewPageChanged();
-				}
+				//}
 
 			}
 		}
@@ -44,10 +44,9 @@ namespace RevitToGOST
 		{
 			get
 			{
-				// change to 3 and 2 when other stamp and dop will be made
 				if (Work.Book.Title != GOST.Standarts.None)
-					return 2;
-				return 1;
+					return 3;
+				return 2;
 			}
 		}
 
@@ -100,8 +99,8 @@ namespace RevitToGOST
 				else
 				{
 					table = Work.Book.Table;
-					stamp = Work.Book.Stamp;
-					dop = Work.Book.Dop;
+					stamp = Work.Book.Stamp1;
+					dop = Work.Book.Dop1;
 				}
 			}
 			else if (PreviewPage == 2)
@@ -109,15 +108,23 @@ namespace RevitToGOST
 				if (Work.Book.Title != GOST.Standarts.None)
 				{
 					table = Work.Book.Table;
-					stamp = Work.Book.Stamp;
-					dop = Work.Book.Dop;
+					stamp = Work.Book.Stamp1;
+					dop = Work.Book.Dop1;
 				}
 				else
 				{
-					// change here to other stamp and dop
 					table = Work.Book.Table;
-					stamp = Work.Book.Stamp;
-					dop = Work.Book.Dop;
+					stamp = Work.Book.Stamp2;
+					dop = Work.Book.Dop2;
+				}
+			}
+			else if (PreviewPage == 3)
+			{
+				if (Work.Book.Title != GOST.Standarts.None)
+				{
+					table = Work.Book.Table;
+					stamp = Work.Book.Stamp2;
+					dop = Work.Book.Dop2;
 				}
 			}
 			Table = Previews[(int)table] ?? Previews[0];

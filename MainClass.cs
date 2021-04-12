@@ -37,9 +37,13 @@ namespace RevitToGOST
 				Rvt.Windows.CloseLoadingWindow();
 				Rvt.Windows.RunMainWindow();
 			}
-			catch (Exception e) { Log.WriteLine("Caught exception from mainclass:\n{0}\n{1}", e.Message, e.StackTrace); }
-
-			return Result.Succeeded;
+			catch (Exception e)
+			{
+				message = e.Message;
+				Rvt.Handler.Result = Result.Failed;
+				Log.WriteLine("Caught exception from mainclass:\n{0}\n{1}", e.Message, e.StackTrace);
+			}
+			return Rvt.Handler == null ? Result.Failed : Rvt.Handler.Result;
 		}
 
 	} // class MainClass

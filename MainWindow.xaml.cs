@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
 
 namespace RevitToGOST
 {
@@ -38,6 +39,7 @@ namespace RevitToGOST
 			Rvt.Windows.Condition = RvtWindows.Status.Idle;
 			Rvt.Windows.ConditionChanged += new PropertyChangedEventHandler(ConditionChangeHandler);
 			Work.Bitmaps.PreviewPageChanged += new PropertyChangedEventHandler(PreviewPageChangeHandler);
+			Closing += WindowClosing;
 
 			AvailableCategories.ItemsSource = Rvt.Data.AvailableCategories;
 			PickedCategories.ItemsSource = Rvt.Data.PickedCategories;
@@ -46,6 +48,15 @@ namespace RevitToGOST
 			MakeAllComboBoxUpdate();
 
 			DrawPreview();
+		}
+
+		//// Closing window event handler ////
+		private void WindowClosing(object sender, CancelEventArgs e)
+		{
+			if (Rvt.Control.ExportWorker != null)
+			{
+				Rvt.Control.ExportWorker.CancelAsync();
+			}
 		}
 
 		/////// Preview controls and event ///////
@@ -89,6 +100,7 @@ namespace RevitToGOST
 			if (Rvt.Windows.Condition == RvtWindows.Status.Idle)
 			{
 				ExportProgressBar.Value = 0.0;
+				Export.Content = "Экспорт";
 				EnableControls(true);
 				AvailableCategories.Items.Refresh();
 				PickedCategories.Items.Refresh();
@@ -112,14 +124,16 @@ namespace RevitToGOST
 		private void EnableControls(bool state = true)
 		{
 			// No tab
-			Export.IsEnabled = state;
+			//Export.IsEnabled = state;
 			GroupElemsCheckBox.IsEnabled = state;
 
 			// Tab 1
 			TitleComboBox.IsEnabled = state;
 			TableComboBox.IsEnabled = state;
-			StampComboBox.IsEnabled = state;
-			DopComboBox.IsEnabled = state;
+			Stamp1ComboBox.IsEnabled = state;
+			Dop1ComboBox.IsEnabled = state;
+			Stamp2ComboBox.IsEnabled = state;
+			Dop2ComboBox.IsEnabled = state;
 			EnumerateColumnsCheckBox.IsEnabled = state;
 
 			// Tab 2
@@ -136,21 +150,35 @@ namespace RevitToGOST
 
 		private void Export_Click(object sender, RoutedEventArgs e)
 		{
-			Rvt.Windows.Condition = RvtWindows.Status.Export;
+			if (Rvt.Windows.Condition == RvtWindows.Status.Idle)
+			{
+				Rvt.Windows.Condition = RvtWindows.Status.Export;
 
-			BackgroundWorker exportWorker = new BackgroundWorker();
-			exportWorker.WorkerReportsProgress = true;
-			exportWorker.DoWork += ExportWorker_DoWork;
-			exportWorker.ProgressChanged += ExportWorker_ProgressChanged;
-			exportWorker.RunWorkerCompleted += ExportWorker_RunWorkerCompleted;
-			exportWorker.RunWorkerAsync();
+				BackgroundWorker exportWorker = new BackgroundWorker();
+				exportWorker.WorkerReportsProgress = true;
+				exportWorker.WorkerSupportsCancellation = true;
+				exportWorker.DoWork += ExportWorker_DoWork;
+				exportWorker.ProgressChanged += ExportWorker_ProgressChanged;
+				exportWorker.RunWorkerCompleted += ExportWorker_RunWorkerCompleted;
+
+				Export.Content = "Отмена";
+
+				exportWorker.RunWorkerAsync();
+			}
+			else if (Rvt.Windows.Condition == RvtWindows.Status.Export)
+			{
+				if (Rvt.Control.ExportWorker != null)
+				{
+					Rvt.Control.ExportWorker.CancelAsync();
+				}
+			}
 		}
 
 		private void ExportWorker_DoWork(object sender, DoWorkEventArgs e)
 		{
 			try
 			{
-				Rvt.Control.ExportProcedure(sender);
+				Rvt.Control.ExportProcedure(sender, e);
 			}
 			catch (Exception ex)
 			{
@@ -169,11 +197,18 @@ namespace RevitToGOST
 			if (e.Error != null || Rvt.Windows.Condition == RvtWindows.Status.Error)
 			{
 				Rvt.Windows.Condition = RvtWindows.Status.Error;
+				Rvt.Handler.Result = Result.Failed;
+			}
+			else if (e.Cancelled == true)
+			{
+				Rvt.Data.InitExportElements();  // Unset Rvt.Data.ExportElements
+				Rvt.Handler.Result = Result.Cancelled;
 			}
 			else
 			{
 				Rvt.Control.SaveProcedure();    // Save file
-				Rvt.Data.InitExportElements();	// Unset Rvt.Data.ExportElements
+				Rvt.Data.InitExportElements();  // Unset Rvt.Data.ExportElements
+				Rvt.Handler.Result = Result.Succeeded;
 			}
 			Rvt.Windows.Condition = RvtWindows.Status.Idle;
 		}
@@ -183,7 +218,10 @@ namespace RevitToGOST
 
 		private void huy_Click(object sender, RoutedEventArgs e)
 		{
-
+			if (Rvt.Control.ExportWorker != null)
+			{
+				Rvt.Control.ExportWorker.CancelAsync();
+			}
 		}
 
 
@@ -218,8 +256,10 @@ namespace RevitToGOST
 		{
 			TitleComboBox_SelectionChanged(null, null);
 			TableComboBox_SelectionChanged(null, null);
-			StampComboBox_SelectionChanged(null, null);
-			DopComboBox_SelectionChanged(null, null);
+			Stamp1ComboBox_SelectionChanged(null, null);
+			Dop1ComboBox_SelectionChanged(null, null);
+			Stamp2ComboBox_SelectionChanged(null, null);
+			Dop2ComboBox_SelectionChanged(null, null);
 		}
 
 		private void TitleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -242,33 +282,63 @@ namespace RevitToGOST
 			DrawPreview();
 		}
 
-		private void StampComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void Stamp1ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (StampComboBox.SelectedIndex == 0)
-				Work.Book.Stamp = GOST.Standarts.None;
-			else if (StampComboBox.SelectedIndex == 1)
-				Work.Book.Stamp = GOST.Standarts.GOST_P_21_101_2020_Stamp_3;
-			else if (StampComboBox.SelectedIndex == 2)
-				Work.Book.Stamp = GOST.Standarts.GOST_P_21_101_2020_Stamp_4;
-			else if (StampComboBox.SelectedIndex == 3)
-				Work.Book.Stamp = GOST.Standarts.GOST_P_21_101_2020_Stamp_5;
-			else if (StampComboBox.SelectedIndex == 4)
-				Work.Book.Stamp = GOST.Standarts.GOST_P_21_101_2020_Stamp_6;
+			if (Stamp1ComboBox.SelectedIndex == 0)
+				Work.Book.Stamp1 = GOST.Standarts.None;
+			else if (Stamp1ComboBox.SelectedIndex == 1)
+				Work.Book.Stamp1 = GOST.Standarts.GOST_P_21_101_2020_Stamp_3;
+			else if (Stamp1ComboBox.SelectedIndex == 2)
+				Work.Book.Stamp1 = GOST.Standarts.GOST_P_21_101_2020_Stamp_4;
+			else if (Stamp1ComboBox.SelectedIndex == 3)
+				Work.Book.Stamp1 = GOST.Standarts.GOST_P_21_101_2020_Stamp_5;
+			else if (Stamp1ComboBox.SelectedIndex == 4)
+				Work.Book.Stamp1 = GOST.Standarts.GOST_P_21_101_2020_Stamp_6;
 			DrawPreview();
 		}
 
-		private void DopComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void Dop1ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (DopComboBox.SelectedIndex == 0)
-				Work.Book.Dop = GOST.Standarts.None;
-			else if (DopComboBox.SelectedIndex == 1)
-				Work.Book.Dop = GOST.Standarts.GOST_P_21_101_2020_Dop_3;
-			else if (DopComboBox.SelectedIndex == 2)
-				Work.Book.Dop = GOST.Standarts.GOST_P_21_101_2020_Dop_4;
-			else if (DopComboBox.SelectedIndex == 3)
-				Work.Book.Dop = GOST.Standarts.GOST_P_21_101_2020_Dop_5;
-			else if (DopComboBox.SelectedIndex == 4)
-				Work.Book.Dop = GOST.Standarts.GOST_P_21_101_2020_Dop_6;
+			if (Dop1ComboBox.SelectedIndex == 0)
+				Work.Book.Dop1 = GOST.Standarts.None;
+			else if (Dop1ComboBox.SelectedIndex == 1)
+				Work.Book.Dop1 = GOST.Standarts.GOST_P_21_101_2020_Dop_3;
+			else if (Dop1ComboBox.SelectedIndex == 2)
+				Work.Book.Dop1 = GOST.Standarts.GOST_P_21_101_2020_Dop_4;
+			else if (Dop1ComboBox.SelectedIndex == 3)
+				Work.Book.Dop1 = GOST.Standarts.GOST_P_21_101_2020_Dop_5;
+			else if (Dop1ComboBox.SelectedIndex == 4)
+				Work.Book.Dop1 = GOST.Standarts.GOST_P_21_101_2020_Dop_6;
+			DrawPreview();
+		}
+
+		private void Stamp2ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (Stamp2ComboBox.SelectedIndex == 0)
+				Work.Book.Stamp2 = GOST.Standarts.None;
+			else if (Stamp2ComboBox.SelectedIndex == 1)
+				Work.Book.Stamp2 = GOST.Standarts.GOST_P_21_101_2020_Stamp_3;
+			else if (Stamp2ComboBox.SelectedIndex == 2)
+				Work.Book.Stamp2 = GOST.Standarts.GOST_P_21_101_2020_Stamp_4;
+			else if (Stamp2ComboBox.SelectedIndex == 3)
+				Work.Book.Stamp2 = GOST.Standarts.GOST_P_21_101_2020_Stamp_5;
+			else if (Stamp2ComboBox.SelectedIndex == 4)
+				Work.Book.Stamp2 = GOST.Standarts.GOST_P_21_101_2020_Stamp_6;
+			DrawPreview();
+		}
+
+		private void Dop2ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (Dop2ComboBox.SelectedIndex == 0)
+				Work.Book.Dop2 = GOST.Standarts.None;
+			else if (Dop2ComboBox.SelectedIndex == 1)
+				Work.Book.Dop2 = GOST.Standarts.GOST_P_21_101_2020_Dop_3;
+			else if (Dop2ComboBox.SelectedIndex == 2)
+				Work.Book.Dop2 = GOST.Standarts.GOST_P_21_101_2020_Dop_4;
+			else if (Dop2ComboBox.SelectedIndex == 3)
+				Work.Book.Dop2 = GOST.Standarts.GOST_P_21_101_2020_Dop_5;
+			else if (Dop2ComboBox.SelectedIndex == 4)
+				Work.Book.Dop2 = GOST.Standarts.GOST_P_21_101_2020_Dop_6;
 			DrawPreview();
 		}
 
@@ -378,6 +448,186 @@ namespace RevitToGOST
 				Rvt.Windows.Condition = RvtWindows.Status.Error;
 			}
 			Rvt.Windows.Condition = RvtWindows.Status.Idle;
+		}
+
+		private void PreviewPageNumberTextBox_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Enter || e.Key == Key.Return)
+			{
+				int newPage = Work.Bitmaps.PreviewPage;
+				try
+				{
+					newPage = Convert.ToInt32(PreviewPageNumberTextBox.Text);
+				}
+				catch { }
+				if (newPage < 1)
+					Work.Bitmaps.PreviewPage = 1;
+				else if (newPage > Work.Bitmaps.MaxPreviewPage)
+					Work.Bitmaps.PreviewPage = Work.Bitmaps.MaxPreviewPage;
+				else
+					Work.Bitmaps.PreviewPage = newPage;
+			}
+		}
+
+		//// Hint tray ////
+
+		private static T FindVisualParent<T>(UIElement element) where T : UIElement
+		{
+			UIElement parent = element;
+			while (parent != null)
+			{
+				var correctlyTyped = parent as T;
+				if (correctlyTyped != null)
+				{
+					return correctlyTyped;
+				}
+				parent = VisualTreeHelper.GetParent(parent) as UIElement;
+			}
+			return null;
+		}
+
+		private static T GetElementUnderMouse<T>() where T : UIElement
+		{
+			return FindVisualParent<T>(Mouse.DirectlyOver as UIElement);
+		}
+
+		//private string GetElementUnderMouseType()
+		//{
+		//	if (GetElementUnderMouse<Button>() != null)
+		//		return "Button";
+		//	if (GetElementUnderMouse<CheckBox>() != null)
+		//		return "CheckBox";
+		//	if (GetElementUnderMouse<ListView>() != null)
+		//		return "ListView";
+		//	if (GetElementUnderMouse<TabItem>() != null)
+		//		return "TabItem";
+		//	if (GetElementUnderMouse<ComboBoxItem>() != null)
+		//		return "ComboBoxItem";
+		//	if (GetElementUnderMouse<System.Windows.Controls.ComboBox>() != null)
+		//		return "ComboBox";
+		//	if (GetElementUnderMouse<TextBlock>() != null)
+		//		return "TextBlock";
+		//	if (GetElementUnderMouse<System.Windows.Controls.Image>() != null)
+		//		return "Image";
+		//	if (GetElementUnderMouse<System.Windows.Controls.TextBox>() != null)
+		//		return "TextBox";
+		//	return "None";
+		//}
+
+		private void Window_MouseMove(object sender, MouseEventArgs e)
+		{
+			if (GetElementUnderMouse<Button>() != null)
+				SetHint_Button(GetElementUnderMouse<Button>());
+			else if (GetElementUnderMouse<CheckBox>() != null)
+				SetHint_CheckBox(GetElementUnderMouse<CheckBox>());
+			else if (GetElementUnderMouse<ListView>() != null)
+				SetHint_ListView(GetElementUnderMouse<ListView>());
+			else if (GetElementUnderMouse<TabItem>() != null)
+				SetHint_TabItem(GetElementUnderMouse<TabItem>());
+			else if (GetElementUnderMouse<System.Windows.Controls.ComboBox>() != null)
+				SetHint_ComboBox(GetElementUnderMouse<System.Windows.Controls.ComboBox>());
+			else if (GetElementUnderMouse<TextBlock>() != null)
+				SetHint_TextBlock(GetElementUnderMouse<TextBlock>());
+			else if (GetElementUnderMouse<System.Windows.Controls.Image>() != null)
+				SetHint_Image(GetElementUnderMouse<System.Windows.Controls.Image>());
+			else if (GetElementUnderMouse<System.Windows.Controls.TextBox>() != null)
+				SetHint_TextBox(GetElementUnderMouse<System.Windows.Controls.TextBox>());
+			else
+				HintTrayTextBlock.Text = "";
+		}
+
+		private void SetHint_Button(Button obj)
+		{
+			if (obj == Export && obj.Content as string == "Экспорт")
+				HintTrayTextBlock.Text = "Начать экспорт выбранных даных в Excel";
+			else if (obj == Export)
+				HintTrayTextBlock.Text = "Отмена операции";
+			else if (obj == PrevPageButton)
+				HintTrayTextBlock.Text = "Показать предыдущий лист";
+			else if (obj == NextPageButton)
+				HintTrayTextBlock.Text = "Показать следующий лист";
+			else if (obj == PickAllCategoriesButton)
+				HintTrayTextBlock.Text = "Выбрать все доступные категории";
+			else if (obj == ReleaseAllCategoriesButton)
+				HintTrayTextBlock.Text = "Убрать все выбранные категории";
+			else if (obj == PickAllElementsButton)
+				HintTrayTextBlock.Text = "Выбрать все доступные элементы";
+			else if (obj == ReleaseAllElementsButton)
+				HintTrayTextBlock.Text = "Убрать все выбранные элементы";
+			else
+				HintTrayTextBlock.Text = "";
+		}
+
+		private void SetHint_CheckBox(CheckBox obj)
+		{
+			if (obj == EnumerateColumnsCheckBox)
+				HintTrayTextBlock.Text = "Включить нумерацию столбцов на каждом листе спецификации";
+			else if (obj == GroupElemsCheckBox)
+				HintTrayTextBlock.Text = "Группировать элементы по категориям (в разделе выбора элементов и в спецификации)";
+			else
+				HintTrayTextBlock.Text = "";
+		}
+
+		private void SetHint_ListView(ListView obj)
+		{
+			if (obj == AvailableCategories)
+				HintTrayTextBlock.Text = "Для выбора, перетащите категорию в список справа. Для множестенного выбора зажмите CTRL или SHIFT";
+			else if (obj == PickedCategories)
+				HintTrayTextBlock.Text = "Для исключения категории, перетащите ее в список слева";
+			else if (obj == AvailableElements)
+				HintTrayTextBlock.Text = "Для выбора, перетащите элемент в список справа. Для множестенного выбора зажмите CTRL или SHIFT";
+			else if (obj == PickedElements)
+				HintTrayTextBlock.Text = "Чтобы изменить порядок, перетащите элемент. Для исключения элемента, перетащите его в список слева";
+			else
+				HintTrayTextBlock.Text = "";
+		}
+
+		private void SetHint_TabItem(TabItem obj)
+		{
+			if (obj == Tab1)
+				HintTrayTextBlock.Text = ""; // to do if i will not make tab description in window
+			else if (obj == Tab2)
+				HintTrayTextBlock.Text = "";
+			else if (obj == Tab3)
+				HintTrayTextBlock.Text = "";
+			else if (obj == Tab4)
+				HintTrayTextBlock.Text = "";
+			else
+				HintTrayTextBlock.Text = "";
+		}
+
+		private void SetHint_ComboBox(System.Windows.Controls.ComboBox obj)
+		{
+			if (obj == TitleComboBox)
+				HintTrayTextBlock.Text = "Стандарт титульного листа документации. Если титульный лист не требуется, выберите вариант <Нет>";
+			else if (obj == TableComboBox)
+				HintTrayTextBlock.Text = "Стандарт таблицы спецификации";
+			else if (obj == Stamp1ComboBox)
+				HintTrayTextBlock.Text = "Стандарт основной надписи для 1-го листа документации. Если не требуется, выберите вариант <Нет>";
+			else if (obj == Dop1ComboBox)
+				HintTrayTextBlock.Text = "Стандарт дополнительных граф для 1-го листа документации. Если не требуется, выберите вариант <Нет>";
+			else if (obj == Stamp2ComboBox)
+				HintTrayTextBlock.Text = "Стандарт основной надписи со 2-го листа документации. Если не требуется, выберите вариант <Нет>";
+			else if (obj == Dop2ComboBox)
+				HintTrayTextBlock.Text = "Стандарт дополнительных граф со 2-го листа документации. Если не требуется, выберите вариант <Нет>";
+			else
+				HintTrayTextBlock.Text = "";
+		}
+
+		private void SetHint_TextBlock(TextBlock obj)
+		{
+			HintTrayTextBlock.Text = "";
+		}
+
+		private void SetHint_Image(System.Windows.Controls.Image obj)
+		{
+			HintTrayTextBlock.Text = "";
+		}
+
+		private void SetHint_TextBox(System.Windows.Controls.TextBox obj)
+		{
+			if (obj == PreviewPageNumberTextBox)
+				HintTrayTextBlock.Text = "Номер листа документации";
 		}
 
 	} // class MainWindow

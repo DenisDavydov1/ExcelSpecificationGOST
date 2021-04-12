@@ -72,8 +72,8 @@ namespace RevitToGOST
 
 		public void CloseLoadingWindow()
 		{
-			while (Condition == Status.Loading)
-				System.Threading.Thread.Sleep(500);
+			//while (Condition == Status.Loading)
+			//	System.Threading.Thread.Sleep(500);
 			LoadingWindow.Close();
 		}
 

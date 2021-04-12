@@ -27,6 +27,7 @@ namespace RevitToGOST
 		public UIApplication UIApp { get; set; }
 		public Document Doc { get; set; }
 		public ProjectInfo ProjInfo { get; set; }
+		public Result Result { get; set; } = Result.Cancelled;
 
 		/*
 		** Member methods

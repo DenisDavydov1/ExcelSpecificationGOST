@@ -25,8 +25,8 @@ namespace RevitToGOST
 		public new void Show()
 		{
 			base.Show();
-			System.Threading.Thread.Sleep(3000);
-			Rvt.Windows.Condition = RvtWindows.Status.Idle;
+			//System.Threading.Thread.Sleep(3000);
+			//Rvt.Windows.Condition = RvtWindows.Status.Idle;
 		}
 	}
 }
