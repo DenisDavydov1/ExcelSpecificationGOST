@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -21,16 +22,15 @@ namespace RevitToGOST
 {
 	public partial class MainWindow : Window
 	{
-		/*
-		** Member properties
-		*/
+		#region properties
 
 		private CollectionView PickedElementsView { get; set; }
 		private CollectionView AvailableElementsView { get; set; }
 
-		/*
-		** Member methods
-		*/
+		#endregion properties
+
+		/////// MAIN WINDOW ///////
+		#region main window methods
 
 		public MainWindow()
 		{
@@ -50,7 +50,10 @@ namespace RevitToGOST
 			DrawPreview();
 		}
 
-		//// Closing window event handler ////
+		/*
+		** Closing window event handler
+		*/
+
 		private void WindowClosing(object sender, CancelEventArgs e)
 		{
 			if (Rvt.Control.ExportWorker != null)
@@ -59,41 +62,9 @@ namespace RevitToGOST
 			}
 		}
 
-		/////// Preview controls and event ///////
-
-		private void DrawPreview()
-		{
-			if (ImageTable == null || ImageStamp == null || ImageDop == null)
-				return;
-			PreviewPageNumberTextBox.Text = Work.Bitmaps.PreviewPageString();
-			Work.Bitmaps.UpdateImages();
-			ImageTable.Source = Work.Bitmaps.Table;
-			ImageStamp.Source = Work.Bitmaps.Stamp;
-			ImageDop.Source = Work.Bitmaps.Dop;
-		}
-
-		private void PreviewPageChangeHandler(object sender, PropertyChangedEventArgs e)
-		{
-			DrawPreview();
-		}
-
-		private void PrevPageButton_Click(object sender, RoutedEventArgs e)
-		{
-			int newPage = Work.Bitmaps.PreviewPage - 1;
-			if (newPage < 1)
-				return;
-			Work.Bitmaps.PreviewPage = newPage;
-		}
-
-		private void NextPageButton_Click(object sender, RoutedEventArgs e)
-		{
-			int newPage = Work.Bitmaps.PreviewPage + 1;
-			if (newPage > Work.Bitmaps.MaxPreviewPage)
-				return;
-			Work.Bitmaps.PreviewPage = newPage;
-		}
-
-		/////// Application states handler ///////
+		/*
+		** Application states handler
+		*/
 
 		private void ConditionChangeHandler(object sender, PropertyChangedEventArgs e)
 		{
@@ -108,7 +79,10 @@ namespace RevitToGOST
 				PickedElements.Items.Refresh();
 			}
 			else if (Rvt.Windows.Condition == RvtWindows.Status.Export)
+			{
 				EnableControls(false);
+				ExportProgressBar.Visibility = System.Windows.Visibility.Visible;
+			}
 			else if (Rvt.Windows.Condition == RvtWindows.Status.Error)
 			{
 				MessageBox.Show(String.Format("{0}\n\nStack trace:\n{1}",
@@ -145,8 +119,9 @@ namespace RevitToGOST
 			PickedElements.IsEnabled = state;
 		}
 
-
-		/////// Export button and worker methods ///////
+		/*
+		** Export button and worker methods
+		*/
 
 		private void Export_Click(object sender, RoutedEventArgs e)
 		{
@@ -213,20 +188,10 @@ namespace RevitToGOST
 			Rvt.Windows.Condition = RvtWindows.Status.Idle;
 		}
 
-		/////// /////// /////// /////// /////// ///////
+		/*
+		** Группировать элементы (CheckBox)
+		*/
 
-
-		private void huy_Click(object sender, RoutedEventArgs e)
-		{
-			if (Rvt.Control.ExportWorker != null)
-			{
-				Rvt.Control.ExportWorker.CancelAsync();
-			}
-		}
-
-
-		/////// Группировать элементы (CheckBox) ///////
-		///
 		private void GroupElemsCheckBox_Checked(object sender, RoutedEventArgs e)
 		{
 			PickedElementsView = (CollectionView)CollectionViewSource.GetDefaultView(PickedElements.ItemsSource);
@@ -242,11 +207,61 @@ namespace RevitToGOST
 			AvailableElementsView.GroupDescriptions.Remove(AvailableElementsView.GroupDescriptions.Last());
 			Rvt.Control.GroupElemsCheckBox = false;
 		}
-		
-		/////// /////// /////// /////// /////// ///////
-		
 
-		////////////////////////////////////// TAB 1 //////////////////////////////////////
+		/*
+		** Нумерация столбцов (CheckBox)
+		*/
+
+		private void EnumerateColumnsCheckBox_Checked(object sender, RoutedEventArgs e)
+		{
+			Rvt.Control.EnumerateColumnsCheckBox = true;
+			// DrawPreview(); TO DO!
+		}
+
+		private void EnumerateColumnsCheckBox_Unchecked(object sender, RoutedEventArgs e)
+		{
+			Rvt.Control.EnumerateColumnsCheckBox = false;
+			// DrawPreview(); TO DO!
+		}
+
+		#endregion main window methods
+
+
+		/////// TAB CONTROL ///////
+		#region tab control
+
+		private void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (Tab1 == null || Tab2 == null || Tab2 == null)
+				return;
+			Tab1.Header = RvtWindows.TabNames[0];
+			Tab2.Header = RvtWindows.TabNames[1];
+			Tab3.Header = RvtWindows.TabNames[2];
+			Tab1.Height = 40;
+			Tab2.Height = 40;
+			Tab3.Height = 40;
+
+			if (MainTabControl.SelectedIndex == 0)
+			{
+				Tab1.Header += RvtWindows.TabDescr[0];
+				Tab1.Height = 160;
+			}
+			else if (MainTabControl.SelectedIndex == 1)
+			{
+				Tab2.Header += RvtWindows.TabDescr[1];
+				Tab2.Height = 160;
+			}
+			else if (MainTabControl.SelectedIndex == 2)
+			{
+				Tab3.Header += RvtWindows.TabDescr[2];
+				Tab3.Height = 160;
+			}
+		}
+
+		#endregion tab control
+
+		/////// TAB 1 ///////
+		#region tab 1 methods
 
 		/*
 		** Настройка конфигурации таблицы (ComboBox)
@@ -342,7 +357,69 @@ namespace RevitToGOST
 			DrawPreview();
 		}
 
-		////////////////////////////////////// TAB 2 //////////////////////////////////////
+		/*
+		** Preview controls and event 
+		*/
+
+		private void DrawPreview()
+		{
+			if (ImageTable == null || ImageStamp == null || ImageDop == null)
+				return;
+			PreviewPageNumberTextBox.Text = Work.Bitmaps.PreviewPageString();
+			Work.Bitmaps.UpdateImages();
+			ImageTable.Source = Work.Bitmaps.Table;
+			ImageStamp.Source = Work.Bitmaps.Stamp;
+			ImageDop.Source = Work.Bitmaps.Dop;
+		}
+
+		private void PreviewPageChangeHandler(object sender, PropertyChangedEventArgs e)
+		{
+			DrawPreview();
+		}
+
+		private void PrevPageButton_Click(object sender, RoutedEventArgs e)
+		{
+			int newPage = Work.Bitmaps.PreviewPage - 1;
+			if (newPage < 1)
+				return;
+			Work.Bitmaps.PreviewPage = newPage;
+		}
+
+		private void NextPageButton_Click(object sender, RoutedEventArgs e)
+		{
+			int newPage = Work.Bitmaps.PreviewPage + 1;
+			if (newPage > Work.Bitmaps.MaxPreviewPage)
+				return;
+			Work.Bitmaps.PreviewPage = newPage;
+		}
+
+		private void PreviewPageNumberTextBox_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Enter || e.Key == Key.Return)
+			{
+				int newPage = Work.Bitmaps.PreviewPage;
+				try
+				{
+					newPage = Convert.ToInt32(PreviewPageNumberTextBox.Text);
+				}
+				catch { }
+				if (newPage < 1)
+					Work.Bitmaps.PreviewPage = 1;
+				else if (newPage > Work.Bitmaps.MaxPreviewPage)
+					Work.Bitmaps.PreviewPage = Work.Bitmaps.MaxPreviewPage;
+				else
+					Work.Bitmaps.PreviewPage = newPage;
+			}
+		}
+
+		#endregion tab 1 methods
+
+		/////// TAB 2 ///////
+		#region tab 2 methods
+
+		/*
+		**	Buttons Выбрать и освободить все категории
+		*/
 
 		private void PickAllCategoriesButton_Click(object sender, RoutedEventArgs e)
 		{
@@ -364,6 +441,15 @@ namespace RevitToGOST
 			}
 		}
 
+		#endregion tab 2 methods
+
+		/////// TAB 3 ///////
+		#region tab 3 methods
+
+		/*
+		**	Buttons Выбрать и освободить все элементы
+		*/
+
 		private void PickAllElementsButton_Click(object sender, RoutedEventArgs e)
 		{
 			while (Rvt.Data.AvailableElements.Count > 0)
@@ -384,24 +470,10 @@ namespace RevitToGOST
 			}
 		}
 
-		////////////////////////////////////// TAB 3 //////////////////////////////////////
-		////////////////////////////////////// TAB 4 //////////////////////////////////////
+		#endregion tab 3 methods
 
-		/*
-		** Нумерация столбцов (CheckBox)
-		*/
-
-		private void EnumerateColumnsCheckBox_Checked(object sender, RoutedEventArgs e)
-		{
-			Rvt.Control.EnumerateColumnsCheckBox = true;
-			// DrawPreview(); TO DO!
-		}
-
-		private void EnumerateColumnsCheckBox_Unchecked(object sender, RoutedEventArgs e)
-		{
-			Rvt.Control.EnumerateColumnsCheckBox = false;
-			// DrawPreview(); TO DO!
-		}
+		/////// MISC ///////
+		#region misc methods
 
 		/*
 		** All tabs gridview sort function
@@ -450,26 +522,10 @@ namespace RevitToGOST
 			Rvt.Windows.Condition = RvtWindows.Status.Idle;
 		}
 
-		private void PreviewPageNumberTextBox_KeyDown(object sender, KeyEventArgs e)
-		{
-			if (e.Key == Key.Enter || e.Key == Key.Return)
-			{
-				int newPage = Work.Bitmaps.PreviewPage;
-				try
-				{
-					newPage = Convert.ToInt32(PreviewPageNumberTextBox.Text);
-				}
-				catch { }
-				if (newPage < 1)
-					Work.Bitmaps.PreviewPage = 1;
-				else if (newPage > Work.Bitmaps.MaxPreviewPage)
-					Work.Bitmaps.PreviewPage = Work.Bitmaps.MaxPreviewPage;
-				else
-					Work.Bitmaps.PreviewPage = newPage;
-			}
-		}
+		#endregion misc methods
 
-		//// Hint tray ////
+		/////// HINT TRAY ///////
+		#region hint tray
 
 		private static T FindVisualParent<T>(UIElement element) where T : UIElement
 		{
@@ -490,29 +546,6 @@ namespace RevitToGOST
 		{
 			return FindVisualParent<T>(Mouse.DirectlyOver as UIElement);
 		}
-
-		//private string GetElementUnderMouseType()
-		//{
-		//	if (GetElementUnderMouse<Button>() != null)
-		//		return "Button";
-		//	if (GetElementUnderMouse<CheckBox>() != null)
-		//		return "CheckBox";
-		//	if (GetElementUnderMouse<ListView>() != null)
-		//		return "ListView";
-		//	if (GetElementUnderMouse<TabItem>() != null)
-		//		return "TabItem";
-		//	if (GetElementUnderMouse<ComboBoxItem>() != null)
-		//		return "ComboBoxItem";
-		//	if (GetElementUnderMouse<System.Windows.Controls.ComboBox>() != null)
-		//		return "ComboBox";
-		//	if (GetElementUnderMouse<TextBlock>() != null)
-		//		return "TextBlock";
-		//	if (GetElementUnderMouse<System.Windows.Controls.Image>() != null)
-		//		return "Image";
-		//	if (GetElementUnderMouse<System.Windows.Controls.TextBox>() != null)
-		//		return "TextBox";
-		//	return "None";
-		//}
 
 		private void Window_MouseMove(object sender, MouseEventArgs e)
 		{
@@ -590,8 +623,8 @@ namespace RevitToGOST
 				HintTrayTextBlock.Text = "";
 			else if (obj == Tab3)
 				HintTrayTextBlock.Text = "";
-			else if (obj == Tab4)
-				HintTrayTextBlock.Text = "";
+			//else if (obj == Tab4)
+			//	HintTrayTextBlock.Text = "";
 			else
 				HintTrayTextBlock.Text = "";
 		}
@@ -628,6 +661,16 @@ namespace RevitToGOST
 		{
 			if (obj == PreviewPageNumberTextBox)
 				HintTrayTextBlock.Text = "Номер листа документации";
+		}
+
+		#endregion hint tray
+
+		private void huy_Click(object sender, RoutedEventArgs e)
+		{
+			if (Rvt.Control.ExportWorker != null)
+			{
+				Rvt.Control.ExportWorker.CancelAsync();
+			}
 		}
 
 	} // class MainWindow

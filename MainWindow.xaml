@@ -7,45 +7,190 @@
 	xmlns:dd="urn:gong-wpf-dragdrop"
 	xmlns:local="clr-namespace:RevitToGOST"
 	xmlns:rvt="clr-namespace:Autodesk.Revit.DB;assembly=RevitAPI"
-	mc:Ignorable="d" 
+	mc:Ignorable="d"
 	Title="RevitToGOST"
-	Height="600" Width="800"
-	ResizeMode="CanMinimize" 
+	Height="639" Width="816"
+	ResizeMode="CanMinimize"
 	WindowStartupLocation="CenterScreen"
 	MouseMove="Window_MouseMove">
 
-	<Grid>
+	<Window.Resources>
 
-		<Button
-			x:Name="Export"
-			Content="Экспорт"
-			HorizontalAlignment="Left"
-			Margin="25,431,0,0"
-			VerticalAlignment="Top"
-			Width="76"
-			Click="Export_Click"
-			Panel.ZIndex="1"/>
+		<!---Стиль вкладок-->
+		<Style TargetType="TabItem">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="TabItem">
+						<Grid Name="Panel">
+							<ContentPresenter x:Name="ContentSite"
+											  VerticalAlignment="Top"
+											  HorizontalAlignment="Left"
+											  ContentSource="Header"
+											  Margin="10,10"/>
+						</Grid>
+						<ControlTemplate.Triggers>
 
-		<TabControl TabStripPlacement="Left"
+							<Trigger Property="IsSelected" Value="True">
+								<Setter TargetName="Panel" Property="Background" Value="#2b7bb3"/>
+								<Setter TargetName="Panel" Property="TextBlock.Foreground" Value="White"/>
+							</Trigger>
+
+							<Trigger Property="IsSelected" Value="False">
+								<Setter TargetName="Panel" Property="Background" Value="#cccccc"/>
+								<Setter TargetName="Panel" Property="TextBlock.Foreground" Value="Black"/>
+							</Trigger>
+
+							<MultiTrigger>
+								<MultiTrigger.Conditions>
+									<Condition Property="IsMouseOver" Value="True"/>
+									<Condition Property="IsSelected" Value="False"/>
+								</MultiTrigger.Conditions>
+								<Setter TargetName="Panel" Property="Background" Value="#468ab9"/>
+								<Setter TargetName="Panel" Property="TextBlock.Foreground" Value="White"/>
+							</MultiTrigger>
+
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<!---Стиль большой синей кнопки-->
+		<Style x:Key="BigBtn" TargetType="Button">
+			<Setter Property="Background" Value="#2b7bb3"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="SnapsToDevicePixels" Value="True"/>
+			<Setter Property="BorderThickness" Value="0"/>
+
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Border CornerRadius="2" Background="{TemplateBinding Background}">
+							<Grid>
+								<ContentPresenter x:Name="MyContentPresenter"
+												  Content="{TemplateBinding Content}"
+												  HorizontalAlignment="Center" VerticalAlignment="Center"
+												  Margin="0,0,0,0" />
+							</Grid>
+						</Border>
+
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter Property="Background" Value="#468ab9" />
+							</Trigger>
+
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<!---Стиль чекбоксов-->
+		<Style x:Key="{x:Type CheckBox}" TargetType="{x:Type CheckBox}">
+			<Setter Property="SnapsToDevicePixels" Value="true"/>
+			<Setter Property="OverridesDefaultStyle" Value="true"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type CheckBox}">
+						<BulletDecorator Background="Transparent">
+							<BulletDecorator.Bullet>
+								<Border x:Name="Border"
+										Width="13" 
+										Height="13" 
+										CornerRadius="0" 
+										Background="White"
+										BorderThickness="1"
+										BorderBrush="#404040">
+									<Path x:Name="CheckMark"
+										Width="7" Height="7"
+										SnapsToDevicePixels="False" 
+										Stroke="#2b7bb3"
+										StrokeThickness="2"
+										Data="M 0 0 L 7 7 M 0 7 L 7 0" />
+								</Border>
+							</BulletDecorator.Bullet>
+							<ContentPresenter Margin="4,0,0,0"
+											  VerticalAlignment="Center"
+											  HorizontalAlignment="Left"
+											  RecognizesAccessKey="True"/>
+						</BulletDecorator>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsChecked" Value="false">
+								<Setter TargetName="CheckMark" Property="Visibility" Value="Hidden"/>
+							</Trigger>
+							<Trigger Property="IsMouseOver" Value="true">
+								<Setter TargetName="Border" Property="Background" Value="#afcfe5"/>
+							</Trigger>
+							<Trigger Property="IsPressed" Value="true">
+								<Setter TargetName="Border" Property="Background" Value="#E0E0E0" />
+								<Setter TargetName="Border" Property="BorderBrush" Value="#606060" />
+							</Trigger>
+							<Trigger Property="IsEnabled" Value="false">
+								<Setter TargetName="Border" Property="Background" Value="#EEEEEE" />
+								<Setter TargetName="Border" Property="BorderBrush" Value="#AAAAAA" />
+								<Setter Property="Foreground" Value="#888888"/>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+
+	</Window.Resources>
+
+	<Grid Margin="0,0,0,0"
+		  VerticalAlignment="Top" HorizontalAlignment="Left"
+		  Height="600" Width="800"
+		  Background="WhiteSmoke">
+
+		<!---Управление вкладками-->
+		<TabControl x:Name="MainTabControl"
+					TabStripPlacement="Left"
 					Panel.ZIndex="0"
-					Height="471" Width="794"
+					Height="580" Width="800"
+					Margin="0,0,0,0"
 					VerticalAlignment="Top"
-					HorizontalAlignment="Left">
+					HorizontalAlignment="Left"
+					Background="White"
+					SelectionChanged="MainTabControl_SelectionChanged">
 
 			<!--ВКЛАДКА 1-->
 			<TabItem x:Name="Tab1"
 					 Header="1. Настройка документа"
-					 Height="24"
-					 VerticalAlignment="Top">
+					 Height="40">
 				<Grid>
+
+					<Line X1="25" Y1="65" X2="360" Y2="65"
+						  Stroke="#cccccc" StrokeThickness="0.7"/>
+					<Line X1="25" Y1="110" X2="360" Y2="110"
+						  Stroke="#cccccc" StrokeThickness="0.7"/>
+					<Line X1="25" Y1="155" X2="360" Y2="155"
+						  Stroke="#cccccc" StrokeThickness="0.7"/>
+					<Line X1="25" Y1="200" X2="360" Y2="200"
+						  Stroke="#cccccc" StrokeThickness="0.7"/>
+					<Line X1="25" Y1="245" X2="360" Y2="245"
+						  Stroke="#cccccc" StrokeThickness="0.7"/>
+
+					<Line X1="370" Y1="10" X2="370" Y2="290"
+						  Stroke="#cccccc" StrokeThickness="0.7"
+						  Visibility="Hidden"/>
+					<Line X1="25" Y1="290" X2="360" Y2="290"
+						  Stroke="#cccccc" StrokeThickness="0.7"
+						  Visibility="Hidden"/>
+
 
 					<!--Титульный лист-->
 					<TextBlock Text="Титульный лист"
-							   VerticalAlignment="Center"
-							   Margin="40,21,180,419" Height="25"/>
-					
+							   VerticalAlignment="Top" HorizontalAlignment="Left"
+							   Margin="30,30,0,0" Height="25"
+							   Padding="3"/>
+
 					<ComboBox x:Name="TitleComboBox"
-							  Margin="153,21,272,424"
+							  Height="25" Width="210"
+							  HorizontalAlignment="Left" VerticalAlignment="Top"
+							  Margin="140,30,0,0"
 							  SelectedIndex="0"
 							  SelectionChanged="TitleComboBox_SelectionChanged">
 						<TextBlock>Нет</TextBlock>
@@ -54,11 +199,15 @@
 
 					<!--Спецификация-->
 					<TextBlock Text="Спецификация"
-							   VerticalAlignment="Center"
-							   Margin="40,51,180,389" Height="25"/>
-					
+							   VerticalAlignment="Top" HorizontalAlignment="Left"
+							   Height="25"
+							   Margin="30,75,0,0"
+							   Padding="3"/>
+
 					<ComboBox x:Name="TableComboBox"
-							  Margin="153,51,272,394"
+							  HorizontalAlignment="Left" VerticalAlignment="Top"
+							  Height="24" Width="210"
+							  Margin="140,75,0,0"
 							  SelectedIndex="0"
 							  SelectionChanged="TableComboBox_SelectionChanged">
 						<TextBlock>ГОСТ 21.110-2013 (Форма 1)</TextBlock>
@@ -66,11 +215,15 @@
 
 					<!--Основная надпись 1-->
 					<TextBlock Text="Основная надпись"
-							   VerticalAlignment="Center"
-							   Margin="40,81,169,359" Height="25"/>
-					
+							   Height="25"
+							   HorizontalAlignment="Left" VerticalAlignment="Top"
+							   Margin="30,120,0,0"
+							   Padding="3"/>
+
 					<ComboBox x:Name="Stamp1ComboBox"
-							  Margin="153,81,272,364"
+							  Height="25" Width="210"
+							  Margin="140,120,0,0"
+							  VerticalAlignment="Top" HorizontalAlignment="Left"
 							  SelectedIndex="3"
 							  SelectionChanged="Stamp1ComboBox_SelectionChanged">
 						<TextBlock>Нет</TextBlock>
@@ -82,11 +235,15 @@
 
 					<!--Дополнительные графы 1-->
 					<TextBlock Text="Доп. графы"
-							   VerticalAlignment="Center"
-							   Margin="40,111,169,328" Height="26"/>
+							   Margin="30,165,0,0"
+							   Height="25"
+							   VerticalAlignment="Top" HorizontalAlignment="Left"
+							   Padding="3"/>
 
 					<ComboBox x:Name="Dop1ComboBox"
-							  Margin="153,111,272,334"
+							  Margin="140,165,0,0"
+							  Height="25" Width="210"
+							  VerticalAlignment="Top" HorizontalAlignment="Left"
 							  SelectedIndex="3"
 							  SelectionChanged="Dop1ComboBox_SelectionChanged">
 						<TextBlock>Нет</TextBlock>
@@ -97,15 +254,16 @@
 					</ComboBox>
 
 					<!--Основная надпись 2-->
-					<TextBlock VerticalAlignment="Center"
-							   Margin="40,129,169,299"
-							   Height="37">
-						<Run Text="Основная надпись"/><LineBreak/>
-						<Run Text="(со 2-го листа)"/>
+					<TextBlock Text="Осн. надпись (2)"
+							   VerticalAlignment="Top" HorizontalAlignment="Left"
+							   Margin="30,210,0,0"
+							   Height="25" Padding="3">
 					</TextBlock>
-					
+
 					<ComboBox x:Name="Stamp2ComboBox"
-							  Margin="153,138,272,307"
+							  Height="25" Width="210"
+							  Margin="140,210,0,0"
+							  HorizontalAlignment="Left" VerticalAlignment="Top"
 							  SelectedIndex="4"
 							  SelectionChanged="Stamp2ComboBox_SelectionChanged">
 						<TextBlock><Run Text="Нет"/></TextBlock>
@@ -116,16 +274,15 @@
 					</ComboBox>
 
 					<!--Дополнительные графы 2-->
-					<TextBlock
-						VerticalAlignment="Center"
-						Margin="40,163,169,267"
-						Height="35">
-						<Run Text="Доп. графы"/><LineBreak/>
-						<Run Text="(со 2-го листа)"/>
-					</TextBlock>
-					
+					<TextBlock Text="Доп. графы (2)"
+							   VerticalAlignment="Top" HorizontalAlignment="Left"
+							   Margin="30,255,0,0"
+							   Height="25" Padding="3"/>
+
 					<ComboBox x:Name="Dop2ComboBox"
-							  Margin="153,166,272,279"
+							  Margin="140,255,0,0"
+							  VerticalAlignment="Top" HorizontalAlignment="Left"
+							  Height="25" Width="210"
 							  SelectedIndex="4"
 							  SelectionChanged="Dop2ComboBox_SelectionChanged">
 						<TextBlock><Run Text="Нет"/></TextBlock>
@@ -135,54 +292,58 @@
 						<TextBlock><Run Text="ГОСТ Р 21.101-2020 (Форма 6)"/></TextBlock>
 					</ComboBox>
 
-					<!--Вкл. нумерацию столбцов-->
-					<CheckBox x:Name="EnumerateColumnsCheckBox"
-							  Content="Нумерация столбцов"
-							  IsThreeState="False"
-							  IsChecked="False"
-							  Checked="EnumerateColumnsCheckBox_Checked"
-							  Unchecked="EnumerateColumnsCheckBox_Unchecked"
-							  HorizontalAlignment="Left" VerticalAlignment="Top"
-							  Margin="153,201,0,0"/>
-
 					<!--Предварительный просмотр-->
 					<TextBlock Text="Предпросмотр"
-							   VerticalAlignment="Center"
-							   Margin="40,229,173,210" Height="26"/>
+							   VerticalAlignment="Top" HorizontalAlignment="Left"
+							   Height="25" Padding="3"
+							   Margin="407,159,0,0"
+							   Visibility="Hidden"/>
 
-					<Rectangle Margin="153,229,207,36"
+					<Rectangle Height="200" Width="283"
+							   VerticalAlignment="Top" HorizontalAlignment="Left"
+							   Margin="67,320,0,0"
 							   Stroke="LightGray"/>
 
 					<Image x:Name="ImageTable"
 						   Height="200" Width="282"
-						   Margin="153,229,207,36"
+						   Margin="67,320,0,0"
+						    VerticalAlignment="Top" HorizontalAlignment="Left"
 						   IsEnabled="True"/>
 
 					<Image x:Name="ImageStamp"
 						   Height="200" Width="282"
-						   Margin="153,229,207,36"
+						   Margin="67,320,0,0"
+						    VerticalAlignment="Top" HorizontalAlignment="Left"
 						   IsEnabled="True"/>
 
 					<Image x:Name="ImageDop"
-						   Height="200" Width="282"
-						   Margin="153,229,207,36"
+						   Height="200" Width="283"
+						   Margin="67,320,0,0"
+						    VerticalAlignment="Top" HorizontalAlignment="Left"
 						   IsEnabled="True"/>
 
 					<!--Управление номером страницы-->
 					<TextBox x:Name="PreviewPageNumberTextBox"
-							 Margin="269,440,352,6"
-							 VerticalContentAlignment="Center"
-							 HorizontalContentAlignment="Center"
+							 VerticalAlignment="Top" HorizontalAlignment="Left"
+							 Height="20" Width="20"
+							 Margin="198,528,0,0"
 							 Text="1"
+							 VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
 							 KeyDown="PreviewPageNumberTextBox_KeyDown">
 					</TextBox>
 
 					<Button x:Name="PrevPageButton"
-							Margin="237,440,384,6"
+							Content="⮜"
+							VerticalAlignment="Top" HorizontalAlignment="Left"
+							Height="20" Width="20"
+							Margin="168,528,0,0"
 							Click="PrevPageButton_Click"/>
 
 					<Button x:Name="NextPageButton"
-							Margin="304,440,317,6"
+							Content="⮞"
+							VerticalAlignment="Top" HorizontalAlignment="Left"
+							Height="20" Width="20"
+							Margin="228,528,0,0"
 							Click="NextPageButton_Click"/>
 
 				</Grid>
@@ -192,47 +353,52 @@
 			<!--ВКЛАДКА 2-->
 			<TabItem x:Name="Tab2"
 					 Header="2. Выбор категорий"
-					 Height="24"
-					 VerticalAlignment="Top">
+					 Height="40">
 				<Grid>
 
 					<TextBlock Text="Доступные категории"
-							   VerticalAlignment="Center"
-							   Margin="61,14,353,426" Height="25"/>
+							   Height="25" Padding="3"
+							   VerticalAlignment="Top" HorizontalAlignment="Left"
+							   Margin="30,10,0,0"/>
 					<ListView x:Name="AvailableCategories"
-							  Margin="61,44,353,22"
+							  Height="510" Width="270"
+							  VerticalAlignment="Top" HorizontalAlignment="Left"
+							  Margin="30,40,0,0"
 							  ItemsSource="{Binding}"
 							  SelectionMode="Extended"
 							  dd:DragDrop.IsDragSource="True"
 							  dd:DragDrop.IsDropTarget="True">
 						<ListView.View>
 							<GridView>
-								<GridViewColumn DisplayMemberBinding="{Binding Name}">
+								<GridViewColumn DisplayMemberBinding="{Binding Name}" Width="200">
 									<GridViewColumnHeader x:Name="AvailableCategoriesNameHeader" Content="Категория" Click="CommonColumnHeader_Click"/>
 								</GridViewColumn>
-								<GridViewColumn DisplayMemberBinding="{Binding Count}">
-									<GridViewColumnHeader x:Name="AvailableCategoriesCountHeader" Content="Кол-во элем." Click="CommonColumnHeader_Click"/>
+								<GridViewColumn DisplayMemberBinding="{Binding Count}" Width="40">
+									<GridViewColumnHeader x:Name="AvailableCategoriesCountHeader" Content="Элем." Click="CommonColumnHeader_Click"/>
 								</GridViewColumn>
 							</GridView>
 						</ListView.View>
 					</ListView>
 
 					<TextBlock Text="Выбранные категории"
-							   VerticalAlignment="Center"
-							   Margin="361,14,53,426" Height="25"/>
+							   Height="25" Padding="3"
+							   VerticalAlignment="Top" HorizontalAlignment="Left"
+							   Margin="340,10,0,0"/>
 					<ListView x:Name="PickedCategories"
-							  Margin="361,44,53,22"
+							  Height="510" Width="270"
+							  VerticalAlignment="Top" HorizontalAlignment="Right"
+							  Margin="0,40,30,0"
 							  ItemsSource="{Binding}"
 							  SelectionMode="Extended"
 							  dd:DragDrop.IsDragSource="True"
 							  dd:DragDrop.IsDropTarget="True">
 						<ListView.View>
 							<GridView>
-								<GridViewColumn DisplayMemberBinding="{Binding Name}">
+								<GridViewColumn DisplayMemberBinding="{Binding Name}" Width="200">
 									<GridViewColumnHeader x:Name="PickedCategoriesNameHeader" Content="Категория" Click="CommonColumnHeader_Click"/>
 								</GridViewColumn>
-								<GridViewColumn DisplayMemberBinding="{Binding Count}">
-									<GridViewColumnHeader x:Name="PickedCategoriesCountHeader" Content="Кол-во элем." Click="CommonColumnHeader_Click"/>
+								<GridViewColumn DisplayMemberBinding="{Binding Count}" Width="40">
+									<GridViewColumnHeader x:Name="PickedCategoriesCountHeader" Content="Элем." Click="CommonColumnHeader_Click"/>
 								</GridViewColumn>
 							</GridView>
 						</ListView.View>
@@ -240,27 +406,35 @@
 
 					<Button x:Name="PickAllCategoriesButton"
 							Click="PickAllCategoriesButton_Click"
-							Content="🠺" FontSize="30" Padding="-15"
-							Margin="310,183,307,251"/>
+							Height="40" Width="20" Padding="-15"
+							VerticalAlignment="Top" HorizontalAlignment="Left"
+							Content="⮞" FontSize="16"
+							Margin="310,244,0,0"/>
 
 					<Button x:Name="ReleaseAllCategoriesButton"
 							Click="ReleaseAllCategoriesButton_Click"
-							Content="🠸" FontSize="30" Padding="-15"
-							Margin="310,228,307,206"/>
+							Height="40" Width="20" Padding="-15"
+							VerticalAlignment="Top" HorizontalAlignment="Left"
+							Content="⮜" FontSize="16"
+							Margin="310,294,0,0"/>
 
 				</Grid>
 			</TabItem>
 
 			<!--ВКЛАДКА 3-->
 			<TabItem x:Name="Tab3"
-					 Header="3. Выбор элементов" >
+					 Header="3. Выбор элементов"
+					 Height="40">
 				<Grid>
 
 					<TextBlock Text="Доступные элементы"
-							   VerticalAlignment="Center"
-							   Margin="61,14,353,426" Height="25"/>
+							   Height="25" Padding="3"
+							   VerticalAlignment="Top" HorizontalAlignment="Left"
+							   Margin="30,10,0,0"/>
 					<ListView x:Name="AvailableElements"
-							  Margin="61,44,353,22"
+							  Height="510" Width="200"
+							  VerticalAlignment="Top" HorizontalAlignment="Left"
+							  Margin="30,40,0,0"
 							  ItemsSource="{Binding}"
 							  SelectionMode="Extended"
 							  dd:DragDrop.IsDragSource="True"
@@ -268,13 +442,13 @@
 						<ListView.View>
 							<!-- Table -->
 							<GridView>
-								<GridViewColumn DisplayMemberBinding="{Binding InstanceName}">
+								<GridViewColumn DisplayMemberBinding="{Binding InstanceName}" Width="95">
 									<GridViewColumnHeader x:Name="AvailableElementsInstanceNameHeader" Content="Имя" Click="CommonColumnHeader_Click"/>
 								</GridViewColumn>
-								<GridViewColumn DisplayMemberBinding="{Binding Type}">
+								<GridViewColumn DisplayMemberBinding="{Binding Type}" Width="30">
 									<GridViewColumnHeader x:Name="AvailableElementsTypeHeader" Content="Тип" Click="CommonColumnHeader_Click"/>
 								</GridViewColumn>
-								<GridViewColumn DisplayMemberBinding="{Binding Amount}">
+								<GridViewColumn DisplayMemberBinding="{Binding Amount}" Width="45">
 									<GridViewColumnHeader x:Name="AvailableElementsAmountHeader" Content="Кол-во" Click="CommonColumnHeader_Click"/>
 								</GridViewColumn>
 							</GridView>
@@ -291,11 +465,14 @@
 						</ListView.GroupStyle>
 					</ListView>
 
-					<TextBlock Text="Выбрано"
-							   VerticalAlignment="Center"
-							   Margin="361,14,53,426" Height="25"/>
+					<TextBlock Text="Выбранные категории"
+							   Height="25" Padding="3"
+							   VerticalAlignment="Top" HorizontalAlignment="Left"
+							   Margin="270,10,0,0"/>
 					<ListView x:Name="PickedElements"
-							  Margin="361,44,53,22"
+							  Height="510" Width="340"
+							  VerticalAlignment="Top" HorizontalAlignment="Right"
+							  Margin="0,40,30,0"
 							  ItemsSource="{Binding}"
 							  SelectionMode="Extended"
 							  dd:DragDrop.IsDragSource="True"
@@ -303,13 +480,13 @@
 						<ListView.View >
 							<!-- Table -->
 							<GridView>
-								<GridViewColumn DisplayMemberBinding="{Binding InstanceName}">
+								<GridViewColumn DisplayMemberBinding="{Binding InstanceName}" Width="125">
 									<GridViewColumnHeader x:Name="PickedElementsInstanceNameHeader" Content="Имя" Click="CommonColumnHeader_Click"/>
 								</GridViewColumn>
-								<GridViewColumn DisplayMemberBinding="{Binding Type}">
+								<GridViewColumn DisplayMemberBinding="{Binding Type}" Width="125">
 									<GridViewColumnHeader x:Name="PickedElementsTypeHeader" Content="Тип" Click="CommonColumnHeader_Click"/>
 								</GridViewColumn>
-								<GridViewColumn DisplayMemberBinding="{Binding Amount}">
+								<GridViewColumn DisplayMemberBinding="{Binding Amount}" Width="50">
 									<GridViewColumnHeader x:Name="PickedElementsAmountHeader" Content="Кол-во" Click="CommonColumnHeader_Click"/>
 								</GridViewColumn>
 							</GridView>
@@ -328,42 +505,109 @@
 
 					<Button x:Name="PickAllElementsButton"
 							Click="PickAllElementsButton_Click"
-							Content="🠺" FontSize="30" Padding="-15"
-							Margin="310,183,307,251"/>
+							Height="40" Width="20" Padding="-15"
+							VerticalAlignment="Top" HorizontalAlignment="Left"
+							Content="⮞" FontSize="16"
+							Margin="240,244,0,0"/>
 
 					<Button x:Name="ReleaseAllElementsButton"
 							Click="ReleaseAllElementsButton_Click"
-							Content="🠸" FontSize="30" Padding="-15"
-							Margin="310,228,307,206"/>
+							Height="40" Width="20" Padding="-15"
+							VerticalAlignment="Top" HorizontalAlignment="Left"
+							Content="⮜" FontSize="16"
+							Margin="240,294,0,0"/>
 
 				</Grid>
 			</TabItem>
 
-			<!--ВКЛАДКА 4-->
+			<!--ВКЛАДКА 4
 			<TabItem x:Name="Tab4"
-					 Header="4. Доп. параметры">
+					 Header="4. Доп. параметры" Margin="0,5,3,-5">
 			</TabItem>
+			-->
 
 		</TabControl>
 
+
+		<!--ОСНОВНЫЕ ЭЛЕМЕНТЫ УПРАВЛЕНИЯ-->
+
+		<!--Кнопка экспорта-->
+		<Button x:Name="Export"
+				Content="Экспорт"
+				Height="35" Width="110"
+				VerticalAlignment="Top" HorizontalAlignment="Left"
+				Margin="22,517,0,0"
+				Click="Export_Click"
+				Panel.ZIndex="1"
+				Style="{StaticResource BigBtn}">
+		</Button>
+
+		<!--Группировать элементы-->
 		<CheckBox x:Name="GroupElemsCheckBox"
-				  Content="Группировать элементы"
 				  IsThreeState="False"
 				  IsChecked="False"
 				  Checked="GroupElemsCheckBox_Checked"
 				  Unchecked="GroupElemsCheckBox_Unchecked"
 				  HorizontalAlignment="Left" VerticalAlignment="Top"
-				  Margin="128,490,0,0"/>
+				  Margin="31,463,0,0"
+				  Panel.ZIndex="2">
+			<StackPanel>
+				<TextBlock>Группировать</TextBlock>
+				<TextBlock>элементы</TextBlock>
+			</StackPanel>
+		</CheckBox>
+
+		<Rectangle Height="50" Width="110"
+				   VerticalAlignment="Top" HorizontalAlignment="Left"
+				   Margin="22,455,0,0"
+				   Panel.ZIndex="1"
+				   Fill="#cccccc"
+				   RadiusY="2" RadiusX="2"/>
+
+		<!--Вкл. нумерацию столбцов-->
+		<CheckBox x:Name="EnumerateColumnsCheckBox"
+				  IsThreeState="False"
+				  IsChecked="False"
+				  Checked="EnumerateColumnsCheckBox_Checked"
+				  Unchecked="EnumerateColumnsCheckBox_Unchecked"
+				  HorizontalAlignment="Left" VerticalAlignment="Top"
+				  Margin="31,403,0,0"
+				  Panel.ZIndex="2">
+			<StackPanel>
+				<TextBlock>Нумерация</TextBlock>
+				<TextBlock>стоблцов</TextBlock>
+			</StackPanel>
+		</CheckBox>
+
+		<Rectangle x:Name="EnumerateRectangle"
+				   Height="45" Width="110"
+				   VerticalAlignment="Top" HorizontalAlignment="Left"
+				   Margin="22,397,0,0"
+				   Panel.ZIndex="1"
+				   Fill="#cccccc"
+				   RadiusY="2" RadiusX="2"/>
+
+		<!--<Button x:Name="huy" Click="huy_Click" Content="Button" HorizontalAlignment="Left" Margin="619,522,0,0" VerticalAlignment="Top" Width="75"/>-->
+
+		<!--Трей с подсказками и прогрессбаром-->
+		<TextBlock x:Name="HintTrayTextBlock"
+				   Height="20" Width="790" Padding="0"
+				   HorizontalAlignment="Left" VerticalAlignment="Center"
+				   Margin="10,580,0,0"
+				   TextWrapping="Wrap"
+				   Text="Выполняется"
+				   Foreground="Black"
+				   Panel.ZIndex="1"/>
 
 		<ProgressBar x:Name="ExportProgressBar"
-					 HorizontalAlignment="Left" VerticalAlignment="Top"
-					 Height="15" Width="202"
-					 Margin="354,490,0,0"
+					 Height="21" Width="800"
+					 VerticalAlignment="Bottom" HorizontalAlignment="Center"
 					 IsIndeterminate="False"
 					 Minimum="{Binding Minimum}"
 					 Maximum="{Binding Maximum}"
 					 Value="{Binding Value}"
-					 Background="AliceBlue">
+					 Background="WhiteSmoke"
+					 Visibility="Visible">
 			<ProgressBar.Foreground>
 				<LinearGradientBrush>
 					<GradientStop Color="Aquamarine" Offset="0"/>
@@ -372,22 +616,12 @@
 			</ProgressBar.Foreground>
 		</ProgressBar>
 
-
-		<Button x:Name="huy" Click="huy_Click" Content="Button" HorizontalAlignment="Left" Margin="619,522,0,0" VerticalAlignment="Top" Width="75"/>
-
-		<!--Трей с подсказками и прогрессбаром-->
-		<TextBlock x:Name="HintTrayTextBlock"
-				   HorizontalAlignment="Left" VerticalAlignment="Top"
-				   Margin="10,545,0,0"
-				   TextWrapping="Wrap"
-				   Text="Future hint tray"
-				   Width="774"/>
+		<!--Элементы дизайна-->
 
 	</Grid>
 
-
-	<Window.Resources>
-	</Window.Resources>
-
-
 </Window>
+
+<!---
+	
+	-->

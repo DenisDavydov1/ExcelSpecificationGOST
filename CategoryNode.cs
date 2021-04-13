@@ -16,9 +16,7 @@ namespace RevitToGOST
 {
 	public class CategoryNode
 	{
-		/*
-		** Member properties
-		*/
+		#region properties
 
 		public Category Category { get; set; }
 		public ElementCollection Elements { get; set; }
@@ -27,9 +25,9 @@ namespace RevitToGOST
 		public int Id { get { return Category.Id.IntegerValue; } }
 		public int Count { get { return Elements.ElementCount; } }
 
-		/*
-		** Member methods
-		*/
+		#endregion properties
+
+		#region methods
 
 		public CategoryNode(Category category, ElementCollection elements)
 		{
@@ -39,13 +37,13 @@ namespace RevitToGOST
 
 		public override string ToString() { return String.Format("{0} ({1})", Name, Count); }
 
+		#endregion methods
+
 	} // class CategoryNode
 
 	public class CategoryNodeCollection : ObservableCollection<CategoryNode>
 	{
-		/*
-		** Constructors
-		*/
+		#region constructors
 
 		public CategoryNodeCollection() { }
 		public CategoryNodeCollection(CategoryNodeCollection other)
@@ -54,9 +52,9 @@ namespace RevitToGOST
 				Add(node);
 		}
 
-		/*
-		** Add/remove items
-		*/
+		#endregion constructors
+
+		#region add/remove items
 
 		protected override void InsertItem(int index, CategoryNode categoryNode)
 		{
@@ -83,9 +81,9 @@ namespace RevitToGOST
 			Rvt.Data.AvailableElements.RemoveCategory(catToDel);
 		}
 
-		/*
-		** Sort items
-		*/
+		#endregion add/remove items
+
+		#region sort items
 
 		public void Sort(bool byName)
 		{
@@ -174,6 +172,8 @@ namespace RevitToGOST
 			}
 			return true;
 		}
+
+		#endregion sort items
 
 	} // class CategoryNodeCollection
 

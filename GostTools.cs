@@ -21,10 +21,6 @@ namespace RevitToGOST
 {
 	static class GostTools
 	{
-		/*
-		** Member methods
-		*/
-
 		public static ElementSet ElementConvert(IList<Element> list)
 		{
 			ElementSet elemSet = new ElementSet();
@@ -43,22 +39,19 @@ namespace RevitToGOST
 		public const double mm_w = 0.483;
 		public const double mm_h = 2.9;
 		public const string DefaultName = "Без названия";
+
 		public struct A3
 		{
 			public const int Height = 420;
 			public const int Width = 297;
 		}
+
 		public struct A4
 		{
 			public const int Height = 297;
 			public const int Width = 210;
 		}
-		// to delete::::
-		public struct A11
-		{
-			public const int Height = 100;
-			public const int Width = 60;
-		}
+
 	} // static class Constants
 
 	static class ConfFile

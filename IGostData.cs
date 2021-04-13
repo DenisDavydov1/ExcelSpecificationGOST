@@ -15,13 +15,7 @@ namespace RevitToGOST
 {
 	public interface IGostData
 	{
-		/*
-		**	Member fields
-		*/
-
-		/*
-		**	Member methods
-		*/
 
 	} // public interface IGostData
+
 } // namespace RevitToGOST

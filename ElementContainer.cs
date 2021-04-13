@@ -16,9 +16,7 @@ namespace RevitToGOST
 {
 	public class ElementContainer
 	{
-		/*
-		** Member properties
-		*/
+		#region properties
 
 		public Element Element { get; set; }
 		public string InstanceName { get { return GOST_21_110_2013.ElementName(this); } }
@@ -38,9 +36,9 @@ namespace RevitToGOST
 			ColumnsEnumeration
 		}
 
-		/*
-		** Member methods
-		*/
+		#endregion properties
+
+		#region methods
 
 		public ElementContainer(ContType contType = ContType.Element)
 		{
@@ -79,13 +77,13 @@ namespace RevitToGOST
 			return false;
 		}
 
+		#endregion methods
+
 	} // class ElementContainer
 
 	public class ElementCollection : ObservableCollection<ElementContainer>
 	{
-		/*
-		** Member properties
-		*/
+		#region properties
 
 		public int ElementCount
 		{
@@ -98,9 +96,9 @@ namespace RevitToGOST
 			}
 		}
 
-		/*
-		** Constructors
-		*/
+		#endregion properties
+
+		#region constructors
 
 		public ElementCollection() { }
 
@@ -121,9 +119,9 @@ namespace RevitToGOST
 				//base.Add(new ElementContainer(elem));
 		}
 
-		/*
-		** Insert ElementContainer(s)
-		*/
+		#endregion constructors
+
+		#region insert ElementContainer(s)
 
 		public void InsertElementCollection(int index, ElementCollection elemC)
 		{
@@ -141,9 +139,9 @@ namespace RevitToGOST
 			}
 		}
 
-		/*
-		** Member methods
-		*/
+		#endregion insert ElementContainer(s)
+
+		#region methods
 
 		protected override void RemoveItem(int index)
 		{
@@ -209,9 +207,9 @@ namespace RevitToGOST
 			}
 		}
 
-		/*
-		** Sort items
-		*/
+		#endregion methods
+
+		#region sort items
 
 		public enum SortBy
 		{
@@ -328,6 +326,8 @@ namespace RevitToGOST
 			}
 			return true;
 		}
+
+		#endregion sort items
 
 	} // class ElementCollection
 

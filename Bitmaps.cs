@@ -17,9 +17,7 @@ namespace RevitToGOST
 
 	public class Bitmaps
 	{
-		/*
-		** Member properties
-		*/
+		#region properties
 
 		public BitmapImage Table { get; set; }
 		public BitmapImage Stamp { get; set; }
@@ -50,6 +48,8 @@ namespace RevitToGOST
 			}
 		}
 
+		#endregion properties
+
 		public static readonly BitmapImage[] Previews =
 		{
 			new BitmapImage(new Uri("Previews/Preview_Empty.png", UriKind.Relative)),						// None
@@ -73,9 +73,7 @@ namespace RevitToGOST
 			null	// title 14
 		};
 
-		/*
-		** Member events
-		*/
+		#region events
 
 		public event PropertyChangedEventHandler PreviewPageChanged;
 
@@ -84,9 +82,9 @@ namespace RevitToGOST
 			PreviewPageChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-		/*
-		** Member methods
-		*/
+		#endregion events
+
+		#region methods
 
 		public void UpdateImages()
 		{
@@ -138,6 +136,8 @@ namespace RevitToGOST
 				return PreviewPage.ToString() + "...";
 			return PreviewPage.ToString();
 		}
+
+		#endregion methods
 
 	} // class Bitmaps
 

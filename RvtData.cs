@@ -21,9 +21,7 @@ namespace RevitToGOST
 
 	class RvtData
 	{
-		/*
-		** Member properties
-		*/
+		#region properties
 
 		public CategoryNodeCollection AllCategories { get; set; }
 		public CategoryNodeCollection AvailableCategories { get; set; }
@@ -34,9 +32,9 @@ namespace RevitToGOST
 
 		public int Count { get { return AvailableCategories.Count + PickedCategories.Count; } }
 
-		/*
-		** Member methods
-		*/
+		#endregion properties
+
+		#region methods
 
 		public RvtData()
 		{
@@ -129,6 +127,8 @@ namespace RevitToGOST
 				ExportElements.Insert(i, new ElementContainer(ElementContainer.ContType.ColumnsEnumeration));
 			}
 		}
+
+		#endregion methods
 
 	} // class RvtData
 

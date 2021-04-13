@@ -14,9 +14,7 @@ namespace RevitToGOST
 
 	public class RvtWindows
 	{
-		/*
-		** Member properties
-		*/
+		#region properties
 
 		public MainWindow MainWindow { get; set; }
 
@@ -37,6 +35,8 @@ namespace RevitToGOST
 			}
 		}
 
+		#endregion properties
+
 		public enum Status
 		{
 			Loading,
@@ -46,9 +46,19 @@ namespace RevitToGOST
 			Sort
 		}
 
-		/*
-		** Member events
-		*/
+		public static readonly string[] TabNames = {
+			"1. Настройка документа",
+			"2. Выбор категорий",
+			"3. Выбор элементов"
+		};
+
+		public static readonly string[] TabDescr = {
+			"\n\n    Определение\n    стандартов для\n    составления\n    документации",
+			"\n\n    Выбор категорий\n    объектов модели,\n    которые требуется\n    включить в\n    спецификацию",
+			"\n\n    Формирование\n    списка объектов\n    модели, которые\n    будут включены\n    в спецификацию"
+		};
+
+		#region events
 
 		public event PropertyChangedEventHandler ConditionChanged;
 
@@ -57,9 +67,9 @@ namespace RevitToGOST
 			ConditionChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-		/*
-		** Member methods
-		*/
+		#endregion events
+
+		#region methods
 
 		public RvtWindows() { }
 
@@ -82,6 +92,8 @@ namespace RevitToGOST
 			MainWindow = new MainWindow();
 			MainWindow.ShowDialog();
 		}
+
+		#endregion events
 
 	} // public class RvtWindows
 

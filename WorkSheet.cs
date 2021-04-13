@@ -16,23 +16,21 @@ namespace RevitToGOST
 {
 	public class WorkSheet
 	{
-		/*
-		**	Member fields
-		*/
+		#region properties
 
 		public string Name { get; set; }
 		public IXLWorksheet WS { get; set; }
-		private string Format;
-		private string Orientation;
-		private int Height;
-		private int Width;
+		private string Format { get; set; }
+		private string Orientation { get; set; }
+		private int Height { get; set; }
+		private int Width { get; set; }
 		public List<GOST> Tables { get; set; }
-		public List<int[]> Columns;
-		public List<int[]> Rows;
+		public List<int[]> Columns { get; set; }
+		public List<int[]> Rows { get; set; }
 
-		/*
-		**	Member methods
-		*/
+		#endregion properties
+
+		#region methods
 
 		public WorkSheet(IXLWorksheet ixlWorkSheet, string name = Constants.DefaultName)
 		{
@@ -77,10 +75,6 @@ namespace RevitToGOST
 				(Height, Width) = (Constants.A4.Height, Constants.A4.Width);
 			else if (Format == "A4" && Orientation == "Landscape")
 				(Height, Width) = (Constants.A4.Width, Constants.A4.Height);
-			else if (Format == "A11" && Orientation == "Portrait")
-				(Height, Width) = (Constants.A11.Height, Constants.A11.Width);
-			else if (Format == "A11" && Orientation == "Landscape")
-				(Height, Width) = (Constants.A11.Width, Constants.A11.Height);
 		}
 
 		public void BuildWorkSheet()
@@ -361,5 +355,8 @@ namespace RevitToGOST
 				table.ElemColToData();
 		}
 
+		#endregion methods
+
 	} // class WorkSheet
+
 } // namespace RevitToGOST

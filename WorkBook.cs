@@ -21,11 +21,8 @@ namespace RevitToGOST
 
 	public class WorkBook
 	{
-		/*
-		**	Member fields
-		*/
+		#region properties
 
-		//public string FilePath { get; set; }
 		public XLWorkbook WB { get; set; }
 		public List<WorkSheet> WSs { get; set; }
 		
@@ -38,10 +35,9 @@ namespace RevitToGOST
 
 		public int Pages { get; set; } = 0;
 
+		#endregion properties
 
-		/*
-		**	Member methods
-		*/
+		#region methods
 
 		public WorkBook()
 		{
@@ -231,6 +227,8 @@ namespace RevitToGOST
 				}
 			}
 		}
+
+		#endregion methods
 
 	} // class WorkBook
 

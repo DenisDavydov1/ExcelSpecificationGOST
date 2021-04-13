@@ -27,4 +27,3 @@ F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\x64\Debug\LoadingWindow.g.cs
 F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\x64\Debug\LoadingWindow.baml
 F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\x64\Debug\RevitToGOST.Properties.Resources.resources
 F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\x64\Debug\RevitToGOST.csproj.GenerateResource.cache
-F:\CS_CODE\REVIT\PROJECTS\RevitToGOST\obj\x64\Debug\GeneratedInternalTypeHelper.g.cs

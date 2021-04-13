@@ -15,52 +15,6 @@ namespace RevitToGOST
 {
 	class GOST_21_110_2013 : IGostData
 	{
-		/*
-		**	Member properties
-		*/
-
-		//public class Line
-		//{
-		//	// "Поз."
-		//	public int Position;
-
-		//	// "Наименование и техническая характеристика"
-		//	public string Name;
-
-		//	// "Тип, марка, обозначение документа, опросного листа"
-		//	public string Type;
-
-		//	// "Код продукции"
-		//	public string ProdCode; //int ProdCode;
-
-		//	// "Поставщик"
-		//	public string Provider;
-
-		//	// "Ед. измерения"
-		//	public string Unit;
-
-		//	// "Количество"
-		//	public double Amount;
-
-		//	// "Масса 1 ед., кг"
-		//	public double Weight;
-
-		//	// "Примечание"
-		//	public string Note;
-		//}
-
-		public ElementCollection ElemCol { get; set; }
-		//public List<Line> Lines { get; set; }
-
-		/*
-		**	Member methods
-		*/
-
-		public GOST_21_110_2013(ElementCollection elemCol)
-		{
-			ElemCol = elemCol;
-		}
-
 		public static void FillLine(ElementContainer elemCont)
 		{
 			//// Заголовок категории
@@ -118,67 +72,8 @@ namespace RevitToGOST
 
 				// "Примечание"
 				elemCont.Line.Add(ElementNote(elemCont));
-
-				//line.Position = elemCont.Position;           // "Поз."
-				//line.Name = ElementName(elemCont);           // "Наименование и техническая характеристика"
-				//line.Type = ElementType(elemCont);           // "Тип, марка, обозначение документа, опросного листа"
-				//line.ProdCode = ElementProdCode(elemCont);   // "Код продукции"
-				//line.Provider = ElementProvider(elemCont);   // "Поставщик"
-				//line.Unit = ElementUnit(elemCont);           // "Ед. измерения"
-				//line.Amount = ElementAmount(elemCont);       // "Количество"
-				//line.Weight = ElementWeight(elemCont);       // "Масса 1 ед., кг"
-				//line.Note = ElementNote(elemCont);           // "Примечание"
 			}
 		}
-
-		//public void FillLines()
-		//{
-		//	Lines = new List<Line>();
-
-		//	foreach (ElementContainer element in ElemCol)
-		//	{
-		//		Line line = new Line();
-
-		//		line.Position = element.Position;               // "Поз."
-				
-		//		//// Заголовок категории
-		//		if (element.LineType == ElementContainer.ContType.Category)
-		//		{
-		//			line.Name = element.CategoryLine;
-		//			line.Name = line.Name ?? String.Empty;
-		//			line.Type = line.ProdCode = line.Provider = line.Note = String.Empty;
-		//			line.Unit = " ";
-		//			line.Amount = line.Weight = 0.0;
-		//		}
-
-		//		//// Нумерация стоблцов
-		//		else if (element.LineType == ElementContainer.ContType.Category)
-		//		{
-		//			line.Name = ElementName(element);
-		//			line.Type = ElementType(element);
-		//			line.ProdCode = ElementProdCode(element);
-		//			line.Provider = ElementProvider(element);
-		//			line.Unit = ElementUnit(element);
-		//			line.Amount = ElementAmount(element);
-		//			line.Weight = ElementWeight(element);
-		//			line.Note = ElementNote(element);
-		//		}
-
-		//		//// Настоящий элемент
-		//		else
-		//		{
-		//			line.Name = ElementName(element);			// "Наименование и техническая характеристика"
-		//			line.Type = ElementType(element);			// "Тип, марка, обозначение документа, опросного листа"
-		//			line.ProdCode = ElementProdCode(element);	// "Код продукции"
-		//			line.Provider = ElementProvider(element);	// "Поставщик"
-		//			line.Unit = ElementUnit(element);			// "Ед. измерения"
-		//			line.Amount = ElementAmount(element);		// "Количество"
-		//			line.Weight = ElementWeight(element);		// "Масса 1 ед., кг"
-		//			line.Note = ElementNote(element);			// "Примечание"
-		//		}
-		//		Lines.Add(line);
-		//	}
-		//}
 
 		public static string ElementName(ElementContainer elemContainer)
 		{
@@ -324,7 +219,6 @@ namespace RevitToGOST
 			});
 		}
 
-
 		private static string GetStringParameter(Element elem, BuiltInParameter[] parameters)
 		{
 			foreach (BuiltInParameter param in parameters)
@@ -378,57 +272,6 @@ namespace RevitToGOST
 
 			return 0.0;
 		}
-
-		//public List<List<string>> FillList()
-		//{
-		//	List<List<string>> output = new List<List<string>>();
-		//	//for (int i = 0; i < Lines.Count; ++i)
-		//	foreach (Line line in Lines)
-		//	{
-		//		output.Add(new List<string>());
-		//		List<string> curLineList = output.Last();
-
-		//		// "Поз."
-		//		if (line.Position == 0)
-		//			curLineList.Add(String.Empty);
-		//		else
-		//			curLineList.Add(line.Position.ToString());
-				
-		//		// "Наименование и техническая характеристика"
-		//		curLineList.Add(line.Name);
-
-		//		// "Тип, марка, обозначение документа, опросного листа"
-		//		curLineList.Add(line.Type);
-
-		//		// "Код продукции"
-		//		curLineList.Add(line.ProdCode);
-
-		//		// "Поставщик"
-		//		curLineList.Add(line.Provider);
-
-		//		// "Ед. измерения"
-		//		if (line.Unit == String.Empty)
-		//			curLineList.Add("Шт.");
-		//		else
-		//			curLineList.Add(line.Unit);
-
-		//		// "Количество"
-		//		if (line.Amount == 0.0)
-		//			curLineList.Add(String.Empty);
-		//		else
-		//			curLineList.Add(line.Amount.ToString());
-
-		//		// "Масса 1 ед., кг"
-		//		if (line.Weight == 0.0)
-		//			curLineList.Add(String.Empty);
-		//		else
-		//			curLineList.Add(line.Weight.ToString());
-
-		//		// "Примечание"
-		//		curLineList.Add(line.Note);
-		//	}
-		//	return output;
-		//}
 
 	} // class GOST_21_110_2013
 

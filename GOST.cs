@@ -17,9 +17,7 @@ namespace RevitToGOST
 {
 	public class GOST
 	{
-		/*
-		** Member fields:
-		*/
+		#region properties
 
 		public string Name { get; set; }
 		public Types Type { get; set; }
@@ -66,6 +64,10 @@ namespace RevitToGOST
 
 		public bool IsFull { get { return ElemCol.Count >= ConfFile.Lines[(int)Standart]; } }
 
+		#endregion properties
+
+		#region enums
+
 		public enum Types
 		{
 			None,
@@ -99,9 +101,9 @@ namespace RevitToGOST
 			title14
 		}
 
-		/*
-		**	Member methods
-		*/
+		#endregion enums
+
+		#region methods
 
 		public static GOST LoadConfFile(string config)
 		{
@@ -164,21 +166,7 @@ namespace RevitToGOST
 			}
 		}
 
-		//public void ApplyGostData()
-		//{
-		//	if (Standart == Standarts.GOST_21_110_2013_Table1)
-		//	{
-		//		GostData = new GOST_21_110_2013(ElemCol);
-		//		GostData.FillLines();	
-		//		Data = GostData.FillList();
-		//	}
-		//	if (Standart == Standarts.GOST_P_21_101_2020_Title_12)
-		//	{
-		//		GostData = new GOST_P_21_101_2020_Title_12();
-		//		GostData.FillLines();
-		//		Data = GostData.FillList();
-		//	}
-		//}
+		#endregion methods
 
 	} // class GOST
 

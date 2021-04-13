@@ -18,9 +18,7 @@ namespace RevitToGOST
 
 	class RvtControl
 	{
-		/*
-		** Member properties
-		*/
+		#region properties
 
 		///// Control elements values /////
 		public bool GroupElemsCheckBox { get; set; } = false;
@@ -49,15 +47,9 @@ namespace RevitToGOST
 		//// Background export thread ////
 		public BackgroundWorker ExportWorker { get; set; } = null;
 
+		#endregion properties
 
-		/*
-		** Member methods
-		*/
-
-		//public RvtControl()
-		//{
-		//	Progress
-		//}
+		#region methods
 
 		private bool CheckForCancellation(DoWorkEventArgs e)
 		{
@@ -170,6 +162,8 @@ namespace RevitToGOST
 			}
 			return false;
 		}
+
+		#endregion methods
 
 	} // class RvtControl
 
