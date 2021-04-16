@@ -257,6 +257,109 @@ namespace RevitToGOST
 
 	} // class GOST_P_21_101_2020_Dop_6
 
+	class GOST_P_21_101_2020_Table_7
+	{
+		public static void FillLine(ElementContainer elemCont)
+		{
+			//// Заголовок категории
+			if (elemCont.LineType == ElementContainer.ContType.Category)
+			{
+				elemCont.Line = new List<string>() { "", "", elemCont.CategoryLine, "", "", "" };
+			}
+
+			//// Нумерация стоблцов
+			else if (elemCont.LineType == ElementContainer.ContType.ColumnsEnumeration)
+			{
+				elemCont.Line = new List<string>() { "1", "2", "3", "4", "5", "6" };
+			}
+
+			//// Настоящий элемент
+			else
+			{
+				elemCont.Line = new List<string>();
+
+				// "Поз."
+				elemCont.Line.Add(elemCont.Position.ToString());
+
+				// Обозначение
+				elemCont.Line.Add(GOST_21_110_2013.ElementType(elemCont));
+
+				// Наименование
+				elemCont.Line.Add(GOST_21_110_2013.ElementName(elemCont));
+
+				// Кол.
+				double amount = GOST_21_110_2013.ElementAmount(elemCont);
+				if (amount == 0.0)
+					elemCont.Line.Add(String.Empty);
+				else
+					elemCont.Line.Add(amount.ToString());
+
+				// Масса ед., кг
+				double weight = GOST_21_110_2013.ElementWeight(elemCont);
+				if (weight == 0.0)
+					elemCont.Line.Add(String.Empty);
+				else
+					elemCont.Line.Add(weight.ToString());
+
+				// Примечание
+				elemCont.Line.Add(GOST_21_110_2013.ElementNote(elemCont));
+			}
+		}
+	}
+
+	class GOST_P_21_101_2020_Table_8
+	{
+		public static void FillLine(ElementContainer elemCont)
+		{
+			//// Заголовок категории
+			if (elemCont.LineType == ElementContainer.ContType.Category)
+			{
+				elemCont.Line = new List<string>() { "", "", elemCont.CategoryLine, "", "", "", "", "", "", "", "", "", "", "" };
+			}
+
+			//// Нумерация стоблцов
+			else if (elemCont.LineType == ElementContainer.ContType.ColumnsEnumeration)
+			{
+				elemCont.Line = new List<string>() { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14" };
+			}
+
+			//// Настоящий элемент
+			else
+			{
+				elemCont.Line = new List<string>();
+
+				// "Поз."
+				elemCont.Line.Add(elemCont.Position.ToString());
+
+				// Обозначение
+				elemCont.Line.Add(GOST_21_110_2013.ElementType(elemCont));
+
+				// Наименование
+				elemCont.Line.Add(GOST_21_110_2013.ElementName(elemCont));
+
+				// Кол.
+				for (int i = 0; i < 8; ++i)
+					elemCont.Line.Add(String.Empty);
+				double amount = GOST_21_110_2013.ElementAmount(elemCont);
+				if (amount == 0.0)
+					elemCont.Line.Add(String.Empty);
+				else
+					elemCont.Line.Add(amount.ToString());
+
+				// Масса ед., кг
+				double weight = GOST_21_110_2013.ElementWeight(elemCont);
+				if (weight == 0.0)
+					elemCont.Line.Add(String.Empty);
+				else
+					elemCont.Line.Add(weight.ToString());
+
+				// Примечание
+				elemCont.Line.Add(GOST_21_110_2013.ElementNote(elemCont));
+			}
+		}
+
+	} // class GOST_P_21_101_2020_Table_8
+
 	class GOST_P_21_101_2020_Title_12
 	{
 		public static void FillTitle(int a)

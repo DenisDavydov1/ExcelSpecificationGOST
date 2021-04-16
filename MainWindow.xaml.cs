@@ -100,6 +100,7 @@ namespace RevitToGOST
 			// No tab
 			//Export.IsEnabled = state;
 			GroupElemsCheckBox.IsEnabled = state;
+			EnumerateColumnsCheckBox.IsEnabled = state;
 
 			// Tab 1
 			TitleComboBox.IsEnabled = state;
@@ -108,15 +109,18 @@ namespace RevitToGOST
 			Dop1ComboBox.IsEnabled = state;
 			Stamp2ComboBox.IsEnabled = state;
 			Dop2ComboBox.IsEnabled = state;
-			EnumerateColumnsCheckBox.IsEnabled = state;
 
 			// Tab 2
 			AvailableCategories.IsEnabled = state;
 			PickedCategories.IsEnabled = state;
+			PickAllCategoriesButton.IsEnabled = state;
+			ReleaseAllCategoriesButton.IsEnabled = state;
 
 			// Tab 3
 			AvailableElements.IsEnabled = state;
 			PickedElements.IsEnabled = state;
+			PickAllElementsButton.IsEnabled = state;
+			ReleaseAllElementsButton.IsEnabled = state;
 		}
 
 		/*
@@ -226,7 +230,6 @@ namespace RevitToGOST
 
 		#endregion main window methods
 
-
 		/////// TAB CONTROL ///////
 		#region tab control
 
@@ -294,6 +297,10 @@ namespace RevitToGOST
 		{
 			if (TableComboBox.SelectedIndex == 0)
 				Work.Book.Table = GOST.Standarts.GOST_21_110_2013_Table_1;
+			else if (TableComboBox.SelectedIndex == 1)
+				Work.Book.Table = GOST.Standarts.GOST_P_21_101_2020_Table_7;
+			else if (TableComboBox.SelectedIndex == 2)
+				Work.Book.Table = GOST.Standarts.GOST_P_21_101_2020_Table_8;
 			DrawPreview();
 		}
 
@@ -309,6 +316,12 @@ namespace RevitToGOST
 				Work.Book.Stamp1 = GOST.Standarts.GOST_P_21_101_2020_Stamp_5;
 			else if (Stamp1ComboBox.SelectedIndex == 4)
 				Work.Book.Stamp1 = GOST.Standarts.GOST_P_21_101_2020_Stamp_6;
+			else if (Stamp1ComboBox.SelectedIndex == 5)
+				Work.Book.Stamp1 = GOST.Standarts.GOST_2_104_2006_Stamp_1;
+			else if (Stamp1ComboBox.SelectedIndex == 6)
+				Work.Book.Stamp1 = GOST.Standarts.GOST_2_104_2006_Stamp_2;
+			else if (Stamp1ComboBox.SelectedIndex == 7)
+				Work.Book.Stamp1 = GOST.Standarts.GOST_2_104_2006_Stamp_2a;
 			DrawPreview();
 		}
 
@@ -324,6 +337,12 @@ namespace RevitToGOST
 				Work.Book.Dop1 = GOST.Standarts.GOST_P_21_101_2020_Dop_5;
 			else if (Dop1ComboBox.SelectedIndex == 4)
 				Work.Book.Dop1 = GOST.Standarts.GOST_P_21_101_2020_Dop_6;
+			else if (Dop1ComboBox.SelectedIndex == 5)
+				Work.Book.Dop1 = GOST.Standarts.GOST_2_104_2006_Dop_1;
+			else if (Dop1ComboBox.SelectedIndex == 6)
+				Work.Book.Dop1 = GOST.Standarts.GOST_2_104_2006_Dop_2;
+			else if (Dop1ComboBox.SelectedIndex == 7)
+				Work.Book.Dop1 = GOST.Standarts.GOST_2_104_2006_Dop_2a;
 			DrawPreview();
 		}
 
@@ -339,6 +358,12 @@ namespace RevitToGOST
 				Work.Book.Stamp2 = GOST.Standarts.GOST_P_21_101_2020_Stamp_5;
 			else if (Stamp2ComboBox.SelectedIndex == 4)
 				Work.Book.Stamp2 = GOST.Standarts.GOST_P_21_101_2020_Stamp_6;
+			else if (Stamp2ComboBox.SelectedIndex == 5)
+				Work.Book.Stamp2 = GOST.Standarts.GOST_2_104_2006_Stamp_1;
+			else if (Stamp2ComboBox.SelectedIndex == 6)
+				Work.Book.Stamp2 = GOST.Standarts.GOST_2_104_2006_Stamp_2;
+			else if (Stamp2ComboBox.SelectedIndex == 7)
+				Work.Book.Stamp2 = GOST.Standarts.GOST_2_104_2006_Stamp_2a;
 			DrawPreview();
 		}
 
@@ -354,6 +379,12 @@ namespace RevitToGOST
 				Work.Book.Dop2 = GOST.Standarts.GOST_P_21_101_2020_Dop_5;
 			else if (Dop2ComboBox.SelectedIndex == 4)
 				Work.Book.Dop2 = GOST.Standarts.GOST_P_21_101_2020_Dop_6;
+			else if (Dop2ComboBox.SelectedIndex == 5)
+				Work.Book.Dop2 = GOST.Standarts.GOST_2_104_2006_Dop_1;
+			else if (Dop2ComboBox.SelectedIndex == 6)
+				Work.Book.Dop2 = GOST.Standarts.GOST_2_104_2006_Dop_2;
+			else if (Dop2ComboBox.SelectedIndex == 7)
+				Work.Book.Dop2 = GOST.Standarts.GOST_2_104_2006_Dop_2a;
 			DrawPreview();
 		}
 
@@ -370,6 +401,7 @@ namespace RevitToGOST
 			ImageTable.Source = Work.Bitmaps.Table;
 			ImageStamp.Source = Work.Bitmaps.Stamp;
 			ImageDop.Source = Work.Bitmaps.Dop;
+			UpdatePageDescriprion();
 		}
 
 		private void PreviewPageChangeHandler(object sender, PropertyChangedEventArgs e)
@@ -409,6 +441,57 @@ namespace RevitToGOST
 					Work.Bitmaps.PreviewPage = Work.Bitmaps.MaxPreviewPage;
 				else
 					Work.Bitmaps.PreviewPage = newPage;
+			}
+		}
+
+		/*
+		** Update page description
+		*/
+
+		private void UpdatePageDescriprion()
+		{
+			DescrTextBlock.Text = String.Empty;
+			if (Work.Bitmaps.PreviewPage == 1)
+			{
+				if (Work.Book.Title != GOST.Standarts.None)
+				{
+					DescrTextBlock.Text += "Титульный лист:\n" + ConfFile.Descriprions[(int)Work.Book.Title];
+				}
+				else
+				{
+					DescrTextBlock.Text += "Спецификация:\n" + ConfFile.Descriprions[(int)Work.Book.Table] + "\n";
+					if (Work.Book.Stamp1 != GOST.Standarts.None)
+						DescrTextBlock.Text += "Основная надпись:\n" + ConfFile.Descriprions[(int)Work.Book.Stamp1] + "\n";
+					if (Work.Book.Dop1 != GOST.Standarts.None)
+						DescrTextBlock.Text += "Доп. графы:\n" + ConfFile.Descriprions[(int)Work.Book.Dop1] + "\n";
+				}
+			}
+			else if (Work.Bitmaps.PreviewPage == 2)
+			{
+				if (Work.Book.Title != GOST.Standarts.None)
+				{
+					DescrTextBlock.Text += "Спецификация:\n" + ConfFile.Descriprions[(int)Work.Book.Table] + "\n";
+					if (Work.Book.Stamp1 != GOST.Standarts.None)
+						DescrTextBlock.Text += "Основная надпись:\n" + ConfFile.Descriprions[(int)Work.Book.Stamp1] + "\n";
+					if (Work.Book.Dop1 != GOST.Standarts.None)
+						DescrTextBlock.Text += "Доп. графы:\n" + ConfFile.Descriprions[(int)Work.Book.Dop1] + "\n";
+				}
+				else
+				{
+					DescrTextBlock.Text += "Спецификация:\n" + ConfFile.Descriprions[(int)Work.Book.Table] + "\n";
+					if (Work.Book.Stamp2 != GOST.Standarts.None)
+						DescrTextBlock.Text += "Основная надпись:\n" + ConfFile.Descriprions[(int)Work.Book.Stamp2] + "\n";
+					if (Work.Book.Dop2 != GOST.Standarts.None)
+						DescrTextBlock.Text += "Доп. графы:\n" + ConfFile.Descriprions[(int)Work.Book.Dop2] + "\n";
+				}
+			}
+			else if (Work.Bitmaps.PreviewPage == 3)
+			{
+				DescrTextBlock.Text += "Спецификация:\n" + ConfFile.Descriprions[(int)Work.Book.Table] + "\n";
+				if (Work.Book.Stamp2 != GOST.Standarts.None)
+					DescrTextBlock.Text += "Основная надпись:\n" + ConfFile.Descriprions[(int)Work.Book.Stamp2] + "\n";
+				if (Work.Book.Dop2 != GOST.Standarts.None)
+					DescrTextBlock.Text += "Доп. графы:\n" + ConfFile.Descriprions[(int)Work.Book.Dop2] + "\n";
 			}
 		}
 
@@ -664,14 +747,6 @@ namespace RevitToGOST
 		}
 
 		#endregion hint tray
-
-		private void huy_Click(object sender, RoutedEventArgs e)
-		{
-			if (Rvt.Control.ExportWorker != null)
-			{
-				Rvt.Control.ExportWorker.CancelAsync();
-			}
-		}
 
 	} // class MainWindow
 

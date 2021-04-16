@@ -162,22 +162,30 @@
 					 Height="40">
 				<Grid>
 
+					<Separator Height="1" Width="335" Margin="25,65,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="LightGray"/>
+					<Separator Height="1" Width="335" Margin="25,110,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="LightGray"/>
+					<Separator Height="1" Width="335" Margin="25,155,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="LightGray"/>
+					<Separator Height="1" Width="335" Margin="25,200,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="LightGray"/>
+					<Separator Height="1" Width="335" Margin="25,245,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="LightGray"/>
+
+
 					<Line X1="25" Y1="65" X2="360" Y2="65"
-						  Stroke="#cccccc" StrokeThickness="0.7"/>
+						  Stroke="#cccccc" StrokeThickness="0.5"
+						  Visibility="Hidden"/>
 					<Line X1="25" Y1="110" X2="360" Y2="110"
-						  Stroke="#cccccc" StrokeThickness="0.7"/>
+						  Stroke="#cccccc" StrokeThickness="0.5" Visibility="Hidden"/>
 					<Line X1="25" Y1="155" X2="360" Y2="155"
-						  Stroke="#cccccc" StrokeThickness="0.7"/>
+						  Stroke="#cccccc" StrokeThickness="0.5" Visibility="Hidden"/>
 					<Line X1="25" Y1="200" X2="360" Y2="200"
-						  Stroke="#cccccc" StrokeThickness="0.7"/>
+						  Stroke="#cccccc" StrokeThickness="0.5" Visibility="Hidden"/>
 					<Line X1="25" Y1="245" X2="360" Y2="245"
-						  Stroke="#cccccc" StrokeThickness="0.7"/>
+						  Stroke="#cccccc" StrokeThickness="0.5" Visibility="Hidden"/>
 
 					<Line X1="370" Y1="10" X2="370" Y2="290"
-						  Stroke="#cccccc" StrokeThickness="0.7"
+						  Stroke="#cccccc" StrokeThickness="0.5"
 						  Visibility="Hidden"/>
 					<Line X1="25" Y1="290" X2="360" Y2="290"
-						  Stroke="#cccccc" StrokeThickness="0.7"
+						  Stroke="#cccccc" StrokeThickness="0.5"
 						  Visibility="Hidden"/>
 
 
@@ -211,6 +219,8 @@
 							  SelectedIndex="0"
 							  SelectionChanged="TableComboBox_SelectionChanged">
 						<TextBlock>ГОСТ 21.110-2013 (Форма 1)</TextBlock>
+						<TextBlock>ГОСТ Р 21.101-2020 (Форма 7)</TextBlock>
+						<TextBlock>ГОСТ Р 21.101-2020 (Форма 8)</TextBlock>
 					</ComboBox>
 
 					<!--Основная надпись 1-->
@@ -231,6 +241,9 @@
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 4)</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 5)</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 6)</TextBlock>
+						<TextBlock>ГОСТ 2.104—2006 (Форма 1)</TextBlock>
+						<TextBlock>ГОСТ 2.104—2006 (Форма 2)</TextBlock>
+						<TextBlock>ГОСТ 2.104—2006 (Форма 2a)</TextBlock>
 					</ComboBox>
 
 					<!--Дополнительные графы 1-->
@@ -251,6 +264,9 @@
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 4)</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 5)</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 6)</TextBlock>
+						<TextBlock>ГОСТ 2.104—2006 (Форма 1)</TextBlock>
+						<TextBlock>ГОСТ 2.104—2006 (Форма 2)</TextBlock>
+						<TextBlock>ГОСТ 2.104—2006 (Форма 2a)</TextBlock>
 					</ComboBox>
 
 					<!--Основная надпись 2-->
@@ -266,11 +282,14 @@
 							  HorizontalAlignment="Left" VerticalAlignment="Top"
 							  SelectedIndex="4"
 							  SelectionChanged="Stamp2ComboBox_SelectionChanged">
-						<TextBlock><Run Text="Нет"/></TextBlock>
-						<TextBlock><Run Text="ГОСТ Р 21.101-2020 (Форма 3)"/></TextBlock>
-						<TextBlock><Run Text="ГОСТ Р 21.101-2020 (Форма 4)"/></TextBlock>
-						<TextBlock><Run Text="ГОСТ Р 21.101-2020 (Форма 5)"/></TextBlock>
-						<TextBlock><Run Text="ГОСТ Р 21.101-2020 (Форма 6)"/></TextBlock>
+						<TextBlock>Нет</TextBlock>
+						<TextBlock>ГОСТ Р 21.101-2020 (Форма 3)</TextBlock>
+						<TextBlock>ГОСТ Р 21.101-2020 (Форма 4)</TextBlock>
+						<TextBlock>ГОСТ Р 21.101-2020 (Форма 5)</TextBlock>
+						<TextBlock>ГОСТ Р 21.101-2020 (Форма 6)</TextBlock>
+						<TextBlock>ГОСТ 2.104—2006 (Форма 1)</TextBlock>
+						<TextBlock>ГОСТ 2.104—2006 (Форма 2)</TextBlock>
+						<TextBlock>ГОСТ 2.104—2006 (Форма 2a)</TextBlock>
 					</ComboBox>
 
 					<!--Дополнительные графы 2-->
@@ -285,11 +304,14 @@
 							  Height="25" Width="210"
 							  SelectedIndex="4"
 							  SelectionChanged="Dop2ComboBox_SelectionChanged">
-						<TextBlock><Run Text="Нет"/></TextBlock>
-						<TextBlock><Run Text="ГОСТ Р 21.101-2020 (Форма 3)"/></TextBlock>
-						<TextBlock><Run Text="ГОСТ Р 21.101-2020 (Форма 4)"/></TextBlock>
-						<TextBlock><Run Text="ГОСТ Р 21.101-2020 (Форма 5)"/></TextBlock>
-						<TextBlock><Run Text="ГОСТ Р 21.101-2020 (Форма 6)"/></TextBlock>
+						<TextBlock>Нет</TextBlock>
+						<TextBlock>ГОСТ Р 21.101-2020 (Форма 3)</TextBlock>
+						<TextBlock>ГОСТ Р 21.101-2020 (Форма 4)</TextBlock>
+						<TextBlock>ГОСТ Р 21.101-2020 (Форма 5)</TextBlock>
+						<TextBlock>ГОСТ Р 21.101-2020 (Форма 6)</TextBlock>
+						<TextBlock>ГОСТ 2.104—2006 (Форма 1)</TextBlock>
+						<TextBlock>ГОСТ 2.104—2006 (Форма 2)</TextBlock>
+						<TextBlock>ГОСТ 2.104—2006 (Форма 2a)</TextBlock>
 					</ComboBox>
 
 					<!--Предварительный просмотр-->
@@ -299,26 +321,26 @@
 							   Margin="407,159,0,0"
 							   Visibility="Hidden"/>
 
-					<Rectangle Height="200" Width="283"
+					<Rectangle Height="200" Width="280"
 							   VerticalAlignment="Top" HorizontalAlignment="Left"
-							   Margin="67,320,0,0"
+							   Margin="51,317,0,0"
 							   Stroke="LightGray"/>
 
 					<Image x:Name="ImageTable"
-						   Height="200" Width="282"
-						   Margin="67,320,0,0"
+						   Height="200" Width="280"
+						   Margin="51,317,0,0"
 						    VerticalAlignment="Top" HorizontalAlignment="Left"
 						   IsEnabled="True"/>
 
 					<Image x:Name="ImageStamp"
-						   Height="200" Width="282"
-						   Margin="67,320,0,0"
+						   Height="200" Width="280"
+						   Margin="51,317,0,0"
 						    VerticalAlignment="Top" HorizontalAlignment="Left"
 						   IsEnabled="True"/>
 
 					<Image x:Name="ImageDop"
-						   Height="200" Width="283"
-						   Margin="67,320,0,0"
+						   Height="200" Width="280"
+						   Margin="51,317,0,0"
 						    VerticalAlignment="Top" HorizontalAlignment="Left"
 						   IsEnabled="True"/>
 
@@ -326,7 +348,7 @@
 					<TextBox x:Name="PreviewPageNumberTextBox"
 							 VerticalAlignment="Top" HorizontalAlignment="Left"
 							 Height="20" Width="20"
-							 Margin="198,528,0,0"
+							 Margin="182,525,0,0"
 							 Text="1"
 							 VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
 							 KeyDown="PreviewPageNumberTextBox_KeyDown">
@@ -336,15 +358,25 @@
 							Content="⮜"
 							VerticalAlignment="Top" HorizontalAlignment="Left"
 							Height="20" Width="20"
-							Margin="168,528,0,0"
+							Margin="152,525,0,0"
 							Click="PrevPageButton_Click"/>
 
 					<Button x:Name="NextPageButton"
 							Content="⮞"
 							VerticalAlignment="Top" HorizontalAlignment="Left"
 							Height="20" Width="20"
-							Margin="228,528,0,0"
+							Margin="212,525,0,0"
 							Click="NextPageButton_Click"/>
+
+					<!--Описание страницы-->
+					<ScrollViewer x:Name="DescrScrollViewer"
+								  VerticalAlignment="Top" HorizontalAlignment="Right"
+								  Height="518" Width="245"
+								  Margin="0,30,20,0">
+						<TextBlock x:Name="DescrTextBlock"
+								   TextWrapping="Wrap"
+								   Text=""/>
+					</ScrollViewer>
 
 				</Grid>
 
@@ -367,7 +399,8 @@
 							  ItemsSource="{Binding}"
 							  SelectionMode="Extended"
 							  dd:DragDrop.IsDragSource="True"
-							  dd:DragDrop.IsDropTarget="True">
+							  dd:DragDrop.IsDropTarget="True"
+							  Foreground="Black">
 						<ListView.View>
 							<GridView>
 								<GridViewColumn DisplayMemberBinding="{Binding Name}" Width="200">
@@ -391,7 +424,8 @@
 							  ItemsSource="{Binding}"
 							  SelectionMode="Extended"
 							  dd:DragDrop.IsDragSource="True"
-							  dd:DragDrop.IsDropTarget="True">
+							  dd:DragDrop.IsDropTarget="True"
+							  Foreground="Black">
 						<ListView.View>
 							<GridView>
 								<GridViewColumn DisplayMemberBinding="{Binding Name}" Width="200">
@@ -438,7 +472,8 @@
 							  ItemsSource="{Binding}"
 							  SelectionMode="Extended"
 							  dd:DragDrop.IsDragSource="True"
-							  dd:DragDrop.IsDropTarget="True">
+							  dd:DragDrop.IsDropTarget="True"
+							  Foreground="Black">
 						<ListView.View>
 							<!-- Table -->
 							<GridView>
@@ -476,7 +511,8 @@
 							  ItemsSource="{Binding}"
 							  SelectionMode="Extended"
 							  dd:DragDrop.IsDragSource="True"
-							  dd:DragDrop.IsDropTarget="True">
+							  dd:DragDrop.IsDropTarget="True"
+							  Foreground="Black">
 						<ListView.View >
 							<!-- Table -->
 							<GridView>

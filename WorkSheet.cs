@@ -293,6 +293,13 @@ namespace RevitToGOST
 						(int y1, int x1) = (table.Fields[table.Line][field][0], table.Fields[table.Line][field][1]);
 						(y1, x1) = XMLTools.GetCellIndexesBySize(Rows, Columns, y1, x1);
 						WS.Cell(y1, x1).Value = table.Data[dataLine][field];
+
+						// Underline category name
+						if (table.Type == GOST.Types.Table &&
+							table.ElemCol[dataLine].LineType == ElementContainer.ContType.Category &&
+							table.Data[dataLine][field].Length > 0)
+							WS.Cell(y1, x1).Style.Font.SetUnderline();
+
 						if (table.Type == GOST.Types.Table)
 						{
 							(int y2, int x2) = (table.Fields[table.Line][field][2], table.Fields[table.Line][field][3]);
@@ -345,6 +352,19 @@ namespace RevitToGOST
 				(int y, int x) = (Tables[0].Fields[1][1][0], Tables[0].Fields[1][1][1]);
 				(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
 				//Log.WriteLine("cell {0} {1}. Text: {2}", y, x, WS.Cell(y, x).Value);
+				WS.Cell(y, x).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+			}
+			else if ((Work.Book.Table == GOST.Standarts.GOST_P_21_101_2020_Table_7 ||
+				Work.Book.Table == GOST.Standarts.GOST_P_21_101_2020_Table_8) &&
+				Tables[0].Standart == Work.Book.Table &&
+				Rvt.Control.EnumerateColumnsCheckBox == true)
+			{
+				(int y, int x) = (Tables[0].Fields[1][1][0], Tables[0].Fields[1][1][1]);
+				(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
+				WS.Cell(y, x).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+				(y, x) = (Tables[0].Fields[1][2][0], Tables[0].Fields[1][2][1]);
+				(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
 				WS.Cell(y, x).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 			}
 		}

@@ -118,46 +118,121 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="GOST_21_101_2020_Dop_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Templates\GOST_21_101_2020_Dop_3.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="GOST_21_101_2020_Dop_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Templates\GOST_21_101_2020_Dop_4.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="GOST_21_101_2020_Dop_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Templates\GOST_21_101_2020_Dop_5.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="GOST_21_101_2020_Dop_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Templates\GOST_21_101_2020_Dop_6.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="GOST_21_101_2020_Stamp_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Templates\GOST_21_101_2020_Stamp_3.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="GOST_21_101_2020_Stamp_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Templates\GOST_21_101_2020_Stamp_4.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="GOST_21_101_2020_Stamp_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Templates\GOST_21_101_2020_Stamp_5.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="GOST_21_101_2020_Stamp_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Templates\GOST_21_101_2020_Stamp_6.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="GOST_21_101_2020_Title_12" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Templates\GOST_21_101_2020_Title_12.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Previews\Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GOST_21_110_2013_Table_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Templates\GOST_21_110_2013_Table_1.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Preview_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Previews\Preview_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="GOST_2_104_2006_Dop_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Templates\GOST_2_104_2006_Dop_1.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Preview_GOST_21_101_2020_Stamp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Previews\Preview_GOST_21_101_2020_Stamp3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="GOST_2_104_2006_Dop_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Templates\GOST_2_104_2006_Dop_2.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Preview_GOST_21_101_2020_Title12" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Previews\Preview_GOST_21_101_2020_Title12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="GOST_2_104_2006_Dop_2a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Templates\GOST_2_104_2006_Dop_2a.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Preview_GOST_21_110_2013_Table1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Previews\Preview_GOST_21_110_2013_Table1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="GOST_2_104_2006_Stamp_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Templates\GOST_2_104_2006_Stamp_1.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GOST_2_104_2006_Stamp_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Templates\GOST_2_104_2006_Stamp_2.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GOST_2_104_2006_Stamp_2a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Templates\GOST_2_104_2006_Stamp_2a.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GOST_P_21_101_2020_Dop_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Templates\GOST_P_21_101_2020_Dop_3.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GOST_P_21_101_2020_Dop_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Templates\GOST_P_21_101_2020_Dop_4.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GOST_P_21_101_2020_Dop_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Templates\GOST_P_21_101_2020_Dop_5.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GOST_P_21_101_2020_Dop_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Templates\GOST_P_21_101_2020_Dop_6.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GOST_P_21_101_2020_Stamp_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Templates\GOST_P_21_101_2020_Stamp_3.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GOST_P_21_101_2020_Stamp_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Templates\GOST_P_21_101_2020_Stamp_4.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GOST_P_21_101_2020_Stamp_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Templates\GOST_P_21_101_2020_Stamp_5.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GOST_P_21_101_2020_Stamp_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Templates\GOST_P_21_101_2020_Stamp_6.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GOST_P_21_101_2020_Table_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Templates\GOST_P_21_101_2020_Table_7.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GOST_P_21_101_2020_Table_8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Templates\GOST_P_21_101_2020_Table_8.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GOST_P_21_101_2020_Title_12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Templates\GOST_P_21_101_2020_Title_12.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Preview_GOST_21_110_2013_Table_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Previews\Preview_GOST_21_110_2013_Table_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Preview_GOST_P_21_101_2020_Dop_3_A3_L" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Previews\Preview_GOST_P_21_101_2020_Dop_3_A3_L.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Preview_GOST_P_21_101_2020_Dop_3_A4_P" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Previews\Preview_GOST_P_21_101_2020_Dop_3_A4_P.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Preview_GOST_P_21_101_2020_Dop_4_A3_L" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Previews\Preview_GOST_P_21_101_2020_Dop_4_A3_L.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Preview_GOST_P_21_101_2020_Dop_4_A4_P" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Previews\Preview_GOST_P_21_101_2020_Dop_4_A4_P.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Preview_GOST_P_21_101_2020_Dop_5_A3_L" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Previews\Preview_GOST_P_21_101_2020_Dop_5_A3_L.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Preview_GOST_P_21_101_2020_Dop_5_A4_P" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Previews\Preview_GOST_P_21_101_2020_Dop_5_A4_P.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Preview_GOST_P_21_101_2020_Dop_6_A3_L" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Previews\Preview_GOST_P_21_101_2020_Dop_6_A3_L.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Preview_GOST_P_21_101_2020_Dop_6_A4_P" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Previews\Preview_GOST_P_21_101_2020_Dop_6_A4_P.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Preview_GOST_P_21_101_2020_Stamp_3_A3_L" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Previews\Preview_GOST_P_21_101_2020_Stamp_3_A3_L.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Preview_GOST_P_21_101_2020_Stamp_3_A4_P" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Previews\Preview_GOST_P_21_101_2020_Stamp_3_A4_P.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Preview_GOST_P_21_101_2020_Stamp_4_A3_L" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Previews\Preview_GOST_P_21_101_2020_Stamp_4_A3_L.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Preview_GOST_P_21_101_2020_Stamp_4_A4_P" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Previews\Preview_GOST_P_21_101_2020_Stamp_4_A4_P.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Preview_GOST_P_21_101_2020_Stamp_5_A3_L" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Previews\Preview_GOST_P_21_101_2020_Stamp_5_A3_L.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Preview_GOST_P_21_101_2020_Stamp_5_A4_P" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Previews\Preview_GOST_P_21_101_2020_Stamp_5_A4_P.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Preview_GOST_P_21_101_2020_Stamp_6_A3_L" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Previews\Preview_GOST_P_21_101_2020_Stamp_6_A3_L.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Preview_GOST_P_21_101_2020_Stamp_6_A4_P" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Previews\Preview_GOST_P_21_101_2020_Stamp_6_A4_P.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Preview_GOST_P_21_101_2020_Table_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Previews\Preview_GOST_P_21_101_2020_Table_7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Preview_GOST_P_21_101_2020_Table_8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Previews\Preview_GOST_P_21_101_2020_Table_8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Preview_GOST_P_21_101_2020_Title_12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Previews\Preview_GOST_P_21_101_2020_Title_12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

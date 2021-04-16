@@ -94,6 +94,7 @@
     <Compile Include="GOST.cs" />
     <Compile Include="GostTools.cs" />
     <Compile Include="GOST_21_110_2013.cs" />
+    <Compile Include="GOST_2_104_2006.cs" />
     <Compile Include="GOST_P_21_101_2020.cs" />
     <Compile Include="IGostData.cs" />
     <Compile Include="LoadingWindow.xaml.cs">
@@ -120,15 +121,43 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Resource Include="Templates\GOST_21_101_2020_Dop_6.json" />
-    <Resource Include="Templates\GOST_21_101_2020_Stamp_6.json" />
-    <Resource Include="Templates\GOST_21_101_2020_Dop_5.json" />
-    <Resource Include="Templates\GOST_21_101_2020_Stamp_5.json" />
-    <Resource Include="Templates\GOST_21_101_2020_Stamp_4.json" />
-    <Resource Include="Templates\GOST_21_101_2020_Dop_4.json" />
-    <Resource Include="Templates\GOST_21_101_2020_Dop_3.json" />
-    <Resource Include="Templates\GOST_21_101_2020_Stamp_3.json" />
-    <Resource Include="Templates\GOST_21_101_2020_Title_12.json" />
+    <None Include="Previews\Empty.png" />
+    <None Include="Previews\Preview_GOST_21_110_2013_Table_1.png" />
+    <None Include="Previews\Preview_GOST_P_21_101_2020_Dop_3_A3_L.png" />
+    <None Include="Previews\Preview_GOST_P_21_101_2020_Dop_3_A4_P.png" />
+    <None Include="Previews\Preview_GOST_P_21_101_2020_Dop_4_A3_L.png" />
+    <None Include="Previews\Preview_GOST_P_21_101_2020_Dop_4_A4_P.png" />
+    <None Include="Previews\Preview_GOST_P_21_101_2020_Dop_5_A3_L.png" />
+    <None Include="Previews\Preview_GOST_P_21_101_2020_Dop_5_A4_P.png" />
+    <None Include="Previews\Preview_GOST_P_21_101_2020_Dop_6_A3_L.png" />
+    <None Include="Previews\Preview_GOST_P_21_101_2020_Dop_6_A4_P.png" />
+    <None Include="Previews\Preview_GOST_P_21_101_2020_Stamp_3_A3_L.png" />
+    <None Include="Previews\Preview_GOST_P_21_101_2020_Stamp_3_A4_P.png" />
+    <None Include="Previews\Preview_GOST_P_21_101_2020_Stamp_4_A3_L.png" />
+    <None Include="Previews\Preview_GOST_P_21_101_2020_Stamp_4_A4_P.png" />
+    <None Include="Previews\Preview_GOST_P_21_101_2020_Stamp_5_A3_L.png" />
+    <None Include="Previews\Preview_GOST_P_21_101_2020_Stamp_5_A4_P.png" />
+    <None Include="Previews\Preview_GOST_P_21_101_2020_Stamp_6_A3_L.png" />
+    <None Include="Previews\Preview_GOST_P_21_101_2020_Stamp_6_A4_P.png" />
+    <None Include="Previews\Preview_GOST_P_21_101_2020_Table_7.png" />
+    <None Include="Previews\Preview_GOST_P_21_101_2020_Title_12.png" />
+    <None Include="Templates\GOST_2_104_2006_Dop_1.json" />
+    <None Include="Templates\GOST_2_104_2006_Dop_2.json" />
+    <None Include="Templates\GOST_2_104_2006_Dop_2a.json" />
+    <None Include="Templates\GOST_2_104_2006_Stamp_1.json" />
+    <None Include="Templates\GOST_2_104_2006_Stamp_2.json" />
+    <None Include="Templates\GOST_2_104_2006_Stamp_2a.json" />
+    <None Include="Templates\GOST_P_21_101_2020_Table_8.json" />
+    <Resource Include="Templates\GOST_P_21_101_2020_Dop_3.json" />
+    <Resource Include="Templates\GOST_P_21_101_2020_Dop_4.json" />
+    <Resource Include="Templates\GOST_P_21_101_2020_Dop_5.json" />
+    <Resource Include="Templates\GOST_P_21_101_2020_Dop_6.json" />
+    <Resource Include="Templates\GOST_P_21_101_2020_Stamp_3.json" />
+    <Resource Include="Templates\GOST_P_21_101_2020_Stamp_4.json" />
+    <Resource Include="Templates\GOST_P_21_101_2020_Stamp_5.json" />
+    <Resource Include="Templates\GOST_P_21_101_2020_Stamp_6.json" />
+    <Resource Include="Templates\GOST_P_21_101_2020_Table_7.json" />
+    <Resource Include="Templates\GOST_P_21_101_2020_Title_12.json" />
     <Resource Include="Templates\GOST_21_110_2013_Table_1.json" />
   </ItemGroup>
   <ItemGroup>
@@ -142,11 +171,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Previews\Preview_GOST_21_110_2013_Table1.png" />
-    <Resource Include="Previews\Preview_GOST_21_101_2020_Stamp3.png" />
-    <Resource Include="Previews\Preview_Empty.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -156,7 +180,7 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Previews\Preview_GOST_21_101_2020_Title12.png" />
+    <None Include="Previews\Preview_GOST_P_21_101_2020_Table_8.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

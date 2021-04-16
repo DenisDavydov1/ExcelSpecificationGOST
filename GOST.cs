@@ -90,15 +90,21 @@ namespace RevitToGOST
 			GOST_P_21_101_2020_Dop_5,
 			GOST_P_21_101_2020_Stamp_6,
 			GOST_P_21_101_2020_Dop_6,
-			table7,
-			table8,
+			GOST_P_21_101_2020_Table_7,
+			GOST_P_21_101_2020_Table_8,
 			misc9,
 			misc9a,
 			misc10,
 			misc11,
 			GOST_P_21_101_2020_Title_12,
 			misc13,
-			title14
+			title14,
+			GOST_2_104_2006_Stamp_1,
+			GOST_2_104_2006_Dop_1,
+			GOST_2_104_2006_Stamp_2,
+			GOST_2_104_2006_Dop_2,
+			GOST_2_104_2006_Stamp_2a,
+			GOST_2_104_2006_Dop_2a
 		}
 
 		#endregion enums
