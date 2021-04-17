@@ -203,6 +203,8 @@
 							  SelectionChanged="TitleComboBox_SelectionChanged">
 						<TextBlock>Нет</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 12)</TextBlock>
+						<TextBlock>ГОСТ Р 21.101-2020 (Форма 12а)</TextBlock>
+						<TextBlock>ГОСТ 21.301-2014 (Форма 2)</TextBlock>
 					</ComboBox>
 
 					<!--Спецификация-->
@@ -221,6 +223,8 @@
 						<TextBlock>ГОСТ 21.110-2013 (Форма 1)</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 7)</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 8)</TextBlock>
+						<TextBlock>ГОСТ Р 2.106-2019 (Форма 1)</TextBlock>
+						<TextBlock>ГОСТ Р 2.106-2019 (Форма 5)</TextBlock>
 					</ComboBox>
 
 					<!--Основная надпись 1-->
@@ -241,9 +245,9 @@
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 4)</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 5)</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 6)</TextBlock>
-						<TextBlock>ГОСТ 2.104—2006 (Форма 1)</TextBlock>
-						<TextBlock>ГОСТ 2.104—2006 (Форма 2)</TextBlock>
-						<TextBlock>ГОСТ 2.104—2006 (Форма 2a)</TextBlock>
+						<TextBlock>ГОСТ 2.104-2006 (Форма 1)</TextBlock>
+						<TextBlock>ГОСТ 2.104-2006 (Форма 2)</TextBlock>
+						<TextBlock>ГОСТ 2.104-2006 (Форма 2a)</TextBlock>
 					</ComboBox>
 
 					<!--Дополнительные графы 1-->
@@ -264,9 +268,9 @@
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 4)</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 5)</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 6)</TextBlock>
-						<TextBlock>ГОСТ 2.104—2006 (Форма 1)</TextBlock>
-						<TextBlock>ГОСТ 2.104—2006 (Форма 2)</TextBlock>
-						<TextBlock>ГОСТ 2.104—2006 (Форма 2a)</TextBlock>
+						<TextBlock>ГОСТ 2.104-2006 (Форма 1)</TextBlock>
+						<TextBlock>ГОСТ 2.104-2006 (Форма 2)</TextBlock>
+						<TextBlock>ГОСТ 2.104-2006 (Форма 2a)</TextBlock>
 					</ComboBox>
 
 					<!--Основная надпись 2-->
@@ -287,9 +291,9 @@
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 4)</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 5)</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 6)</TextBlock>
-						<TextBlock>ГОСТ 2.104—2006 (Форма 1)</TextBlock>
-						<TextBlock>ГОСТ 2.104—2006 (Форма 2)</TextBlock>
-						<TextBlock>ГОСТ 2.104—2006 (Форма 2a)</TextBlock>
+						<TextBlock>ГОСТ 2.104-2006 (Форма 1)</TextBlock>
+						<TextBlock>ГОСТ 2.104-2006 (Форма 2)</TextBlock>
+						<TextBlock>ГОСТ 2.104-2006 (Форма 2a)</TextBlock>
 					</ComboBox>
 
 					<!--Дополнительные графы 2-->
@@ -309,9 +313,9 @@
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 4)</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 5)</TextBlock>
 						<TextBlock>ГОСТ Р 21.101-2020 (Форма 6)</TextBlock>
-						<TextBlock>ГОСТ 2.104—2006 (Форма 1)</TextBlock>
-						<TextBlock>ГОСТ 2.104—2006 (Форма 2)</TextBlock>
-						<TextBlock>ГОСТ 2.104—2006 (Форма 2a)</TextBlock>
+						<TextBlock>ГОСТ 2.104-2006 (Форма 1)</TextBlock>
+						<TextBlock>ГОСТ 2.104-2006 (Форма 2)</TextBlock>
+						<TextBlock>ГОСТ 2.104-2006 (Форма 2a)</TextBlock>
 					</ComboBox>
 
 					<!--Предварительный просмотр-->

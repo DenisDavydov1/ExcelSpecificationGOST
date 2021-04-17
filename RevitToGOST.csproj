@@ -94,8 +94,10 @@
     <Compile Include="GOST.cs" />
     <Compile Include="GostTools.cs" />
     <Compile Include="GOST_21_110_2013.cs" />
+    <Compile Include="GOST_21_301_2014.cs" />
     <Compile Include="GOST_2_104_2006.cs" />
     <Compile Include="GOST_P_21_101_2020.cs" />
+    <Compile Include="GOST_P_2_106_2019.cs" />
     <Compile Include="IGostData.cs" />
     <Compile Include="LoadingWindow.xaml.cs">
       <DependentUpon>LoadingWindow.xaml</DependentUpon>
@@ -141,6 +143,7 @@
     <None Include="Previews\Preview_GOST_P_21_101_2020_Stamp_6_A4_P.png" />
     <None Include="Previews\Preview_GOST_P_21_101_2020_Table_7.png" />
     <None Include="Previews\Preview_GOST_P_21_101_2020_Title_12.png" />
+    <None Include="Templates\GOST_21_301_2014_Title_2.json" />
     <None Include="Templates\GOST_2_104_2006_Dop_1.json" />
     <None Include="Templates\GOST_2_104_2006_Dop_2.json" />
     <None Include="Templates\GOST_2_104_2006_Dop_2a.json" />
@@ -148,6 +151,9 @@
     <None Include="Templates\GOST_2_104_2006_Stamp_2.json" />
     <None Include="Templates\GOST_2_104_2006_Stamp_2a.json" />
     <None Include="Templates\GOST_P_21_101_2020_Table_8.json" />
+    <None Include="Templates\GOST_P_21_101_2020_Title_12a.json" />
+    <None Include="Templates\GOST_P_2_106_2019_Table_1.json" />
+    <None Include="Templates\GOST_P_2_106_2019_Table_5.json" />
     <Resource Include="Templates\GOST_P_21_101_2020_Dop_3.json" />
     <Resource Include="Templates\GOST_P_21_101_2020_Dop_4.json" />
     <Resource Include="Templates\GOST_P_21_101_2020_Dop_5.json" />
@@ -181,6 +187,54 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Previews\Preview_GOST_P_21_101_2020_Table_8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Previews\Preview_GOST_2_104_2006_Dop_1_A3_L.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Previews\Preview_GOST_2_104_2006_Dop_1_A4_P.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Previews\Preview_GOST_2_104_2006_Dop_2_A3_L.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Previews\Preview_GOST_2_104_2006_Dop_2_A4_P.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Previews\Preview_GOST_2_104_2006_Dop_2a_A3_L.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Previews\Preview_GOST_2_104_2006_Dop_2a_A4_P.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Previews\Preview_GOST_2_104_2006_Stamp_1_A3_L.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Previews\Preview_GOST_2_104_2006_Stamp_1_A4_P.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Previews\Preview_GOST_2_104_2006_Stamp_2_A3_L.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Previews\Preview_GOST_2_104_2006_Stamp_2_A4_P.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Previews\Preview_GOST_2_104_2006_Stamp_2a_A3_L.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Previews\Preview_GOST_2_104_2006_Stamp_2a_A4_P.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Previews\Preview_GOST_21_301_2014_Title_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Previews\Preview_GOST_P_2_106_2019_Table_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Previews\Preview_GOST_P_2_106_2019_Table_5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Previews\Preview_GOST_P_21_101_2020_Title_12a.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

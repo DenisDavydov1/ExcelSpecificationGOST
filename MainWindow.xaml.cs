@@ -290,6 +290,10 @@ namespace RevitToGOST
 			}
 			else if (TitleComboBox.SelectedIndex == 1)
 				Work.Book.Title = GOST.Standarts.GOST_P_21_101_2020_Title_12;
+			else if (TitleComboBox.SelectedIndex == 2)
+				Work.Book.Title = GOST.Standarts.GOST_P_21_101_2020_Title_12a;
+			else if (TitleComboBox.SelectedIndex == 3)
+				Work.Book.Title = GOST.Standarts.GOST_21_301_2014_Title_2;
 			DrawPreview();
 		}
 
@@ -301,6 +305,10 @@ namespace RevitToGOST
 				Work.Book.Table = GOST.Standarts.GOST_P_21_101_2020_Table_7;
 			else if (TableComboBox.SelectedIndex == 2)
 				Work.Book.Table = GOST.Standarts.GOST_P_21_101_2020_Table_8;
+			else if (TableComboBox.SelectedIndex == 3)
+				Work.Book.Table = GOST.Standarts.GOST_P_2_106_2019_Table_1;
+			else if (TableComboBox.SelectedIndex == 4)
+				Work.Book.Table = GOST.Standarts.GOST_P_2_106_2019_Table_5;
 			DrawPreview();
 		}
 

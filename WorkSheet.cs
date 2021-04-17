@@ -229,7 +229,9 @@ namespace RevitToGOST
 
 						// Draw borders
 						if (table.Borders != null)
+						{
 							WS.Range(y1, x1, y2, x2).Style.Border.OutsideBorder = (XLBorderStyleValues)table.Borders[i][j];
+						}
 					}
 				}
 			}
@@ -366,6 +368,49 @@ namespace RevitToGOST
 				(y, x) = (Tables[0].Fields[1][2][0], Tables[0].Fields[1][2][1]);
 				(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
 				WS.Cell(y, x).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+			}
+			else if (Work.Book.Table == GOST.Standarts.GOST_P_2_106_2019_Table_1 &&
+				Tables[0].Standart == Work.Book.Table &&
+				Rvt.Control.EnumerateColumnsCheckBox == true)
+			{
+				(int y, int x) = (Tables[0].Fields[1][3][0], Tables[0].Fields[1][3][1]);
+				(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
+				WS.Cell(y, x).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+				(y, x) = (Tables[0].Fields[1][4][0], Tables[0].Fields[1][4][1]);
+				(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
+				WS.Cell(y, x).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+			}
+			else if (Work.Book.Table == GOST.Standarts.GOST_P_2_106_2019_Table_5 &&
+				Tables[0].Standart == Work.Book.Table &&
+				Rvt.Control.EnumerateColumnsCheckBox == true)
+			{
+				(int y, int x) = (Tables[0].Fields[1][1][0], Tables[0].Fields[1][1][1]);
+				(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
+				WS.Cell(y, x).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+			}
+
+			// Change text direction
+			if (Work.Book.Table == GOST.Standarts.GOST_P_2_106_2019_Table_1 &&
+				Tables[0].Standart == Work.Book.Table)
+			{
+				int x, y;
+				for (int i = 0; i < 3; ++i)
+				{
+					(y, x) = (Tables[0].Fields[0][i][0], Tables[0].Fields[0][i][1]);
+					(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
+					WS.Cell(y, x).Style.Alignment.SetTextRotation(90);
+				}
+				(y, x) = (Tables[0].Fields[0][5][0], Tables[0].Fields[0][5][1]);
+				(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
+				WS.Cell(y, x).Style.Alignment.SetTextRotation(90);
+			}
+			else if (Work.Book.Table == GOST.Standarts.GOST_P_2_106_2019_Table_5 &&
+				Tables[0].Standart == Work.Book.Table)
+			{
+				(int y, int x) = (Tables[0].Fields[0][0][0], Tables[0].Fields[0][0][1]);
+				(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
+				WS.Cell(y, x).Style.Alignment.SetTextRotation(90);
 			}
 		}
 

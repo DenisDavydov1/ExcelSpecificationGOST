@@ -37,7 +37,6 @@ namespace RevitToGOST
 				if (value != _Progress)
 				{
 					_Progress = value;
-					Log.WriteLine("Progress: {0}", value);
 					if (ExportWorker != null)
 						ExportWorker.ReportProgress(Progress);
 				}

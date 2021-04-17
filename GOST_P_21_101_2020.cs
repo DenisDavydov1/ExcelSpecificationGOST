@@ -305,7 +305,7 @@ namespace RevitToGOST
 				elemCont.Line.Add(GOST_21_110_2013.ElementNote(elemCont));
 			}
 		}
-	}
+	} // class GOST_P_21_101_2020_Table_7
 
 	class GOST_P_21_101_2020_Table_8
 	{
@@ -401,5 +401,45 @@ namespace RevitToGOST
 		}
 
 	} // class GOST_P_21_101_2020_Title_12
+
+	class GOST_P_21_101_2020_Title_12a
+	{
+		public static void FillTitle(int a)
+		{
+			//a.ToString();
+			// Get data:
+			string OrgName = Rvt.Handler.ProjInfo.OrganizationName;                                 // "_1"
+			string FullOrgName = Rvt.Handler.ProjInfo.OrganizationDescription;                      // "_2"
+			string ObjName = Rvt.Handler.ProjInfo.Name + "\r\n" + Rvt.Handler.ProjInfo.Address;     // "_4"
+			string DocType = "Вид документации";                                                    // "_5"
+			string DocName = "Наименование документа";                                              // "_6"
+			string TomName = "Обозначение документа или тома";                                      // "_7"
+			string TomNumber = "Номер тома";                                                        // "_8"
+			string AuthorsPositions = "________________________\r\n(должность)";                    // "_9"
+			string Date = "(подпись)\r\n";                                                          // "_10"
+
+			Date += DateTime.UtcNow.ToString("dd.MM.yyyy");
+			string AuthorsNames = Rvt.Handler.ProjInfo.Author;                                      // "_11"
+
+			string Year = DateTime.UtcNow.ToString("yyyy");                                         // "_12"
+			
+			string Agreement = "СОГЛАСОВАНО\r\n________________________\r\n" +
+				"________________________\r\n«___» __________ " + Year + " г.";						// "_3"
+
+			// Fill data
+			Work.Book.WSs.Last().Tables[0].Data = new List<List<string>>() {
+				new List<string>() { FullOrgName, OrgName },
+				new List<string>() { Agreement },
+				new List<string>() { ObjName },
+				new List<string>() { DocType },
+				new List<string>() { DocName },
+				new List<string>() { TomName },
+				new List<string>() { TomNumber },
+				new List<string>() { AuthorsPositions, Date, AuthorsNames },
+				new List<string>() { Year }
+			};
+		}
+
+	} // class GOST_P_21_101_2020_Title_12a
 
 } // namespace RevitToGOST

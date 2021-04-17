@@ -53,52 +53,6 @@ namespace RevitToGOST
 
 		#endregion properties
 
-		//public static readonly BitmapImage[] Previews =
-		//{
-		//	new BitmapImage(new Uri("Previews/Empty.png", UriKind.Relative)),								// None
-		//	new BitmapImage(new Uri("Previews/Preview_GOST_21_110_2013_Table_1.png", UriKind.Relative)),	// GOST_21_110_2013_Table_1
-		//	new BitmapImage(new Uri("Previews/Preview_GOST_P_21_101_2020_Stamp_3_A3_L.png", UriKind.Relative)),	// GOST_P_21_101_2020_Stamp_3
-		//	new BitmapImage(new Uri("Previews/Preview_GOST_P_21_101_2020_Dop_3_A3_L.png", UriKind.Relative)),	// GOST_P_21_101_2020_Dop_3
-		//	new BitmapImage(new Uri("Previews/Preview_GOST_P_21_101_2020_Stamp_4_A3_L.png", UriKind.Relative)),	// GOST_P_21_101_2020_Stamp_4
-		//	new BitmapImage(new Uri("Previews/Preview_GOST_P_21_101_2020_Dop_4_A3_L.png", UriKind.Relative)),	// GOST_P_21_101_2020_Dop_4
-		//	new BitmapImage(new Uri("Previews/Preview_GOST_P_21_101_2020_Stamp_5_A3_L.png", UriKind.Relative)),	// GOST_P_21_101_2020_Stamp_5
-		//	new BitmapImage(new Uri("Previews/Preview_GOST_P_21_101_2020_Dop_5_A3_L.png", UriKind.Relative)),	// GOST_P_21_101_2020_Dop_5
-		//	new BitmapImage(new Uri("Previews/Preview_GOST_P_21_101_2020_Stamp_6_A3_L.png", UriKind.Relative)),	// GOST_P_21_101_2020_Stamp_6
-		//	new BitmapImage(new Uri("Previews/Preview_GOST_P_21_101_2020_Dop_6_A3_L.png", UriKind.Relative)),	// GOST_P_21_101_2020_Dop_6
-		//	null,	// GOST_P_21_101_2020_Table_7
-		//	null, //null,	// table 8
-		//	null,	// misc 9
-		//	RevitToGOST.Properties.Resources.Preview_GOST_P_21_101_2020_Stamp_5_A3_L.ImageSource,//null,	// misc 9a
-		//	null,	// misc 10
-		//	null,	// misc 11
-		//	new BitmapImage(new Uri("Previews/Preview_GOST_P_21_101_2020_Title_12.png", UriKind.Relative)),	// GOST_P_21_101_2020_Title_12
-		//	null,	// misc 13
-		//	null	// title 14
-		//};
-
-		//public static readonly BitmapImage[] Previews_A4_P =
-		//{
-		//	new BitmapImage(new Uri("Previews/Empty.png", UriKind.Relative)),									// None
-		//	null,	// GOST_21_110_2013_Table_1
-		//	new BitmapImage(new Uri("Previews/Preview_GOST_P_21_101_2020_Stamp_3_A4_P.png", UriKind.Relative)),	// GOST_P_21_101_2020_Stamp_3
-		//	new BitmapImage(new Uri("Previews/Preview_GOST_P_21_101_2020_Dop_3_A4_P.png", UriKind.Relative)),	// GOST_P_21_101_2020_Dop_3
-		//	new BitmapImage(new Uri("Previews/Preview_GOST_P_21_101_2020_Stamp_4_A4_P.png", UriKind.Relative)),	// GOST_P_21_101_2020_Stamp_4
-		//	new BitmapImage(new Uri("Previews/Preview_GOST_P_21_101_2020_Dop_4_A4_P.png", UriKind.Relative)),	// GOST_P_21_101_2020_Dop_4
-		//	new BitmapImage(new Uri("Previews/Preview_GOST_P_21_101_2020_Stamp_5_A4_P.png", UriKind.Relative)),	// GOST_P_21_101_2020_Stamp_5
-		//	new BitmapImage(new Uri("Previews/Preview_GOST_P_21_101_2020_Dop_5_A4_P.png", UriKind.Relative)),	// GOST_P_21_101_2020_Dop_5
-		//	new BitmapImage(new Uri("Previews/Preview_GOST_P_21_101_2020_Stamp_6_A4_P.png", UriKind.Relative)),	// GOST_P_21_101_2020_Stamp_6
-		//	new BitmapImage(new Uri("Previews/Preview_GOST_P_21_101_2020_Dop_6_A4_P.png", UriKind.Relative)),	// GOST_P_21_101_2020_Dop_6
-		//	new BitmapImage(new Uri("Previews/Preview_GOST_P_21_101_2020_Table_7.png", UriKind.Relative)),	// GOST_P_21_101_2020_Table_7
-		//	null,	// table 8
-		//	null,	// misc 9
-		//	null,	// misc 9a
-		//	null,	// misc 10
-		//	null,	// misc 11
-		//	new BitmapImage(new Uri("Previews/Preview_GOST_P_21_101_2020_Title_12.png", UriKind.Relative)),	// GOST_P_21_101_2020_Title_12
-		//	null,	// misc 13
-		//	null	// title 14
-		//};
-
 		public static readonly Bitmap[] Previews =
 		{
 			Resources.Empty,								// None
@@ -112,20 +66,23 @@ namespace RevitToGOST
 			Resources.Preview_GOST_P_21_101_2020_Stamp_6_A3_L,	// GOST_P_21_101_2020_Stamp_6
 			Resources.Preview_GOST_P_21_101_2020_Dop_6_A3_L,	// GOST_P_21_101_2020_Dop_6
 			null,	// GOST_P_21_101_2020_Table_7
-			null, //null,	// table 8
+			null,		// GOST_P_21_101_2020_Table_8
 			null,	// misc 9
 			null,	// misc 9a
 			null,	// misc 10
 			null,	// misc 11
 			Resources.Preview_GOST_P_21_101_2020_Title_12,	// GOST_P_21_101_2020_Title_12
-			null,	// misc 13
+			Resources.Preview_GOST_P_21_101_2020_Title_12a,	// GOST_P_21_101_2020_Title_12a
 			null,	// title 14
-			null,	// GOST_2_104_2006_Stamp_1
-			null,	// GOST_2_104_2006_Dop_1
-			null,	// GOST_2_104_2006_Stamp_2
-			null,	// GOST_2_104_2006_Dop_2
-			null,	// GOST_2_104_2006_Stamp_2a
-			null	// GOST_2_104_2006_Dop_2a
+			Resources.Preview_GOST_2_104_2006_Stamp_1_A3_L,	// GOST_2_104_2006_Stamp_1
+			Resources.Preview_GOST_2_104_2006_Dop_1_A3_L,	// GOST_2_104_2006_Dop_1
+			Resources.Preview_GOST_2_104_2006_Stamp_2_A3_L,	// GOST_2_104_2006_Stamp_2
+			Resources.Preview_GOST_2_104_2006_Dop_2_A3_L,	// GOST_2_104_2006_Dop_2
+			Resources.Preview_GOST_2_104_2006_Stamp_2a_A3_L,	// GOST_2_104_2006_Stamp_2a
+			Resources.Preview_GOST_2_104_2006_Dop_2a_A3_L,	// GOST_2_104_2006_Dop_2a
+			Resources.Preview_GOST_21_301_2014_Title_2,	// GOST_21_301_2014_Title_2
+			null,	// GOST_P_2_106_2019_Table_1
+			Resources.Preview_GOST_P_2_106_2019_Table_5	// GOST_P_2_106_2019_Table_5
 		};
 
 		public static readonly Bitmap[] Previews_A4_P =
@@ -141,20 +98,23 @@ namespace RevitToGOST
 			Resources.Preview_GOST_P_21_101_2020_Stamp_6_A4_P,	// GOST_P_21_101_2020_Stamp_6
 			Resources.Preview_GOST_P_21_101_2020_Dop_6_A4_P,	// GOST_P_21_101_2020_Dop_6
 			Resources.Preview_GOST_P_21_101_2020_Table_7,		// GOST_P_21_101_2020_Table_7
-			Resources.Preview_GOST_P_21_101_2020_Table_8,		// GOST_P_21_101_2020_Table_8
+			Resources.Preview_GOST_P_21_101_2020_Table_8,		// GOST_P_21_101_2020_Table_8 (kostyl, don't touch)
 			null,	// misc 9
 			null,	// misc 9a
 			null,	// misc 10
 			null,	// misc 11
 			Resources.Preview_GOST_P_21_101_2020_Title_12,	// GOST_P_21_101_2020_Title_12
-			null,	// misc 13
+			Resources.Preview_GOST_P_21_101_2020_Title_12a,	// GOST_P_21_101_2020_Title_12a
 			null,	// title 14
-			null,	// GOST_2_104_2006_Stamp_1
-			null,	// GOST_2_104_2006_Dop_1
-			null,	// GOST_2_104_2006_Stamp_2
-			null,	// GOST_2_104_2006_Dop_2
-			null,	// GOST_2_104_2006_Stamp_2a
-			null	// GOST_2_104_2006_Dop_2a
+			Resources.Preview_GOST_2_104_2006_Stamp_1_A4_P,	// GOST_2_104_2006_Stamp_1
+			Resources.Preview_GOST_2_104_2006_Dop_1_A4_P,	// GOST_2_104_2006_Dop_1
+			Resources.Preview_GOST_2_104_2006_Stamp_2_A4_P,	// GOST_2_104_2006_Stamp_2
+			Resources.Preview_GOST_2_104_2006_Dop_2_A4_P,	// GOST_2_104_2006_Dop_2
+			Resources.Preview_GOST_2_104_2006_Stamp_2a_A4_P,	// GOST_2_104_2006_Stamp_2a
+			Resources.Preview_GOST_2_104_2006_Dop_2a_A4_P,	// GOST_2_104_2006_Dop_2a
+			Resources.Preview_GOST_21_301_2014_Title_2,	// GOST_21_301_2014_Title_2
+			Resources.Preview_GOST_P_2_106_2019_Table_1,	// GOST_P_2_106_2019_Table_1
+			null	// GOST_P_2_106_2019_Table_5
 		};
 
 		#region events
@@ -213,7 +173,8 @@ namespace RevitToGOST
 
 			// Pick right preview image
 			if (table == GOST.Standarts.GOST_P_21_101_2020_Table_7 ||
-				table == GOST.Standarts.GOST_P_21_101_2020_Table_8) // if A4 or A3 (fucked up) Portrait
+				table == GOST.Standarts.GOST_P_21_101_2020_Table_8 ||
+				table == GOST.Standarts.GOST_P_2_106_2019_Table_1) // if A4 or A3 (fucked up) Portrait
 			{
 				Table = Convert(Previews_A4_P[(int)table] ?? Previews_A4_P[0]);
 				Stamp = Convert(Previews_A4_P[(int)stamp] ?? Previews_A4_P[0]);

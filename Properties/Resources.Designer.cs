@@ -143,6 +143,36 @@ namespace RevitToGOST.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] GOST_21_301_2014_Title_2 {
+            get {
+                object obj = ResourceManager.GetObject("GOST_21_301_2014_Title_2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] GOST_P_2_106_2019_Table_1 {
+            get {
+                object obj = ResourceManager.GetObject("GOST_P_2_106_2019_Table_1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] GOST_P_2_106_2019_Table_5 {
+            get {
+                object obj = ResourceManager.GetObject("GOST_P_2_106_2019_Table_5", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] GOST_P_21_101_2020_Dop_3 {
             get {
                 object obj = ResourceManager.GetObject("GOST_P_21_101_2020_Dop_3", resourceCulture);
@@ -251,11 +281,171 @@ namespace RevitToGOST.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] GOST_P_21_101_2020_Title_12a {
+            get {
+                object obj = ResourceManager.GetObject("GOST_P_21_101_2020_Title_12a", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Preview_GOST_2_104_2006_Dop_1_A3_L {
+            get {
+                object obj = ResourceManager.GetObject("Preview_GOST_2_104_2006_Dop_1_A3_L", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Preview_GOST_2_104_2006_Dop_1_A4_P {
+            get {
+                object obj = ResourceManager.GetObject("Preview_GOST_2_104_2006_Dop_1_A4_P", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Preview_GOST_2_104_2006_Dop_2_A3_L {
+            get {
+                object obj = ResourceManager.GetObject("Preview_GOST_2_104_2006_Dop_2_A3_L", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Preview_GOST_2_104_2006_Dop_2_A4_P {
+            get {
+                object obj = ResourceManager.GetObject("Preview_GOST_2_104_2006_Dop_2_A4_P", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Preview_GOST_2_104_2006_Dop_2a_A3_L {
+            get {
+                object obj = ResourceManager.GetObject("Preview_GOST_2_104_2006_Dop_2a_A3_L", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Preview_GOST_2_104_2006_Dop_2a_A4_P {
+            get {
+                object obj = ResourceManager.GetObject("Preview_GOST_2_104_2006_Dop_2a_A4_P", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Preview_GOST_2_104_2006_Stamp_1_A3_L {
+            get {
+                object obj = ResourceManager.GetObject("Preview_GOST_2_104_2006_Stamp_1_A3_L", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Preview_GOST_2_104_2006_Stamp_1_A4_P {
+            get {
+                object obj = ResourceManager.GetObject("Preview_GOST_2_104_2006_Stamp_1_A4_P", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Preview_GOST_2_104_2006_Stamp_2_A3_L {
+            get {
+                object obj = ResourceManager.GetObject("Preview_GOST_2_104_2006_Stamp_2_A3_L", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Preview_GOST_2_104_2006_Stamp_2_A4_P {
+            get {
+                object obj = ResourceManager.GetObject("Preview_GOST_2_104_2006_Stamp_2_A4_P", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Preview_GOST_2_104_2006_Stamp_2a_A3_L {
+            get {
+                object obj = ResourceManager.GetObject("Preview_GOST_2_104_2006_Stamp_2a_A3_L", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Preview_GOST_2_104_2006_Stamp_2a_A4_P {
+            get {
+                object obj = ResourceManager.GetObject("Preview_GOST_2_104_2006_Stamp_2a_A4_P", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Preview_GOST_21_110_2013_Table_1 {
             get {
                 object obj = ResourceManager.GetObject("Preview_GOST_21_110_2013_Table_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Preview_GOST_21_301_2014_Title_2 {
+            get {
+                object obj = ResourceManager.GetObject("Preview_GOST_21_301_2014_Title_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Preview_GOST_P_2_106_2019_Table_1 {
+            get {
+                object obj = ResourceManager.GetObject("Preview_GOST_P_2_106_2019_Table_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Preview_GOST_P_2_106_2019_Table_5 {
+            get {
+                object obj = ResourceManager.GetObject("Preview_GOST_P_2_106_2019_Table_5", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -446,6 +636,16 @@ namespace RevitToGOST.Properties {
         public static System.Drawing.Bitmap Preview_GOST_P_21_101_2020_Title_12 {
             get {
                 object obj = ResourceManager.GetObject("Preview_GOST_P_21_101_2020_Title_12", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Preview_GOST_P_21_101_2020_Title_12a {
+            get {
+                object obj = ResourceManager.GetObject("Preview_GOST_P_21_101_2020_Title_12a", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
