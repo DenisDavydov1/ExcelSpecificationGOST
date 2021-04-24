@@ -13,11 +13,17 @@
 	WindowStyle="None"
 	WindowStartupLocation="CenterScreen">
 
-	<Grid>
+	<Grid Margin="0,48,0,0">
+	
+		<Image x:Name="LoadingScreenImage"
+			   VerticalAlignment="Top" HorizontalAlignment="Left"
+			   Height="300" Width="400" Margin="0,-48,0,0"/>
 
-		<TextBlock Text="Loading..."
-				   VerticalAlignment="Center"
-				   Margin="174,123,163,115" Height="33"/>
+		<TextBlock Text="Загрузка..."
+				   Panel.ZIndex="1"
+				   VerticalAlignment="Bottom" HorizontalAlignment="Left"
+				   Margin="5, 0" Height="25"
+				   Padding="3"/>
 
 	</Grid>
 

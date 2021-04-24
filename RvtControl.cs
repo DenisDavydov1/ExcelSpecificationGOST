@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace RevitToGOST
 {
@@ -133,8 +134,17 @@ namespace RevitToGOST
 					else
 					{
 						Work.Book.SaveAs(saveFileDialog.FileName);
-						MessageBox.Show("Таблица успешно экспортирована.\nПуть к файлу: " + saveFileDialog.FileName,
-							"Готово", MessageBoxButton.OK);
+						var result = MessageBox.Show(
+							"Таблица успешно экспортирована.\nПуть к файлу: " + saveFileDialog.FileName + "\nОткрыть файл в Excel?",
+							"Готово",
+							MessageBoxButton.YesNo,
+							MessageBoxImage.Question);
+						if (result == MessageBoxResult.Yes)
+						{
+							Excel.Application xlapp = new Excel.Application();
+							Excel.Workbook wlwb = xlapp.Workbooks.Open(saveFileDialog.FileName);
+							xlapp.Visible = true;
+						}
 						Work.Book.InitWorkBook();
 						return;
 					}

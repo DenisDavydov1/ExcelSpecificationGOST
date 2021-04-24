@@ -293,6 +293,16 @@ namespace RevitToGOST.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap loading_screen_image {
+            get {
+                object obj = ResourceManager.GetObject("loading_screen_image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Preview_GOST_2_104_2006_Dop_1_A3_L {
             get {
                 object obj = ResourceManager.GetObject("Preview_GOST_2_104_2006_Dop_1_A3_L", resourceCulture);

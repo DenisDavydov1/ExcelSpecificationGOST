@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -17,9 +17,12 @@ namespace RevitToGOST
 {
 	public partial class LoadingWindow : Window
 	{
-		public LoadingWindow()
+        public CancellationTokenSource LoadCancelToken { get; set; }
+
+        public LoadingWindow()
 		{
 			InitializeComponent();
+			LoadingScreenImage.Source = Bitmaps.Convert(Properties.Resources.loading_screen_image);
 		}
 
 		public new void Show()
@@ -28,5 +31,6 @@ namespace RevitToGOST
 			//System.Threading.Thread.Sleep(3000);
 			//Rvt.Windows.Condition = RvtWindows.Status.Idle;
 		}
-	}
+
+    } // public partial class LoadingWindow
 }

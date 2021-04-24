@@ -187,6 +187,9 @@
   <data name="GOST_P_2_106_2019_Table_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Templates\GOST_P_2_106_2019_Table_5.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="loading_screen_image" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Srcs\loading_screen_image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Preview_GOST_21_110_2013_Table_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Previews\Preview_GOST_21_110_2013_Table_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

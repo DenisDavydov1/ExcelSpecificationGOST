@@ -188,7 +188,7 @@ namespace RevitToGOST
 			}
 		}
 
-		private ImageSource Convert(Bitmap bmp)
+		public static ImageSource Convert(Bitmap bmp)
 		{
 			return System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(bmp.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
 		}

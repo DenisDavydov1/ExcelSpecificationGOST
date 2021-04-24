@@ -504,10 +504,10 @@
 						</ListView.GroupStyle>
 					</ListView>
 
-					<TextBlock Text="Выбранные категории"
+					<TextBlock
 							   Height="25" Padding="3"
 							   VerticalAlignment="Top" HorizontalAlignment="Left"
-							   Margin="270,10,0,0"/>
+							   Margin="270,10,0,0"><Run Text="Выбранные "/><Run Text="элементы"/></TextBlock>
 					<ListView x:Name="PickedElements"
 							  Height="510" Width="340"
 							  VerticalAlignment="Top" HorizontalAlignment="Right"
