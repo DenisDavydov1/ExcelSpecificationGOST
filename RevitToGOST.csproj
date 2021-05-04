@@ -241,10 +241,10 @@
     <None Include="Previews\Preview_GOST_P_21_101_2020_Title_12a.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Srcs\ba7815e183820fe3beaa4676dc467987.gif" />
+    <Resource Include="Srcs\loading_screen_image.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Srcs\loading_screen_image.png" />
+    <Resource Include="Srcs\icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

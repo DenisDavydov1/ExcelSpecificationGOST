@@ -34,6 +34,8 @@ namespace RevitToGOST
 
 		public MainWindow()
 		{
+			DependencyProperty dummy = GongSolutions.Wpf.DragDrop.DragDrop.DataFormatProperty;
+
 			InitializeComponent();
 
 			Rvt.Windows.Condition = RvtWindows.Status.Idle;
