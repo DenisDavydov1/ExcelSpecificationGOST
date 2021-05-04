@@ -1,12 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using Excel = Microsoft.Office.Interop.Excel;
 
@@ -21,15 +16,15 @@ namespace RevitToGOST
 	{
 		#region properties
 
-		///// Control elements values /////
+		// Control elements values
 		public bool GroupElemsCheckBox { get; set; } = false;
 		public bool EnumerateColumnsCheckBox { get; set; } = false;
 
-		///// Application exception container /////
+		// Application exception container
 		public Exception LastException { get; set; } = new Exception();
 
-		//// Progress bar value ////
-		private int _Progress;  // for Progress Bar
+		// Progress bar value
+		private int _Progress;
 		public int Progress
 		{
 			get { return _Progress; }
@@ -44,10 +39,10 @@ namespace RevitToGOST
 			}
 		}
 
-		//// Background export thread ////
+		// Background export thread
 		public BackgroundWorker ExportWorker { get; set; } = null;
 
-		#endregion properties
+		#endregion
 
 		#region methods
 
@@ -67,6 +62,7 @@ namespace RevitToGOST
 			Progress = 0; if (CheckForCancellation(e) == true) return;
 
 			Work.Book.InitWorkBook();
+
 			// Pick data and assign it to Rvt.Data.ExportElements
 			Rvt.Data.SetExportElements();
 
@@ -86,11 +82,9 @@ namespace RevitToGOST
 
 			Progress = 10; if (CheckForCancellation(e) == true) return;
 
-			// Fill stamps
+			// Fill some elements
 			Work.Book.FillStamps();
-			// Fill dops
 			Work.Book.FillDops();
-			// Fill title page
 			Work.Book.FillTitlePage();
 
 			Progress = 15; if (CheckForCancellation(e) == true) return;
@@ -172,8 +166,6 @@ namespace RevitToGOST
 			return false;
 		}
 
-		#endregion methods
-
-	} // class RvtControl
-
-} // namespace RevitToGOST
+		#endregion
+	}
+}

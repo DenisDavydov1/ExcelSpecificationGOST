@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RevitToGOST
 {
 	static class Log
 	{
+		public static readonly string LogPath = "...";
 		public static void PrintList<T>(List<T> list)
 		{
 			foreach (var element in list)
@@ -21,19 +18,19 @@ namespace RevitToGOST
 
 		public static void ClearLog()
 		{
-			File.WriteAllText(Constants.LogPath, string.Empty);
+			File.WriteAllText(LogPath, string.Empty);
 		}
 
 		public static void Write(string format, params object[] objs)
 		{
-			using (StreamWriter sw = File.AppendText(Constants.LogPath))
+			using (StreamWriter sw = File.AppendText(LogPath))
 				sw.Write(format, objs);
 		}
 
 		public static void WriteLine(string format, params object[] objs)
 		{
-			using (StreamWriter sw = File.AppendText(Constants.LogPath))
+			using (StreamWriter sw = File.AppendText(LogPath))
 				sw.WriteLine(format, objs);
 		}
-	} // static class Log
-} // namespace RevitToGOST
+	}
+}

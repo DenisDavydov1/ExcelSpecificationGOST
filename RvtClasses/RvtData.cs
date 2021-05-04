@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.Architecture;
-using Autodesk.Revit.UI;
-using Autodesk.Revit.UI.Selection;
-using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.Attributes;
 
 namespace RevitToGOST
 {
@@ -21,20 +11,13 @@ namespace RevitToGOST
 
 	class RvtData
 	{
-		#region properties
-
 		public CategoryNodeCollection AllCategories { get; set; }
 		public CategoryNodeCollection AvailableCategories { get; set; }
 		public CategoryNodeCollection PickedCategories { get; set; }
 		public ElementCollection AvailableElements { get; set; }
 		public ElementCollection PickedElements { get; set; }
 		public ElementCollection ExportElements { get; set; }
-
 		public int Count { get { return AvailableCategories.Count + PickedCategories.Count; } }
-
-		#endregion properties
-
-		#region methods
 
 		public RvtData()
 		{
@@ -43,7 +26,6 @@ namespace RevitToGOST
 			PickedCategories = new CategoryNodeCollection();
 			AvailableElements = new ElementCollection();
 			PickedElements = new ElementCollection();
-			//ExportElements = new ElementCollection();
 			InitData();
 			InitAvailableCategories();
 		}
@@ -127,9 +109,5 @@ namespace RevitToGOST
 				ExportElements.Insert(i, new ElementContainer(ElementContainer.ContType.ColumnsEnumeration));
 			}
 		}
-
-		#endregion methods
-
-	} // class RvtData
-
-} // namespace RevitToGOST
+	}
+}

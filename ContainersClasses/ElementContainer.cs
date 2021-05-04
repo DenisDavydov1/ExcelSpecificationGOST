@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.Architecture;
-using Autodesk.Revit.UI;
-using Autodesk.Revit.UI.Selection;
-using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.Attributes;
 
 namespace RevitToGOST
 {
@@ -29,14 +20,14 @@ namespace RevitToGOST
 		public ContType LineType { get; set; } = ContType.Element;
 		public List<string> Line { get; set; }
 
+		#endregion properties
+
 		public enum ContType
 		{
 			Element,
 			Category,
 			ColumnsEnumeration
 		}
-
-		#endregion properties
 
 		#region methods
 
@@ -78,13 +69,10 @@ namespace RevitToGOST
 		}
 
 		#endregion methods
-
-	} // class ElementContainer
+	}
 
 	public class ElementCollection : ObservableCollection<ElementContainer>
 	{
-		#region properties
-
 		public int ElementCount
 		{
 			get
@@ -95,10 +83,6 @@ namespace RevitToGOST
 				return count;
 			}
 		}
-
-		#endregion properties
-
-		#region constructors
 
 		public ElementCollection() { }
 
@@ -116,10 +100,7 @@ namespace RevitToGOST
 		{
 			foreach (ElementContainer elem in other)
 				base.Add(elem);
-				//base.Add(new ElementContainer(elem));
 		}
-
-		#endregion constructors
 
 		#region insert ElementContainer(s)
 
@@ -328,7 +309,5 @@ namespace RevitToGOST
 		}
 
 		#endregion sort items
-
-	} // class ElementCollection
-
-} // namespace RevitToGOST
+	}
+}

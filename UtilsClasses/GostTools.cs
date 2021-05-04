@@ -1,21 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-
 using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.Architecture;
-using Autodesk.Revit.UI;
-using Autodesk.Revit.UI.Selection;
-using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.Attributes;
-using System.Windows.Media.Imaging;
-
 using RevitToGOST.Properties;
-using System.Drawing;
-using System.Windows.Data;
-using System.IO;
 
 namespace RevitToGOST
 {
@@ -28,13 +15,10 @@ namespace RevitToGOST
 				elemSet.Insert(elem);
 			return elemSet;
 		}
-
-	} // class GostTools
+	}
 
 	static class Constants
 	{
-		public const string LogPath = @"F:\CS_CODE\REVIT\PROJECTS\tmp";
-		public const string DefaultFilePath = @"F:\CS_CODE\REVIT\PROJECTS\output.xlsx";
 		public const double inch = 2.54;
 		public const double mm_w = 0.483;
 		public const double mm_h = 2.9;
@@ -52,7 +36,7 @@ namespace RevitToGOST
 			public const int Width = 210;
 		}
 
-	} // static class Constants
+	}
 
 	static class ConfFile
 	{
@@ -242,37 +226,6 @@ namespace RevitToGOST
 			null	//GOST_P_2_106_2019_Table_5
 		};
 
-		/*
-			// None
-			// GOST_21_110_2013_Table_1
-			// GOST_P_21_101_2020_Stamp_3
-			// GOST_P_21_101_2020_Dop_3
-			// GOST_P_21_101_2020_Stamp_4
-			// GOST_P_21_101_2020_Dop_4
-			// GOST_P_21_101_2020_Stamp_5
-			// GOST_P_21_101_2020_Dop_5
-			// GOST_P_21_101_2020_Stamp_6
-			// GOST_P_21_101_2020_Dop_6
-			// GOST_P_21_101_2020_Table_7
-			// GOST_P_21_101_2020_Table_8
-			// GOST_P_21_101_2020_Misc_9
-			// GOST_P_21_101_2020_Misc_9a
-			// GOST_P_21_101_2020_Misc_10
-			// GOST_P_21_101_2020_Misc_11
-			// GOST_P_21_101_2020_Title_12
-			// GOST_P_21_101_2020_Title_12a
-			// GOST_P_21_101_2020_Title_14
-			// GOST_2_104_2006_Stamp_1
-			// GOST_2_104_2006_Dop_1
-			// GOST_2_104_2006_Stamp_2
-			// GOST_2_104_2006_Dop_2
-			// GOST_2_104_2006_Stamp_2a
-			// GOST_2_104_2006_Dop_2a
-			// GOST_21_301_2014_Title_2
-			// GOST_P_2_106_2019_Table_1
-			// GOST_P_2_106_2019_Table_5
-		*/
-
 		public static readonly string[] Descriprions = {
 			String.Empty, // None
 			/* GOST_21_110_2013_Table_1 */ "(*1): Поз.\n(*2): Наименование и техническая характеристика\n(*3): Тип, марка, обозначение документа, опросного листа\n(*4): Код продукции\n(*5): Поставщик\n(*6): Ед. измерения\n(*7): Количество\n(*8): Масса ед., кг\n(*9): Примечание\n", // GOST_21_110_2013_Table_1
@@ -304,17 +257,35 @@ namespace RevitToGOST
 			/* GOST_P_2_106_2019_Table_5 */ "(*1): № строки\n(*2): Наименование\n(*3): Код продукции\n(*4): Обозначение документа на поставку\n(*5): Поставщик\n(*6): Куда входит (обозначение)\n(*7): Количество\n(*8): Примечание\n"	// GOST_P_2_106_2019_Table_5
 		};
 
-	} // class ConfFile
-
-	static class ClassExtensions
-	{
-		public static int TotalLinesCount(this Dictionary<string, ElementCollection> dict)
-		{
-			int lines = dict.Keys.Count;
-			foreach (ElementCollection elemCol in dict.Values)
-				lines += elemCol.Count;
-			return lines;
-		}
+		/*
+			// None
+			// GOST_21_110_2013_Table_1
+			// GOST_P_21_101_2020_Stamp_3
+			// GOST_P_21_101_2020_Dop_3
+			// GOST_P_21_101_2020_Stamp_4
+			// GOST_P_21_101_2020_Dop_4
+			// GOST_P_21_101_2020_Stamp_5
+			// GOST_P_21_101_2020_Dop_5
+			// GOST_P_21_101_2020_Stamp_6
+			// GOST_P_21_101_2020_Dop_6
+			// GOST_P_21_101_2020_Table_7
+			// GOST_P_21_101_2020_Table_8
+			// GOST_P_21_101_2020_Misc_9
+			// GOST_P_21_101_2020_Misc_9a
+			// GOST_P_21_101_2020_Misc_10
+			// GOST_P_21_101_2020_Misc_11
+			// GOST_P_21_101_2020_Title_12
+			// GOST_P_21_101_2020_Title_12a
+			// GOST_P_21_101_2020_Title_14
+			// GOST_2_104_2006_Stamp_1
+			// GOST_2_104_2006_Dop_1
+			// GOST_2_104_2006_Stamp_2
+			// GOST_2_104_2006_Dop_2
+			// GOST_2_104_2006_Stamp_2a
+			// GOST_2_104_2006_Dop_2a
+			// GOST_21_301_2014_Title_2
+			// GOST_P_2_106_2019_Table_1
+			// GOST_P_2_106_2019_Table_5
+		*/
 	}
-
-} // namespace RevitToGOST
+}

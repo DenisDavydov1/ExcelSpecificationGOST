@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RevitToGOST
 {
@@ -53,7 +50,7 @@ namespace RevitToGOST
 				elemCont.Line.Add(GOST_21_110_2013.ElementNote(elemCont));
 			}
 		}
-	} // class GOST_P_2_106_2019_Table_1
+	}
 
 	class GOST_P_2_106_2019_Table_5
 	{
@@ -110,7 +107,5 @@ namespace RevitToGOST
 				elemCont.Line.Add(GOST_21_110_2013.ElementNote(elemCont));
 			}
 		}
-
-	} // class GOST_P_2_106_2019_Table_5
-
-} // namespace RevitToGOST
+	}
+}

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RevitToGOST
 {
@@ -48,8 +45,7 @@ namespace RevitToGOST
 				new List<string>() { "Лист " + _7, "Листов " + _8 }
 			};
 		}
-
-	} // class GOST_2_104_2006_Stamp_1
+	}
 
 	class GOST_2_104_2006_Dop_1
 	{
@@ -69,8 +65,7 @@ namespace RevitToGOST
 				new List<string>() { "Инв. № подл.", _19 }
 			};
 		}
-
-	} // class GOST_2_104_2006_Dop_1
+	}
 
 	class GOST_2_104_2006_Stamp_2
 	{
@@ -111,8 +106,7 @@ namespace RevitToGOST
 				new List<string>() { _4, "", "", _7, _8 }
 			};
 		}
-
-	} // class GOST_2_104_2006_Stamp_2
+	}
 
 	class GOST_2_104_2006_Dop_2
 	{
@@ -132,8 +126,7 @@ namespace RevitToGOST
 				new List<string>() { "Инв. № подл.", _19 }
 			};
 		}
-
-	} // class GOST_2_104_2006_Dop_2
+	}
 
 	class GOST_2_104_2006_Stamp_2a
 	{
@@ -152,8 +145,7 @@ namespace RevitToGOST
 				new List<string>() { "Лист", _7 }
 			};
 		}
-
-	} // class GOST_2_104_2006_Stamp_2a
+	}
 
 	class GOST_2_104_2006_Dop_2a
 	{
@@ -173,8 +165,5 @@ namespace RevitToGOST
 				new List<string>() { "Инв. № подл.", _19 }
 			};
 		}
-
-	} // class GOST_2_104_2006_Dop_2a
-
-
-} // namespace RevitToGOST
+	}
+}

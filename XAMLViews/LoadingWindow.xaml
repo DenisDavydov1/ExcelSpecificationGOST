@@ -4,17 +4,15 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:local="clr-namespace:RevitToGOST"
-	xmlns:rvt="clr-namespace:Autodesk.Revit.DB;assembly=RevitAPI"
 	mc:Ignorable="d"
 	Title="RevitToGOST"
 	Height="300" Width="400"
 	ResizeMode="NoResize"
 	WindowStyle="None"
 	WindowStartupLocation="CenterScreen">
-
-	<Grid Margin="0,48,0,0">
 	
+	<Grid Margin="0,48,0,0">
+		
 		<Image x:Name="LoadingScreenImage"
 			   VerticalAlignment="Top" HorizontalAlignment="Left"
 			   Height="300" Width="400" Margin="0,-48,0,0"/>
@@ -26,5 +24,5 @@
 				   Padding="3"/>
 
 	</Grid>
-
+	
 </Window>

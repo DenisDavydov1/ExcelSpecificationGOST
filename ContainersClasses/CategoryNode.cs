@@ -1,33 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.Architecture;
-using Autodesk.Revit.UI;
-using Autodesk.Revit.UI.Selection;
-using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.Attributes;
 
 namespace RevitToGOST
 {
 	public class CategoryNode
 	{
-		#region properties
-
 		public Category Category { get; set; }
 		public ElementCollection Elements { get; set; }
-
 		public string Name { get { return Category.Name; } }
 		public int Id { get { return Category.Id.IntegerValue; } }
 		public int Count { get { return Elements.ElementCount; } }
-
-		#endregion properties
-
-		#region methods
 
 		public CategoryNode(Category category, ElementCollection elements)
 		{
@@ -36,26 +19,16 @@ namespace RevitToGOST
 		}
 
 		public override string ToString() { return String.Format("{0} ({1})", Name, Count); }
-
-		#endregion methods
-
-	} // class CategoryNode
+	}
 
 	public class CategoryNodeCollection : ObservableCollection<CategoryNode>
 	{
-		#region constructors
-
 		public CategoryNodeCollection() { }
 		public CategoryNodeCollection(CategoryNodeCollection other)
 		{
 			foreach (CategoryNode node in other)
 				Add(node);
 		}
-
-		#endregion constructors
-
-		#region add/remove items
-
 		protected override void InsertItem(int index, CategoryNode categoryNode)
 		{
 			base.InsertItem(index, categoryNode);
@@ -80,8 +53,6 @@ namespace RevitToGOST
 			Rvt.Data.PickedElements.RemoveCategory(catToDel);
 			Rvt.Data.AvailableElements.RemoveCategory(catToDel);
 		}
-
-		#endregion add/remove items
 
 		#region sort items
 
@@ -173,8 +144,6 @@ namespace RevitToGOST
 			return true;
 		}
 
-		#endregion sort items
-
-	} // class CategoryNodeCollection
-
-} // namespace RevitToGOST
+		#endregion
+	}
+}

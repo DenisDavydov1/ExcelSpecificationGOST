@@ -1,21 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 
 namespace RevitToGOST
@@ -29,7 +19,6 @@ namespace RevitToGOST
 
 		#endregion properties
 
-		/////// MAIN WINDOW ///////
 		#region main window methods
 
 		public MainWindow()
@@ -100,7 +89,6 @@ namespace RevitToGOST
 		private void EnableControls(bool state = true)
 		{
 			// No tab
-			//Export.IsEnabled = state;
 			GroupElemsCheckBox.IsEnabled = state;
 			EnumerateColumnsCheckBox.IsEnabled = state;
 
@@ -221,18 +209,15 @@ namespace RevitToGOST
 		private void EnumerateColumnsCheckBox_Checked(object sender, RoutedEventArgs e)
 		{
 			Rvt.Control.EnumerateColumnsCheckBox = true;
-			// DrawPreview(); TO DO!
 		}
 
 		private void EnumerateColumnsCheckBox_Unchecked(object sender, RoutedEventArgs e)
 		{
 			Rvt.Control.EnumerateColumnsCheckBox = false;
-			// DrawPreview(); TO DO!
 		}
 
 		#endregion main window methods
 
-		/////// TAB CONTROL ///////
 		#region tab control
 
 		private void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -265,7 +250,6 @@ namespace RevitToGOST
 
 		#endregion tab control
 
-		/////// TAB 1 ///////
 		#region tab 1 methods
 
 		/*
@@ -507,7 +491,6 @@ namespace RevitToGOST
 
 		#endregion tab 1 methods
 
-		/////// TAB 2 ///////
 		#region tab 2 methods
 
 		/*
@@ -536,7 +519,6 @@ namespace RevitToGOST
 
 		#endregion tab 2 methods
 
-		/////// TAB 3 ///////
 		#region tab 3 methods
 
 		/*
@@ -565,7 +547,6 @@ namespace RevitToGOST
 
 		#endregion tab 3 methods
 
-		/////// MISC ///////
 		#region misc methods
 
 		/*
@@ -617,7 +598,6 @@ namespace RevitToGOST
 
 		#endregion misc methods
 
-		/////// HINT TRAY ///////
 		#region hint tray
 
 		private static T FindVisualParent<T>(UIElement element) where T : UIElement
@@ -711,13 +691,11 @@ namespace RevitToGOST
 		private void SetHint_TabItem(TabItem obj)
 		{
 			if (obj == Tab1)
-				HintTrayTextBlock.Text = ""; // to do if i will not make tab description in window
+				HintTrayTextBlock.Text = "";
 			else if (obj == Tab2)
 				HintTrayTextBlock.Text = "";
 			else if (obj == Tab3)
 				HintTrayTextBlock.Text = "";
-			//else if (obj == Tab4)
-			//	HintTrayTextBlock.Text = "";
 			else
 				HintTrayTextBlock.Text = "";
 		}
@@ -757,7 +735,5 @@ namespace RevitToGOST
 		}
 
 		#endregion hint tray
-
-	} // class MainWindow
-
-} // namespace RevitToGOST
+	}
+}

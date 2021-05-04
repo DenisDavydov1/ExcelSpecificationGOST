@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ClosedXML.Excel;
-
-using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.Architecture;
-using Autodesk.Revit.UI;
-using Autodesk.Revit.UI.Selection;
-using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.Attributes;
 
 namespace RevitToGOST
 {
@@ -52,8 +42,6 @@ namespace RevitToGOST
 			}
 			else
 			{
-				//if (Format != table.Format || Orientation != table.Orientation)
-				//	return;
 				if (table.Position > 1)
 				{
 					XMLTools.CompleteFields(table, Height, Width);
@@ -112,13 +100,6 @@ namespace RevitToGOST
 			WS.PageSetup.VerticalDpi = 600;
 			WS.PageSetup.HorizontalDpi = 600;
 
-			//// Set font
-			// ... to do ....
-			//WS.Style.Font.FontName = "GOST A";
-			//WS.Column(1).Style.Font.FontName = "GOST A";
-			//WS.Column(1).Style.Font.FontSize = 7;
-			//WS.Column(1).Style.Font.Italic = true;
-
 			//// Margins setup
 			WS.PageSetup.Margins.Top = 0;
 			WS.PageSetup.Margins.Left = 0;
@@ -134,7 +115,6 @@ namespace RevitToGOST
 		{
 			SortedSet<int> cols = XMLTools.GetSortedSet(Columns);
 			SortedSet<int> rows = XMLTools.GetSortedSet(Rows);
-
 			// Set widths
 			for (int i = 0, size = cols.ElementAt(0); i < cols.Count; i++)
 			{
@@ -147,7 +127,7 @@ namespace RevitToGOST
 			{
 				if (i > 0)
 					size = rows.ElementAt(i) - rows.ElementAt(i - 1);
-				WS.Row(i + 1).Height = XMLTools.mmToHeight(size); // size * Constants.mm_h;
+				WS.Row(i + 1).Height = XMLTools.mmToHeight(size);
 			}
 		}
 
@@ -164,21 +144,9 @@ namespace RevitToGOST
 						(int y1, int x1) = XMLTools.GetCellIndexesBySize(Rows, Columns, field[0], field[1]);
 						(int y2, int x2) = XMLTools.GetCellIndexesBySize(Rows, Columns, field[2], field[3]);
 						WS.Range(y1, x1, y2, x2).Merge();
-						//if (table.Type != "Page")
-						//	WS.Range(y1, x1, y2, x2).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
-						//WS.Cell(y1, x1).Style.Alignment.Vertical = (XLAlignmentVerticalValues)table.VerticalAlignment;
-						//WS.Cell(y1, x1).Style.Alignment.Vertical = (XLAlignmentVerticalValues)table.HorizontalAlignment;
 					}
 				}
 			}
-			//foreach (int[] field in Fields)
-			//{
-			//	//Log.WriteLine("Merge: {0} {1} - {2} {3}", field[0], field[1], field[2], field[3]);
-			//	(int y1, int x1) = XMLTools.GetCellIndexesBySize(Rows, Columns, field[0], field[1]);
-			//	(int y2, int x2) = XMLTools.GetCellIndexesBySize(Rows, Columns, field[2], field[3]);
-			//	WS.Range(y1, x1, y2, x2).Merge();
-			//	WS.Range(y1, x1, y2, x2).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
-			//}
 		}
 
 		private void ApplyStyles()
@@ -192,7 +160,6 @@ namespace RevitToGOST
 					for (int j = 0; j < table.Fields[i].Count; ++j)
 					{
 						// Get cell coordinates
-						// (int y, int x) = XMLTools.GetCellIndexesBySize(Rows, Columns, table.Fields[i][j][0], table.Fields[i][j][1]);
 						(int y1, int x1) = (table.Fields[i][j][0], table.Fields[i][j][1]);
 						(int y2, int x2) = (table.Fields[i][j][2], table.Fields[i][j][3]);
 						(y1, x1) = XMLTools.GetCellIndexesBySize(Rows, Columns, y1, x1);
@@ -229,9 +196,7 @@ namespace RevitToGOST
 
 						// Draw borders
 						if (table.Borders != null)
-						{
 							WS.Range(y1, x1, y2, x2).Style.Border.OutsideBorder = (XLBorderStyleValues)table.Borders[i][j];
-						}
 					}
 				}
 			}
@@ -261,22 +226,9 @@ namespace RevitToGOST
 						(int y1, int x1) = (table.Fields[entry.Value[0]][entry.Value[1]][0], table.Fields[entry.Value[0]][entry.Value[1]][1]);
 						(int y2, int x2) = (table.Fields[entry.Value[0]][entry.Value[1]][2], table.Fields[entry.Value[0]][entry.Value[1]][3]);
 						(y1, x1) = XMLTools.GetCellIndexesBySize(Rows, Columns, y1, x1);
-						(y2, x2) = XMLTools.GetCellIndexesBySize(Rows, Columns, y2, x2);
 						WS.Cell(y1, x1).Value = entry.Key.Replace("_", string.Empty);
-						//WS.Range(y1, x1, y2, x2).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
-						//int y = table.Fields[entry.Value[0]][entry.Value[1]][0];
-						//int x = table.Fields[entry.Value[0]][entry.Value[1]][1];
-						//(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
-						//WS.Cell(y, x).Value = entry.Key.Replace("_", string.Empty);
 					}
 				}
-				//if (table.HeaderList == null || table.Fields == null)
-				//	continue;
-				//for (int i = 0; i < table.HeaderList.Length; ++i)
-				//{
-				//	(int y, int x) = XMLTools.GetCellIndexesBySize(Rows, Columns, table.Fields[0][i][0], table.Fields[0][i][1]);
-				//	WS.Cell(y, x).Value = table.HeaderList[i];
-				//}
 			}
 		}
 
@@ -313,37 +265,6 @@ namespace RevitToGOST
 			}
 		}
 
-		//public void FillTable()
-		//{
-		//	foreach (GOST table in Tables)
-		//	{
-		//		table.ApplyGostData();
-		//		for (int dataLine = 0;
-		//			dataLine < table.LinesCount && dataLine < table.Data.Count;
-		//			table.Line++, dataLine++)
-		//		{
-		//			for (int field = 0;
-		//				field < table.Fields[table.Line].Count && field < table.Data[dataLine].Count;
-		//				field++)
-		//			{
-		//				(int y1, int x1) = (table.Fields[table.Line][field][0], table.Fields[table.Line][field][1]);
-		//				(y1, x1) = XMLTools.GetCellIndexesBySize(Rows, Columns, y1, x1);
-		//				WS.Cell(y1, x1).Value = table.Data[dataLine][field];
-		//				if (table.Type == GOST.Types.Table)
-		//				{
-		//					(int y2, int x2) = (table.Fields[table.Line][field][2], table.Fields[table.Line][field][3]);
-		//					(y2, x2) = XMLTools.GetCellIndexesBySize(Rows, Columns, y2, x2);
-		//					WS.Range(y1, x1, y2, x2).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
-		//				}
-		//				//int y = table.Fields[table.Line][field][0];
-		//				//int x = table.Fields[table.Line][field][1];
-		//				//(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
-		//				//WS.Cell(y, x).Value = table.Data[dataLine][field];
-		//			}
-		//		}
-		//	}
-		//}
-
 		private void Kostyl()
 		{
 			// Set horizontal alignment for columns enumeration row
@@ -353,7 +274,6 @@ namespace RevitToGOST
 			{
 				(int y, int x) = (Tables[0].Fields[1][1][0], Tables[0].Fields[1][1][1]);
 				(y, x) = XMLTools.GetCellIndexesBySize(Rows, Columns, y, x);
-				//Log.WriteLine("cell {0} {1}. Text: {2}", y, x, WS.Cell(y, x).Value);
 				WS.Cell(y, x).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 			}
 			else if ((Work.Book.Table == GOST.Standarts.GOST_P_21_101_2020_Table_7 ||
@@ -421,7 +341,5 @@ namespace RevitToGOST
 		}
 
 		#endregion methods
-
-	} // class WorkSheet
-
-} // namespace RevitToGOST
+	}
+}

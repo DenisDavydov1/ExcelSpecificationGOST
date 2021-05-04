@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RevitToGOST
 {
@@ -10,7 +8,6 @@ namespace RevitToGOST
 	{
 		public static void FillTitle(int a)
 		{
-			// Get data
 			string _1 = Rvt.Handler.ProjInfo.OrganizationDescription;//(1): Наименование вышестоящей организации
 			string _2 = Rvt.Handler.ProjInfo.OrganizationName + "\r\n" + Rvt.Handler.ProjInfo.Address;//(2): Логотип / наименование организации, подготовившей документацию
 			string _3 = "";//(3): Номер и дата выдачи документа
@@ -26,7 +23,6 @@ namespace RevitToGOST
 			string _13 = DateTime.UtcNow.ToString("yyyy");//(13): Место и год выпуска
 			string _14 = "";//(14): Размещение таблицы регистрации изменений
 
-			// Fill data
 			Work.Book.WSs.Last().Tables[0].Data = new List<List<string>>() {
 				new List<string>() { _1 },
 				new List<string>() { _2 },
@@ -42,7 +38,5 @@ namespace RevitToGOST
 				new List<string>() { _14, _13 }
 			};
 		}
-
-	} // class GOST_21_301_2014_Title_2
-
-} // namespace RevitToGOST
+	}
+}

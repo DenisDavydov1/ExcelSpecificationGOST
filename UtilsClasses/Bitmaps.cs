@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -53,8 +48,8 @@ namespace RevitToGOST
 
 		public static readonly Bitmap[] Previews =
 		{
-			Resources.Empty,								// None
-			Resources.Preview_GOST_21_110_2013_Table_1,	// GOST_21_110_2013_Table_1
+			Resources.Empty,	// None
+			Resources.Preview_GOST_21_110_2013_Table_1,			// GOST_21_110_2013_Table_1
 			Resources.Preview_GOST_P_21_101_2020_Stamp_3_A3_L,	// GOST_P_21_101_2020_Stamp_3
 			Resources.Preview_GOST_P_21_101_2020_Dop_3_A3_L,	// GOST_P_21_101_2020_Dop_3
 			Resources.Preview_GOST_P_21_101_2020_Stamp_4_A3_L,	// GOST_P_21_101_2020_Stamp_4
@@ -64,7 +59,7 @@ namespace RevitToGOST
 			Resources.Preview_GOST_P_21_101_2020_Stamp_6_A3_L,	// GOST_P_21_101_2020_Stamp_6
 			Resources.Preview_GOST_P_21_101_2020_Dop_6_A3_L,	// GOST_P_21_101_2020_Dop_6
 			null,	// GOST_P_21_101_2020_Table_7
-			null,		// GOST_P_21_101_2020_Table_8
+			null,	// GOST_P_21_101_2020_Table_8
 			null,	// misc 9
 			null,	// misc 9a
 			null,	// misc 10
@@ -174,7 +169,7 @@ namespace RevitToGOST
 			// Pick right preview image
 			if (table == GOST.Standarts.GOST_P_21_101_2020_Table_7 ||
 				table == GOST.Standarts.GOST_P_21_101_2020_Table_8 ||
-				table == GOST.Standarts.GOST_P_2_106_2019_Table_1) // if A4 or A3 (fucked up) Portrait
+				table == GOST.Standarts.GOST_P_2_106_2019_Table_1) // if A4 or A3 Portrait
 			{
 				Table = Convert(Previews_A4_P[(int)table] ?? Previews_A4_P[0]);
 				Stamp = Convert(Previews_A4_P[(int)stamp] ?? Previews_A4_P[0]);
@@ -201,7 +196,5 @@ namespace RevitToGOST
 		}
 
 		#endregion methods
-
-	} // class Bitmaps
-
-} // namespace RevitToGOST
+	}
+}

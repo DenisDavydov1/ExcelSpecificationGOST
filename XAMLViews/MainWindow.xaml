@@ -5,8 +5,6 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
-	xmlns:local="clr-namespace:RevitToGOST"
-	xmlns:rvt="clr-namespace:Autodesk.Revit.DB;assembly=RevitAPI"
 	mc:Ignorable="d"
 	Title="RevitToGOST"
 	Height="639" Width="816"
@@ -560,17 +558,9 @@
 				</Grid>
 			</TabItem>
 
-			<!--ВКЛАДКА 4
-			<TabItem x:Name="Tab4"
-					 Header="4. Доп. параметры" Margin="0,5,3,-5">
-			</TabItem>
-			-->
-
 		</TabControl>
 
-
 		<!--ОСНОВНЫЕ ЭЛЕМЕНТЫ УПРАВЛЕНИЯ-->
-
 		<!--Кнопка экспорта-->
 		<Button x:Name="Export"
 				Content="Экспорт"
@@ -627,8 +617,6 @@
 				   Fill="#cccccc"
 				   RadiusY="2" RadiusX="2"/>
 
-		<!--<Button x:Name="huy" Click="huy_Click" Content="Button" HorizontalAlignment="Left" Margin="619,522,0,0" VerticalAlignment="Top" Width="75"/>-->
-
 		<!--Трей с подсказками и прогрессбаром-->
 		<TextBlock x:Name="HintTrayTextBlock"
 				   Height="20" Width="790" Padding="0"
@@ -656,12 +644,6 @@
 			</ProgressBar.Foreground>
 		</ProgressBar>
 
-		<!--Элементы дизайна-->
-
 	</Grid>
 
 </Window>
-
-<!---
-	
-	-->

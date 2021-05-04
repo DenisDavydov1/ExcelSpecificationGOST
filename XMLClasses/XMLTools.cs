@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ClosedXML.Excel;
 
 namespace RevitToGOST
@@ -32,58 +30,6 @@ namespace RevitToGOST
 			return Tuple.Create(Convert.ToInt32(second), Convert.ToInt32(str));
 		}
 
-		public static void FillCells(
-			IXLWorksheet worksheet,
-			string text,
-			XLAlignmentHorizontalValues horizontalAlignment,
-			XLAlignmentVerticalValues verticalAlignment,
-			string font,
-			string fontStyle,
-			int fontSize,
-			string range,
-			XLBorderStyleValues style)
-		{
-			string first = range.Substring(0, range.IndexOf(':'));
-			string second = range.Substring(first.Length + 1);
-			var a = ToNumericCoordinates(first);
-			var b = ToNumericCoordinates(second);
-			string cell = a.Item1 < b.Item1 ? first : second;
-
-			worksheet.Cell(cell).Value = text;
-			worksheet.Cell(cell).Style.Font.FontName = font;
-			if (fontStyle.Contains("talic"))
-				worksheet.Cell(cell).Style.Font.Italic = true;
-			if (fontStyle.Contains("old"))
-				worksheet.Cell(cell).Style.Font.Bold = true;
-			worksheet.Cell(cell).Style.Font.FontSize = fontSize;
-			worksheet.Cell(cell).Style.Alignment.Horizontal = horizontalAlignment;
-			worksheet.Cell(cell).Style.Alignment.Vertical = verticalAlignment;
-			if (cell == first)
-				worksheet.Range(range).Merge();
-			else
-				worksheet.Range(string.Format("{0}:{1}", second, first)).Merge();
-			SetCellsBorders(worksheet, range, style);
-		}
-
-		public static void SetCellsBorders(IXLWorksheet worksheet, string range, XLBorderStyleValues style)
-		{
-			string first = range.Substring(0, range.IndexOf(':'));
-			string second = range.Substring(first.Length + 1);
-			var a = ToNumericCoordinates(first);
-			var b = ToNumericCoordinates(second);
-
-			for (int i = Math.Min(a.Item2, b.Item2); i <= Math.Max(a.Item2, b.Item2); i++)
-			{
-				worksheet.Cell(Math.Min(a.Item1, b.Item1), i).Style.Border.TopBorder = style;
-				worksheet.Cell(Math.Max(a.Item1, b.Item1), i).Style.Border.BottomBorder = style;
-			}
-			for (int i = Math.Min(a.Item1, b.Item1); i <= Math.Max(a.Item1, b.Item1); i++)
-			{
-				worksheet.Cell(i, Math.Min(a.Item2, b.Item2)).Style.Border.LeftBorder = style;
-				worksheet.Cell(i, Math.Max(a.Item2, b.Item2)).Style.Border.RightBorder = style;
-			}
-		}
-
 		public static double mmToHeight(double mm)
 		{
 			if (mm <= 0.1)
@@ -94,11 +40,6 @@ namespace RevitToGOST
 			else if (mm <= 10.0)
 				// y = 0,0907x4 - 2,8895x3 + 34,152x2 - 174,73x + 343,47
 				return 0.0907 * Math.Pow(mm, 4) - 2.8895 * Math.Pow(mm, 3) + 34.152 * Math.Pow(mm, 2) - 174.73 * mm + 343.47;
-			//else if (mm <= 15.0)
-			//	// y = 0,02x4 - 1,23x3 + 27,675x2 - 268,47x + 980,99
-			//	return 0.02 * Math.Pow(mm, 4) - 1.23 * Math.Pow(mm, 3) + 27.675 * Math.Pow(mm, 2) - 268.47 * mm + 980.99;
-			//// y = 7E-07x4 - 0,0002x3 + 0,0128x2 + 2,4019x + 5,0928
-			//return 7e-07 * Math.Pow(mm, 4) - 0.0002 * Math.Pow(mm, 3) + 0.0128 * Math.Pow(mm, 2) + 2.4019 * mm + 5.0928;
 			return mm * Constants.mm_h;
 		}
 
@@ -218,41 +159,6 @@ namespace RevitToGOST
 			return 0;
 		}
 
-		public static List<int[]> CleanFields(List<int[]> fields)
-		{
-			if (fields == null)
-				return null;
-
-			List<int[]> output = new List<int[]>();
-
-			foreach (int[] field in fields)
-			{
-				bool added = false;
-				if (output.Count == 0)
-				{
-					output.Add(field);
-					continue;
-				}
-				for (int i = 0; i < output.Count; ++i)
-				{
-					int res = CompFieldsContains(field, output[i]);
-					//Log.WriteLine("Fields: {0} | Output[i]: {1} | res: {2}", String.Join(",", field), String.Join(",", output[i]), res);
-					if (res == 4 || res == 2)
-					{
-						added = true;
-						break;
-					}
-					else if (res == 3)
-						output.RemoveAt(i);
-				}
-				if (added == false)
-					output.Add(field);
-			}
-			//foreach (var item in output)
-			//	Log.Write("Cleaned fields: " + String.Join(",", item) + "\n");
-			return output;
-		}
-
 		public static (int, int) GetCellIndexesBySize(List<int[]> rows, List<int[]> cols, int y, int x)
 		{
 			//  _______>
@@ -263,8 +169,6 @@ namespace RevitToGOST
 
 			int i = 0, j = 0;
 			(SortedSet<int> s_rows, SortedSet<int> s_cols) = (GetSortedSet(rows), GetSortedSet(cols));
-			//Log.Write("Sorted rows: " + String.Join(",", s_rows) + "\n");
-			//Log.Write("Sorted cols: " + String.Join(",", s_cols) + "\n");
 			while (i < s_rows.Count && s_rows.ElementAt(i) < y)
 				i++;
 			while (j < s_cols.Count && s_cols.ElementAt(j) < x)
@@ -336,7 +240,6 @@ namespace RevitToGOST
 			{
 				int offset_width = width - GetSortedSet(table.Columns).Last();
 				int offset_height = height - GetSortedSet(table.Rows).Last();
-				//Log.WriteLine("Height: {0}, Width: {1}, oh: {2}, ow: {3}", height, width, offset_height, offset_width);
 				for (int i = 0; i < table.Fields.Count; ++i)
 					for (int j = 0; j < table.Fields[i].Count; ++j)
 					{
@@ -348,28 +251,14 @@ namespace RevitToGOST
 			}
 			else if (table.Position == 3)
 			{
-				//int offset_width = 0; // width - GetSortedSet(table.Columns).Last();
 				int offset_height = height - GetSortedSet(table.Rows).Last();
-				//Log.WriteLine("Height: {0}, Width: {1}, oh: {2}, ow: {3}", height, width, offset_height, offset_width);
 				for (int i = 0; i < table.Fields.Count; ++i)
 					for (int j = 0; j < table.Fields[i].Count; ++j)
 					{
 						table.Fields[i][j][0] += offset_height;
-						//table.Fields[i][j][1] += offset_width;
 						table.Fields[i][j][2] += offset_height;
-						//table.Fields[i][j][3] += offset_width;
 					}
 			}
-
-			//foreach (var a in table.Fields)
-			//{
-			//	foreach (var b in a)
-			//	{
-			//		Log.Write(String.Join(",", b));
-			//	}
-			//	Log.WriteLine("");
-			//}
 		}
-
-	} // class XMLTools
-} // namespace RevitToGOST
+	}
+}

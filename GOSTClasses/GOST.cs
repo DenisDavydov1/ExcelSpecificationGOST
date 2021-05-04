@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.Architecture;
-using Autodesk.Revit.UI;
-using Autodesk.Revit.UI.Selection;
-using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.Attributes;
-using System.IO;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace RevitToGOST
@@ -50,18 +38,15 @@ namespace RevitToGOST
 		// 7 = Right
 		public int HorizontalAlignment { get; set; }
 		public List<int[]> HorizontalAlignments { get; set; }
-
 		public Dictionary<string, int[]> Map { get; set; }
 		public bool VerticalText { get; set; }
 		public int Line { get; set; }
 		public int LinesCount { get; set; }
 		public List<List<string>> Data { get; set; }
 		public ElementCollection ElemCol { get; set; }
-
 		public int[] Frame { get; set; }
 		public List<int[]> Borders { get; set; }
 		public Standarts Standart { get; set; }
-
 		public bool IsFull { get { return ElemCol.Count >= ConfFile.Lines[(int)Standart]; } }
 
 		#endregion properties
@@ -176,7 +161,5 @@ namespace RevitToGOST
 		}
 
 		#endregion methods
-
-	} // class GOST
-
-} // namespace RevitToGOST
+	}
+}

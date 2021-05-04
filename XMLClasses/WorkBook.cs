@@ -1,16 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ClosedXML.Excel;
-
-using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.Architecture;
-using Autodesk.Revit.UI;
-using Autodesk.Revit.UI.Selection;
-using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.Attributes;
 
 namespace RevitToGOST
 {
@@ -25,14 +16,12 @@ namespace RevitToGOST
 
 		public XLWorkbook WB { get; set; }
 		public List<WorkSheet> WSs { get; set; }
-		
 		public GOST.Standarts Title { get; set; }
 		public GOST.Standarts Table { get; set; }
 		public GOST.Standarts Stamp1 { get; set; }
 		public GOST.Standarts Stamp2 { get; set; }
 		public GOST.Standarts Dop1 { get; set; }
 		public GOST.Standarts Dop2 { get; set; }
-
 		public int Pages { get; set; } = 0;
 
 		#endregion properties
@@ -77,14 +66,9 @@ namespace RevitToGOST
 		{
 			WB.Properties.Author = "RevitToGOST";
 			WB.Properties.Title = Rvt.Handler.ProjInfo.Name;
-			// WB.Properties.Subject = "theSubject";
-			// WB.Properties.Category = "theCategory";
-			// WB.Properties.Keywords = "theKeywords";
-			// WB.Properties.Comments = "theComments";
 			WB.Properties.Status = Rvt.Handler.ProjInfo.Status;
 			WB.Properties.LastModifiedBy = Rvt.Handler.ProjInfo.Author;
 			WB.Properties.Company = Rvt.Handler.ProjInfo.OrganizationName;
-			// WB.Properties.Manager = "Денис Давыдов";
 		}
 
 		public void BuildWorkSheets()
@@ -124,7 +108,6 @@ namespace RevitToGOST
 				{
 					WorkSheet newWS = AddWorkSheet(String.Format("Лист {0}",  i + 1));
 					newWS.AddTable(GOST.LoadConfFile(ConfFile.Conf[(int)Table]));
-
 					if (Pages == 0)
 					{
 						// Add stamp to page
@@ -145,11 +128,9 @@ namespace RevitToGOST
 						if (Dop2 != GOST.Standarts.None)
 							newWS.AddTable(GOST.LoadConfFile(ConfFile.Conf[(int)Dop2]));
 					}
-
 					Pages++;
 				}
 			}
-
 			// Add title page
 			if (Title != GOST.Standarts.None)
 			{
@@ -229,7 +210,5 @@ namespace RevitToGOST
 		}
 
 		#endregion methods
-
-	} // class WorkBook
-
-} // namespace RevitToGOST
+	}
+}

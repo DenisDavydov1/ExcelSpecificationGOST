@@ -1,15 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.Architecture;
-using Autodesk.Revit.UI;
-using Autodesk.Revit.UI.Selection;
-using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.Attributes;
 
 namespace RevitToGOST
 {
@@ -74,6 +65,8 @@ namespace RevitToGOST
 				elemCont.Line.Add(ElementNote(elemCont));
 			}
 		}
+
+		#region get parameter methods
 
 		public static string ElementName(ElementContainer elemContainer)
 		{
@@ -219,6 +212,10 @@ namespace RevitToGOST
 			});
 		}
 
+		#endregion
+
+		#region get data from parameter
+
 		private static string GetStringParameter(Element elem, BuiltInParameter[] parameters)
 		{
 			foreach (BuiltInParameter param in parameters)
@@ -273,6 +270,6 @@ namespace RevitToGOST
 			return 0.0;
 		}
 
-	} // class GOST_21_110_2013
-
-} // namespace RevitToGOST
+		#endregion
+	}
+}

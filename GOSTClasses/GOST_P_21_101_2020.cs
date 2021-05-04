@@ -1,15 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.Architecture;
-using Autodesk.Revit.UI;
-using Autodesk.Revit.UI.Selection;
-using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.Attributes;
 
 namespace RevitToGOST
 {
@@ -54,8 +45,7 @@ namespace RevitToGOST
 				new List<string>() { "", OrganizationName }
 			};
 		}
-
-	} // class GOST_P_21_101_2020_Stamp_3
+	}
 
 	class GOST_P_21_101_2020_Dop_3
 	{
@@ -83,8 +73,7 @@ namespace RevitToGOST
 				new List<string>() { "Согласовано" }
 			};
 		}
-
-	} // class GOST_P_21_101_2020_Dop_3
+	}
 
 	class GOST_P_21_101_2020_Stamp_4
 	{
@@ -131,8 +120,7 @@ namespace RevitToGOST
 				new List<string>() { _23, _9 }
 			};
 		}
-
-	} // class GOST_P_21_101_2020_Stamp_4
+	}
 
 	class GOST_P_21_101_2020_Dop_4
 	{
@@ -148,8 +136,7 @@ namespace RevitToGOST
 				new List<string>() { "Инв. № подп.", _20 }
 			};
 		}
-
-	} // class GOST_P_21_101_2020_Dop_4
+	}
 
 	class GOST_P_21_101_2020_Stamp_5
 	{
@@ -188,8 +175,7 @@ namespace RevitToGOST
 				new List<string>() { "", "", "", "" }
 			};
 		}
-
-	} // class GOST_P_21_101_2020_Stamp_5
+	}
 
 	class GOST_P_21_101_2020_Dop_5
 	{
@@ -217,8 +203,7 @@ namespace RevitToGOST
 				new List<string>() { "Согласовано" }
 			};
 		}
-
-	} // class GOST_P_21_101_2020_Dop_5
+	}
 
 	class GOST_P_21_101_2020_Stamp_6
 	{
@@ -237,8 +222,7 @@ namespace RevitToGOST
 				new List<string>() { "Изм.", "Кол.уч", "Лист", "№ док.", "Подп.", "Дата" }
 			};
 		}
-
-	} // class GOST_P_21_101_2020_Stamp_6
+	}
 
 	class GOST_P_21_101_2020_Dop_6
 	{
@@ -254,8 +238,7 @@ namespace RevitToGOST
 				new List<string>() { "Инв. № подп.", _20 }
 			};
 		}
-
-	} // class GOST_P_21_101_2020_Dop_6
+	}
 
 	class GOST_P_21_101_2020_Table_7
 	{
@@ -305,7 +288,7 @@ namespace RevitToGOST
 				elemCont.Line.Add(GOST_21_110_2013.ElementNote(elemCont));
 			}
 		}
-	} // class GOST_P_21_101_2020_Table_7
+	}
 
 	class GOST_P_21_101_2020_Table_8
 	{
@@ -357,14 +340,12 @@ namespace RevitToGOST
 				elemCont.Line.Add(GOST_21_110_2013.ElementNote(elemCont));
 			}
 		}
-
-	} // class GOST_P_21_101_2020_Table_8
+	}
 
 	class GOST_P_21_101_2020_Title_12
 	{
 		public static void FillTitle(int a)
 		{
-			//a.ToString();
 			// Get data:
 			string OrgName = Rvt.Handler.ProjInfo.OrganizationName;                                 // "_1"
 			string FullOrgName = Rvt.Handler.ProjInfo.OrganizationDescription;                      // "_2"
@@ -399,14 +380,12 @@ namespace RevitToGOST
 				new List<string>() { Year }
 			};
 		}
-
-	} // class GOST_P_21_101_2020_Title_12
+	}
 
 	class GOST_P_21_101_2020_Title_12a
 	{
 		public static void FillTitle(int a)
 		{
-			//a.ToString();
 			// Get data:
 			string OrgName = Rvt.Handler.ProjInfo.OrganizationName;                                 // "_1"
 			string FullOrgName = Rvt.Handler.ProjInfo.OrganizationDescription;                      // "_2"
@@ -439,7 +418,5 @@ namespace RevitToGOST
 				new List<string>() { Year }
 			};
 		}
-
-	} // class GOST_P_21_101_2020_Title_12a
-
-} // namespace RevitToGOST
+	}
+}
