@@ -32,12 +32,8 @@ namespace RevitToGOST
 			get { return _PreviewPage; }
 			set
 			{
-				//if (value != _PreviewPage)
-				//{
-					_PreviewPage = value;
-					OnPreviewPageChanged();
-				//}
-
+				_PreviewPage = value;
+				OnPreviewPageChanged();
 			}
 		}
 
@@ -52,6 +48,8 @@ namespace RevitToGOST
 		}
 
 		#endregion properties
+
+		#region previewdata
 
 		public static readonly Bitmap[] Previews =
 		{
@@ -116,6 +114,8 @@ namespace RevitToGOST
 			Resources.Preview_GOST_P_2_106_2019_Table_1,	// GOST_P_2_106_2019_Table_1
 			null	// GOST_P_2_106_2019_Table_5
 		};
+
+		#endregion
 
 		#region events
 

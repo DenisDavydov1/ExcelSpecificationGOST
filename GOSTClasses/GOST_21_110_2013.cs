@@ -13,7 +13,7 @@ using Autodesk.Revit.Attributes;
 
 namespace RevitToGOST
 {
-	class GOST_21_110_2013 : IGostData
+	class GOST_21_110_2013
 	{
 		public static void FillLine(ElementContainer elemCont)
 		{
