@@ -2,6 +2,8 @@
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.Attributes;
+using System.Reflection;
+using System.IO;
 
 namespace RevitToGOST
 {
@@ -42,6 +44,7 @@ namespace RevitToGOST
 				"Экспорт в Excel",
 				AddInPath,
 				"RevitToGOST.RevitToExcelGOSTCommand");
+			pushButtonData.SetContextualHelp(new ContextualHelp(ContextualHelpType.Url, @"https://github.com/mandarin10101/RevitToGOST/wiki"));
 			PushButton pushButton = ribbonPanel.AddItem(pushButtonData) as PushButton;
 			pushButton.ToolTip = "Экспортировать модель в спецификацию по ГОСТ в Excel";
 			pushButton.LargeImage = Bitmaps.Convert(Properties.Resources.ButtonIcon);
