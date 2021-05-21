@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace RevitToGOST
+namespace ExcelSpecificationGOST
 {
 	static class Log
 	{

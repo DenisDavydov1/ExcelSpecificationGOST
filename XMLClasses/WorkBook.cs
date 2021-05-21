@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ClosedXML.Excel;
 
-namespace RevitToGOST
+namespace ExcelSpecificationGOST
 {
 	static partial class Work
 	{
@@ -64,7 +64,7 @@ namespace RevitToGOST
 
 		public void SetWorkbookAuthor()
 		{
-			WB.Properties.Author = "RevitToGOST";
+			WB.Properties.Author = "ExcelSpecificationGOST";
 			WB.Properties.Title = Rvt.Handler.ProjInfo.Name;
 			WB.Properties.Status = Rvt.Handler.ProjInfo.Status;
 			WB.Properties.LastModifiedBy = Rvt.Handler.ProjInfo.Author;

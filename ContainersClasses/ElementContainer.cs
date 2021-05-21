@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Autodesk.Revit.DB;
 
-namespace RevitToGOST
+namespace ExcelSpecificationGOST
 {
 	public class ElementContainer
 	{

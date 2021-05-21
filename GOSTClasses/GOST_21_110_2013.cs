@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Autodesk.Revit.DB;
 
-namespace RevitToGOST
+namespace ExcelSpecificationGOST
 {
 	class GOST_21_110_2013
 	{

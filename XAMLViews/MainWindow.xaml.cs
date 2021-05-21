@@ -6,9 +6,10 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 
-namespace RevitToGOST
+namespace ExcelSpecificationGOST
 {
 	public partial class MainWindow : Window
 	{
@@ -499,21 +500,49 @@ namespace RevitToGOST
 
 		private void PickAllCategoriesButton_Click(object sender, RoutedEventArgs e)
 		{
-			while (Rvt.Data.AvailableCategories.Count > 0)
+			if (AvailableCategories.SelectedIndex == -1)
 			{
-				CategoryNode tmp = Rvt.Data.AvailableCategories[0];
-				Rvt.Data.AvailableCategories.RemoveAt(0);
-				Rvt.Data.PickedCategories.Insert(Rvt.Data.PickedCategories.Count, tmp);
+				while (Rvt.Data.AvailableCategories.Count > 0)
+				{
+					CategoryNode tmp = Rvt.Data.AvailableCategories[0];
+					Rvt.Data.AvailableCategories.RemoveAt(0);
+					Rvt.Data.PickedCategories.Insert(Rvt.Data.PickedCategories.Count, tmp);
+				}
+			}
+			else
+			{
+				var tmpCollection = new CategoryNodeCollection();
+				foreach (CategoryNode node in AvailableCategories.SelectedItems)
+					tmpCollection.Add(node);
+				foreach (CategoryNode item in tmpCollection)
+				{
+					Rvt.Data.AvailableCategories.Remove(item);
+					Rvt.Data.PickedCategories.Insert(Rvt.Data.PickedCategories.Count, item);
+				}
 			}
 		}
 
 		private void ReleaseAllCategoriesButton_Click(object sender, RoutedEventArgs e)
 		{
-			while (Rvt.Data.PickedCategories.Count > 0)
+			if (PickedCategories.SelectedIndex == -1)
 			{
-				CategoryNode tmp = Rvt.Data.PickedCategories[0];
-				Rvt.Data.PickedCategories.RemoveAt(0);
-				Rvt.Data.AvailableCategories.Insert(Rvt.Data.AvailableCategories.Count, tmp);
+				while (Rvt.Data.PickedCategories.Count > 0)
+				{
+					CategoryNode tmp = Rvt.Data.PickedCategories[0];
+					Rvt.Data.PickedCategories.RemoveAt(0);
+					Rvt.Data.AvailableCategories.Insert(Rvt.Data.AvailableCategories.Count, tmp);
+				}
+			}
+			else
+			{
+				var tmpCollection = new CategoryNodeCollection();
+				foreach (CategoryNode node in PickedCategories.SelectedItems)
+					tmpCollection.Add(node);
+				foreach (CategoryNode item in tmpCollection)
+				{
+					Rvt.Data.PickedCategories.Remove(item);
+					Rvt.Data.AvailableCategories.Insert(Rvt.Data.AvailableCategories.Count, item);
+				}
 			}
 		}
 
@@ -527,21 +556,49 @@ namespace RevitToGOST
 
 		private void PickAllElementsButton_Click(object sender, RoutedEventArgs e)
 		{
-			while (Rvt.Data.AvailableElements.Count > 0)
+			if (AvailableElements.SelectedIndex == -1)
 			{
-				ElementContainer tmp = Rvt.Data.AvailableElements[0];
-				Rvt.Data.AvailableElements.RemoveAt(0);
-				Rvt.Data.PickedElements.Add(tmp);
+				while (Rvt.Data.AvailableElements.Count > 0)
+				{
+					ElementContainer tmp = Rvt.Data.AvailableElements[0];
+					Rvt.Data.AvailableElements.RemoveAt(0);
+					Rvt.Data.PickedElements.Add(tmp);
+				}
+			}
+			else
+			{
+				var tmpCollection = new ElementCollection();
+				foreach (ElementContainer item in AvailableElements.SelectedItems)
+					tmpCollection.Add(item);
+				foreach (var item in tmpCollection)
+				{
+					Rvt.Data.AvailableElements.Remove(item);
+					Rvt.Data.PickedElements.Insert(Rvt.Data.PickedElements.Count, item);
+				}
 			}
 		}
 
 		private void ReleaseAllElementsButton_Click(object sender, RoutedEventArgs e)
 		{
-			while (Rvt.Data.PickedElements.Count > 0)
+			if (PickedElements.SelectedIndex == -1)
 			{
-				ElementContainer tmp = Rvt.Data.PickedElements[0];
-				Rvt.Data.PickedElements.RemoveAt(0);
-				Rvt.Data.AvailableElements.Add(tmp);
+				while (Rvt.Data.PickedElements.Count > 0)
+				{
+					ElementContainer tmp = Rvt.Data.PickedElements[0];
+					Rvt.Data.PickedElements.RemoveAt(0);
+					Rvt.Data.AvailableElements.Add(tmp);
+				}
+			}
+			else
+			{
+				var tmpCollection = new ElementCollection();
+				foreach (ElementContainer item in PickedElements.SelectedItems)
+					tmpCollection.Add(item);
+				foreach (var item in tmpCollection)
+				{
+					Rvt.Data.PickedElements.Remove(item);
+					Rvt.Data.AvailableElements.Insert(Rvt.Data.AvailableElements.Count, item);
+				}
 			}
 		}
 

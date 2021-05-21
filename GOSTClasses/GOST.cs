@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace RevitToGOST
+namespace ExcelSpecificationGOST
 {
 	public class GOST
 	{

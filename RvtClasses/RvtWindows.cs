@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace RevitToGOST
+namespace ExcelSpecificationGOST
 {
 	static partial class Rvt
 	{

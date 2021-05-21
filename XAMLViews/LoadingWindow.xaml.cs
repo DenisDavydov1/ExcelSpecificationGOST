@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Windows;
 
-namespace RevitToGOST
+namespace ExcelSpecificationGOST
 {
 	public partial class LoadingWindow : Window
 	{

@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using Autodesk.Revit.DB;
 
-namespace RevitToGOST
+namespace ExcelSpecificationGOST
 {
 	public class CategoryNode
 	{

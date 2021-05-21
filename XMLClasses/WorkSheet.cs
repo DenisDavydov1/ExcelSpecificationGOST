@@ -2,7 +2,7 @@
 using System.Linq;
 using ClosedXML.Excel;
 
-namespace RevitToGOST
+namespace ExcelSpecificationGOST
 {
 	public class WorkSheet
 	{

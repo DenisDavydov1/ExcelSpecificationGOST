@@ -4,9 +4,9 @@ using System.Drawing;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using RevitToGOST.Properties;
+using ExcelSpecificationGOST.Properties;
 
-namespace RevitToGOST
+namespace ExcelSpecificationGOST
 {
 	public static partial class Work
 	{

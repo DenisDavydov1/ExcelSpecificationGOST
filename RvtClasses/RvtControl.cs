@@ -5,7 +5,7 @@ using System.IO;
 using System.Windows;
 using Excel = Microsoft.Office.Interop.Excel;
 
-namespace RevitToGOST
+namespace ExcelSpecificationGOST
 {
 	static partial class Rvt
 	{

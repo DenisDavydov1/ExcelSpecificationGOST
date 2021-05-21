@@ -1,7 +1,7 @@
 ﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 
-namespace RevitToGOST
+namespace ExcelSpecificationGOST
 {
 	static partial class Rvt
 	{

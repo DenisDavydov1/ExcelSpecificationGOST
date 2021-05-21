@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RevitToGOST
+namespace ExcelSpecificationGOST
 {
 	class GOST_P_2_106_2019_Table_1
 	{

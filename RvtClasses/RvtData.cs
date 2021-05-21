@@ -2,7 +2,7 @@
 using System.Linq;
 using Autodesk.Revit.DB;
 
-namespace RevitToGOST
+namespace ExcelSpecificationGOST
 {
 	static partial class Rvt
 	{

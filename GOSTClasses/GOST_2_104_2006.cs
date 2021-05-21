@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RevitToGOST
+namespace ExcelSpecificationGOST
 {
 	class GOST_2_104_2006_Stamp_1
 	{

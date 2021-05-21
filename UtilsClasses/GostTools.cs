@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Autodesk.Revit.DB;
-using RevitToGOST.Properties;
+using ExcelSpecificationGOST.Properties;
 
-namespace RevitToGOST
+namespace ExcelSpecificationGOST
 {
 	static class GostTools
 	{

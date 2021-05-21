@@ -5,15 +5,15 @@ using Autodesk.Revit.Attributes;
 using System.Reflection;
 using System.IO;
 
-namespace RevitToGOST
+namespace ExcelSpecificationGOST
 {
 	[Transaction(TransactionMode.Manual)]
 	[Regeneration(RegenerationOption.Manual)]
 	[Journaling(JournalingMode.NoCommandData)]
-	public class RevitToGOSTApp : IExternalApplication
+	public class ExcelSpecificationGOSTApp : IExternalApplication
 	{
-		static private readonly string RibbonPanelName = "Revit по ГОСТ";
-		static private readonly string AddInPath = typeof(RevitToGOSTApp).Assembly.Location;
+		static private readonly string RibbonPanelName = "Спецификация по ГОСТ";
+		static private readonly string AddInPath = typeof(ExcelSpecificationGOSTApp).Assembly.Location;
 
 		#region IExternalApplication Members
 		public Result OnShutdown(UIControlledApplication application)
@@ -43,8 +43,8 @@ namespace RevitToGOST
 				"Экспорт в Excel",
 				"Экспорт в Excel",
 				AddInPath,
-				"RevitToGOST.RevitToExcelGOSTCommand");
-			pushButtonData.SetContextualHelp(new ContextualHelp(ContextualHelpType.Url, @"https://github.com/mandarin10101/RevitToGOST/wiki"));
+				"ExcelSpecificationGOST.ExcelSpecificationGOSTCommand");
+			pushButtonData.SetContextualHelp(new ContextualHelp(ContextualHelpType.Url, @"https://github.com/DenisDavydov1/RevitToGOST/wiki"));
 			PushButton pushButton = ribbonPanel.AddItem(pushButtonData) as PushButton;
 			pushButton.ToolTip = "Экспортировать модель в спецификацию по ГОСТ в Excel";
 			pushButton.LargeImage = Bitmaps.Convert(Properties.Resources.ButtonIcon);
@@ -53,7 +53,7 @@ namespace RevitToGOST
 
 	[Transaction(TransactionMode.Manual)]
 	[Regeneration(RegenerationOption.Manual)]
-	public class RevitToExcelGOSTCommand : IExternalCommand
+	public class ExcelSpecificationGOSTCommand : IExternalCommand
 	{
 		public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
 		{

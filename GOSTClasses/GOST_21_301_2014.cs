@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RevitToGOST
+namespace ExcelSpecificationGOST
 {
 	class GOST_21_301_2014_Title_2
 	{

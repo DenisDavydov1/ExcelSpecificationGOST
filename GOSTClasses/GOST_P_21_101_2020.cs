@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RevitToGOST
+namespace ExcelSpecificationGOST
 {
 	class GOST_P_21_101_2020_Stamp_3
 	{
